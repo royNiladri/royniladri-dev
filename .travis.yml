@@ -5,7 +5,6 @@ install:
   - yarn
 build:
   - yarn run build
-build:
 
 before_deploy:
   - echo "built"
