@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="App" >
       <Banner></Banner>
-      <div className="container">
+      {/* <div className="container">
         <Contact></Contact>
         <div className="v-spacer"></div>
         <div className="row">
@@ -21,7 +21,7 @@ function App() {
           <div className="col-md-4"><h2>Study</h2></div>
           <div className="col-md-4"><h2>Life</h2></div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
