@@ -1,0 +1,11 @@
+.contact{
+    text-align: center;
+    .contact-links{
+        display: flex;
+        justify-content: space-around;
+    }
+
+    a, a:hover, a:visited, a:active{
+        color: #ccc;
+    }
+}

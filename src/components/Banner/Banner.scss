@@ -1,0 +1,34 @@
+h2{
+    text-align: center;
+  }
+  
+  .profile{
+    width: 15em;
+    height: 15em;
+    border: 5px solid rgba(0,0,0,0.7);
+    border-radius: 50%;
+    background-image: url('../../assets/images/nilroy.jpg');
+    background-size: cover;
+    margin: auto;
+  }
+  
+  .site-header{
+    background: #181717 url('../../assets/images/smudged-code-lg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+  
+    color: #eee;
+    h2{
+      text-align: left;
+  
+      &.title{
+        &:before{content: "<"}
+        &:after{content: " />"}
+      }
+    }
+  
+    .row{
+      align-items: center;
+    }
+  }
+  
