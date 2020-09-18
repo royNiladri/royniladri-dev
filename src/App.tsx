@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import Contact from './components/contact/Contact';
+// import Contact from './components/contact/Contact';
 import Banner from './components/Banner/Banner';
 
 import { library } from '@fortawesome/fontawesome-svg-core';

@@ -3,13 +3,9 @@ node_js: node
 
 install:
   - yarn
-build:
+script:
   - yarn run build
-build:
 
-before_deploy:
-  - echo "built"
-  - ls -al
 deploy:
   provider: pages
   fqdn: royniladri.dev
