@@ -66,24 +66,12 @@ class Banner extends Component<IProps, IState> {
                 <h3 className="role" >Lead Software Engineer</h3>
                 <h2 className="title" >{this.state.textToDisplay}</h2>
               </div>
-              {/* <div className="col-md-5 cursive gyan">
-                Living life from<br/> 
-                one click to the next...
-              </div> */}
               <div className="col-md-5 intro">
-                <div className="work"><FontAwesomeIcon icon={['fas', 'laptop-house']}/> Informatica | Visa Inc.</div>
-                <div className="edu"><FontAwesomeIcon icon={['fas', 'user-graduate']}/> Georgia Tech | Jadavpur University</div>
+                <div className="work"><FontAwesomeIcon icon={['far', 'building']}/> Informatica | Visa Inc.</div>
+                <div className="edu"><FontAwesomeIcon icon={['fas', 'graduation-cap']}/> Georgia Tech | Jadavpur University</div>
                 <Contact></Contact>
               </div>
             </div>
-            {/* <div className="row intro">
-              <div className="col-md-6 work">
-                <FontAwesomeIcon icon={['fas', 'laptop-house']}/> Informatica | Visa Inc.
-              </div>
-              <div className="col-md-6 edu">
-                <FontAwesomeIcon icon={['fas', 'user-graduate']}/> Georgia Tech | Jadavpur University
-              </div>
-            </div> */}
           </div>
         </div>
     );
