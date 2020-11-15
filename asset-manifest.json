@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.00999466.chunk.css",
-    "main.js": "/static/js/main.6692fc11.chunk.js",
-    "main.js.map": "/static/js/main.6692fc11.chunk.js.map",
+    "main.css": "/static/css/main.15534909.chunk.css",
+    "main.js": "/static/js/main.ab4115d7.chunk.js",
+    "main.js.map": "/static/js/main.ab4115d7.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.d8fefb55.js",
     "runtime-main.js.map": "/static/js/runtime-main.d8fefb55.js.map",
     "static/js/2.a65ee5b4.chunk.js": "/static/js/2.a65ee5b4.chunk.js",
     "static/js/2.a65ee5b4.chunk.js.map": "/static/js/2.a65ee5b4.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.00999466.chunk.css.map": "/static/css/main.00999466.chunk.css.map",
+    "static/css/main.15534909.chunk.css.map": "/static/css/main.15534909.chunk.css.map",
     "static/js/2.a65ee5b4.chunk.js.LICENSE.txt": "/static/js/2.a65ee5b4.chunk.js.LICENSE.txt",
     "static/media/Banner.scss": "/static/media/nilroy.f3c2d26f.jpg",
     "static/media/index.scss": "/static/media/roboto-latin-900italic.cb5ad999.woff2"
@@ -16,7 +16,7 @@
   "entrypoints": [
     "static/js/runtime-main.d8fefb55.js",
     "static/js/2.a65ee5b4.chunk.js",
-    "static/css/main.00999466.chunk.css",
-    "static/js/main.6692fc11.chunk.js"
+    "static/css/main.15534909.chunk.css",
+    "static/js/main.ab4115d7.chunk.js"
   ]
 }
