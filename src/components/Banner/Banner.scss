@@ -1,34 +1,75 @@
-h2{
-    text-align: center;
+@media (min-width: 576px) {
+  .jumbotron {
+    padding: 2rem 2rem;
   }
-  
-  .profile{
-    width: 15em;
-    height: 15em;
-    border: 5px solid rgba(0,0,0,0.7);
-    border-radius: 50%;
-    background-image: url('../../assets/images/nilroy.jpg');
-    background-size: cover;
-    margin: auto;
-  }
-  
-  .site-header{
-    background: #181717 url('../../assets/images/smudged-code-lg.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-  
-    color: #eee;
-    h2{
-      text-align: left;
-  
-      &.title{
-        &:before{content: "<"}
-        &:after{content: " />"}
+}
+
+.profile {
+  width: 10em;
+  height: 10em;
+  border: 5px solid rgba(255, 255, 2555, 0.7);
+  border-radius: 50%;
+  background-image: url('../../assets/images/nilroy.jpg');
+  background-size: cover;
+  margin: auto;
+}
+
+.site-header {
+  // background: #181717;
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+  border-bottom: 2px solid #aaa;
+
+  color: #212121;
+
+  padding: 1rem 1rem;
+
+  h2 {
+    &.title {
+      &:before {
+        content: "<"
+      }
+
+      &:after {
+        content: " />"
       }
     }
-  
-    .row{
-      align-items: center;
-    }
   }
-  
+
+  .name{
+    // font-size: 4rem;
+  }
+  // .role{
+  //   color: #d65a31;
+  // }
+  .title {
+    font-family: monospace;
+    color: #2069e0;
+  }
+
+  .cursive {
+    font-family: 'Tangerine', cursive;
+  }
+
+  .gyan {
+    font-size: 3em;
+  }
+
+  .intro{
+    font-size: 1.5rem;
+    @media (max-width: 991.98px){
+        font-size: 1rem;
+      }
+    // .work{
+    //   color: #d65a31
+    // }
+    // .edu{
+    //   color: #ffd700;
+    // }
+  }
+
+  .row {
+    align-items: center;
+  }
+}

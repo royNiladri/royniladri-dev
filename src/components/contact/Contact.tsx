@@ -5,28 +5,28 @@ import './Contact.scss';
 function Contact() {
     return (
         <div className="contact">
-            <h1>Connect with me</h1>
+            {/* <h1>Connect with me</h1> */}
             <div className="contact-links">
                 <a href='https://www.linkedin.com/in/roy-niladri/'>
-                    <FontAwesomeIcon icon={['fab', 'linkedin']} size="4x" />
+                    <FontAwesomeIcon icon={['fab', 'linkedin']} />
                 </a>
                 <a href='https://github.com/royNiladri/'>
-                    <FontAwesomeIcon icon={['fab', 'github']} size="4x" />
+                    <FontAwesomeIcon icon={['fab', 'github']} />
                 </a>
                 <a href='https://www.instagram.com/niladriclicks/'>
-                    <FontAwesomeIcon icon={['fab', 'instagram']} size="4x" />
+                    <FontAwesomeIcon icon={['fab', 'instagram']} />
                 </a>
                 <a href='https://www.patreon.com/royniladri'>
-                    <FontAwesomeIcon icon={['fab', 'patreon']} size="4x" />
+                    <FontAwesomeIcon icon={['fab', 'patreon']} />
                 </a>
                 <a href='mailto:reachout@royniladri.dev'>
-                    <FontAwesomeIcon icon={['far', 'envelope']} size="4x" />
+                    <FontAwesomeIcon icon={['far', 'envelope']} />
                 </a>
                 <a href='https://twitter.com/roynil92'>
-                    <FontAwesomeIcon icon={['fab', 'twitter']} size="4x" />
+                    <FontAwesomeIcon icon={['fab', 'twitter']} />
                 </a>
                 <a href='https://www.reddit.com/user/nilroyy'>
-                    <FontAwesomeIcon icon={['fab', 'reddit']} size="4x" />
+                    <FontAwesomeIcon icon={['fab', 'reddit']} />
                 </a>
             </div>
         </div>

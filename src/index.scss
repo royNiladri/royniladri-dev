@@ -1,5 +1,5 @@
 @import "typeface-roboto";
-
+@import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap');
 @import "./assets/styles/custom-bootstrap.scss";
 
 body {
@@ -9,6 +9,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #f8f9fa;
 }
 
 code {
