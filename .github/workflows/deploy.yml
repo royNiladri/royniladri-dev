@@ -30,6 +30,6 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
       - name: Build and deploy
-          yarn run deploy
+        run: yarn run deploy
         
         
