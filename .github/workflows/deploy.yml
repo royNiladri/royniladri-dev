@@ -27,9 +27,20 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+      
       - name: Install dependencies
         run: yarn --frozen-lockfile
-      - name: Build and deploy
-        run: yarn run deploy
-        
+      
+      - name: Build
+        run: yarn run build
+      
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3.7.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          cname: royniladri.dev
+          enable_jekyll: false
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
         
