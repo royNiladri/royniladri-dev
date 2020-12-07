@@ -1,6 +1,5 @@
 import React from 'react';
 import './Home.scss';
-import Banner from '../Banner/Banner';
 
 function Home() {
     return (
