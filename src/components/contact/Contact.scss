@@ -1,33 +1,53 @@
-.contact{
+.contact {
     padding-top: 7px;
     text-align: center;
-    .contact-links{
+
+    .contact-links {
         display: flex;
         justify-content: space-around;
     }
 
-    a, a:hover, a:visited, a:active{
+    a,
+    a:hover,
+    a:visited,
+    a:active {
         color: #ccc;
-        .fa-linkedin{
+
+        .fa-linkedin {
             color: #0077B5;
         }
-        .fa-github{
+
+        .fa-github {
             color: #131418;
         }
-        .fa-instagram{
+
+        .fa-instagram {
             color: #e4405f;
         }
-        .fa-patreon{
+
+        .fa-patreon {
             color: #FF424D
         }
-        .fa-envelope{
+
+        .fa-envelope {
             color: #dd4b39;
         }
-        .fa-twitter{
+
+        .fa-twitter {
             color: #55acee;
         }
-        .fa-reddit{
+
+        .fa-reddit {
             color: #ff5700;
+        }
+
+        &.hashnode {
+            background-image: url('../../assets/images/hashnodeicon.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+
+            width: 25px;
         }
     }
 }

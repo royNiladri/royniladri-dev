@@ -16,13 +16,15 @@ function Contact() {
                 <a href='https://www.instagram.com/niladriclicks/'>
                     <FontAwesomeIcon icon={['fab', 'instagram']} />
                 </a>
-                <a href='https://www.patreon.com/royniladri'>
+                {/* <a href='https://www.patreon.com/royniladri'>
                     <FontAwesomeIcon icon={['fab', 'patreon']} />
+                </a> */}
+                <a href='https://ones-zeros.royniladri.dev/' className="hashnode">
                 </a>
                 <a href='mailto:reachout@royniladri.dev'>
                     <FontAwesomeIcon icon={['far', 'envelope']} />
                 </a>
-                <a href='https://twitter.com/roynil92'>
+                <a href='https://twitter.com/royniladri42'>
                     <FontAwesomeIcon icon={['fab', 'twitter']} />
                 </a>
                 <a href='https://www.reddit.com/user/nilroyy'>
