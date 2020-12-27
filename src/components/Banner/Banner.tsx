@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Banner.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Contact from '../contact/Contact';
+import Contact from '../../shared/contact/Contact';
 
 interface IProps {
 }
@@ -20,7 +20,7 @@ class Banner extends Component<IProps, IState> {
     this.state = { textToDisplay: "" }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     let i = 0;
     let j = 1;
     let reverse = false;

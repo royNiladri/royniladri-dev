@@ -5,7 +5,7 @@ import './App.scss';
 
 import Home from './components/Home/Home';
 import Banner from './components/Banner/Banner';
-import Footer from './shared/Footer';
+import Footer from './shared/Footer/Footer';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
