@@ -1,16 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.585cb0b7.chunk.css",
-    "main.js": "/static/js/main.f470400c.chunk.js",
-    "main.js.map": "/static/js/main.f470400c.chunk.js.map",
+    "main.css": "/static/css/main.dabcd855.chunk.css",
+    "main.js": "/static/js/main.58e7df1c.chunk.js",
+    "main.js.map": "/static/js/main.58e7df1c.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.0bcf5eec.js",
     "runtime-main.js.map": "/static/js/runtime-main.0bcf5eec.js.map",
     "static/js/2.a1c96106.chunk.js": "/static/js/2.a1c96106.chunk.js",
     "static/js/2.a1c96106.chunk.js.map": "/static/js/2.a1c96106.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.585cb0b7.chunk.css.map": "/static/css/main.585cb0b7.chunk.css.map",
+    "static/css/main.dabcd855.chunk.css.map": "/static/css/main.dabcd855.chunk.css.map",
     "static/js/2.a1c96106.chunk.js.LICENSE.txt": "/static/js/2.a1c96106.chunk.js.LICENSE.txt",
-    "static/media/Patreon_logomark.acebf00a.svg": "/static/media/Patreon_logomark.acebf00a.svg",
     "static/media/bmc-logo.db75c152.svg": "/static/media/bmc-logo.db75c152.svg",
     "static/media/Contact.scss": "/static/media/hashnodeicon.6bd8a3f9.svg",
     "static/media/Banner.scss": "/static/media/nilroy.f3c2d26f.jpg",
@@ -19,7 +18,7 @@
   "entrypoints": [
     "static/js/runtime-main.0bcf5eec.js",
     "static/js/2.a1c96106.chunk.js",
-    "static/css/main.585cb0b7.chunk.css",
-    "static/js/main.f470400c.chunk.js"
+    "static/css/main.dabcd855.chunk.css",
+    "static/js/main.58e7df1c.chunk.js"
   ]
 }
