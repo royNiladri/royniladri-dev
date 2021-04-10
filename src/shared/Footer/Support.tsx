@@ -8,12 +8,11 @@ function Support() {
     return (
         <div className="support">
             <div className="support-links">
-                <span><a href='https://www.patreon.com/royniladri'>
+                {/* <span><a href='https://www.patreon.com/royniladri'>
                     <img src={patreon} height="32" alt="Patreon Logo"/>
-                </a> Become a Patreon</span>     
+                </a> Become a Patreon</span>      */}
                 <span><a href='https://buymeacoffee.com/royniladri'>
-                    <img src={bmc} height="32" alt="Buy me a Coffee Logo"/>
-                </a>Buy me a Coffee</span>
+                    <img src={bmc} height="32" alt="Buy me a Coffee Logo"/> Buy me a Coffee</a></span>
             </div>
         </div>
     )
