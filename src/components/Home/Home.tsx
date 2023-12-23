@@ -1,5 +1,6 @@
 import React from 'react';
 import './Home.scss';
+import { Link } from 'react-router-dom';
 
 function Home() {
     return (
@@ -22,6 +23,13 @@ function Home() {
                         <div className="company">Visa</div>
                         <div className="years">(2015 - 2018)</div>
                         <div className="designation">Software Engineer</div>
+                    </div>
+                </div>
+                <div className="row">
+                <div className="col-md-12 text-center">
+                        <Link to="/work-history" className="btn btn-primary">
+                            Go to Work History
+                        </Link>
                     </div>
                 </div>
             </div>
