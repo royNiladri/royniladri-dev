@@ -7,7 +7,6 @@ import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 import "./timeline.scss";
-import { WorkHistoryData } from "./workHistoryTypes";
 import TechIcon from "./TechIcon";
 import "@mui/lab/themeAugmentation";
 import BusinessIcon from "@mui/icons-material/Business";
@@ -18,7 +17,7 @@ import {
   LocationCity,
   WorkHistoryOutlined,
 } from "@mui/icons-material";
-import { Fab, Paper, Typography } from "@mui/material";
+import { Fab, Typography } from "@mui/material";
 import { workHistoryData } from "./workHistoryData";
 import { Link } from "react-router-dom";
 
