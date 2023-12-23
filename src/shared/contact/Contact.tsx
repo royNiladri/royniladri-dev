@@ -13,6 +13,9 @@ function Contact() {
                 <a href='https://ones-zeros.royniladri.dev/'>
                     <FontAwesomeIcon icon={['fas', 'chalkboard-teacher']} />
                 </a>
+                <a href='https://omscs.royniladri.dev/'>
+                    <FontAwesomeIcon icon={['fas', 'graduation-cap']} /> {/* font awesome graduation cap */}
+                </a>
                 <a href='https://github.com/royNiladri/'>
                     <FontAwesomeIcon icon={['fab', 'github']} />
                 </a>
