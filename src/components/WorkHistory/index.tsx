@@ -92,6 +92,15 @@ const WorkHistory: React.FC = () => {
                     <TimelineContent>
                       <Typography color="">
                         <b>{project.title}</b>: {project.description}
+                        {project?.links && (
+                          <div>
+                            {project.links.map((link) => (
+                              <a href={link.url} target="_blank">
+                                {link.title}
+                              </a>
+                            ))}
+                          </div>
+                        )}
                       </Typography>
                     </TimelineContent>
                   </TimelineItem>

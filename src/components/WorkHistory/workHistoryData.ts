@@ -16,13 +16,14 @@ export const workHistoryData: WorkHistoryData[] = [
                 integration into the MDM platform, reaching the finals. This experience allowed me to educate engineers
                 on Machine Learning concepts and interact with experienced teams.`,
             skills: ["AI/ML", "Mentorship", "Full Stack Web Development"],
-            technologies: ["Python", "Tensorflow", "Java", "React"],
+            technologies: ["Python", "Tensorflow", "Java", "React", "NodeJs"],
           },
           {
             title: "AI Enrichment Integration",
             description: `Enhanced the MDM platform by integrating AI-generated enrichment
                 into the product lifecycle, which was showcased at Informatica World 2023. Contributions spanned
-                across UI, backend service, Model Serve, business process (BPEL), and ElasticSearch optimization.`,
+                across UI, backend service, Model Serve, business process (BPEL), and ElasticSearch optimization. ML contributions included parallelization
+                in prediction to support batch processing.`,
             skills: [
               "Full Stack Web Development",
               "AI/ML",
@@ -67,14 +68,11 @@ export const workHistoryData: WorkHistoryData[] = [
           },
           {
             title: "Sequential Edit Stabilization",
-            description: ` The Sequential Edit feature in UI, primarily built during COVID and 
-            by new junior developers in a sibling team, was unreliable and prone to bugs. Stepped 
-            in the feature, did some architectural changes, helped break down silos, encouraged 
-            collaboration, finally stabilizing and releasing it in just a few months. The major 
-            issues identified in retrospection was lack of a conscious design and focussed technical 
-            guidance. Also reduced PR review comments to component libraries by bringing them in the 
-            loop from design phase.`,
-            skills: ["Frontend Web Development", "Mentorship"],
+            description: `Post-COVID, I joined the team working on the Sequential Edit feature in the UI, which was initially bug-prone. 
+            I made architectural changes and fostered collaboration, leading to the feature's successful release within months. The main 
+            challenges were the absence of a focused design and technical guidance. To expedite the process, I involved the owners of the component 
+            libraries early on, significantly reducing the time spent on Pull Request reviews.`,
+            skills: ["Frontend Web Development", "Frontend Architechture", "Mentorship"],
             technologies: ["React", "TypeScript"],
           },
           {
@@ -90,7 +88,7 @@ export const workHistoryData: WorkHistoryData[] = [
             description: `Improved Audit trail by introducing batching in
             ElasticSearch for import jobs and generating performance metrics for A/B testing. This enhancement
             introduced state of the art features like searchability, lifecycle management, disaster recovery, eventual
-            consistency leading to a more resilient system and reduced operation cost.`,
+            consistency, leading to a more resilient system and reduced operation cost.`,
             skills: [
               "BackEnd Development",
               "Full Text Search",
@@ -202,8 +200,13 @@ export const workHistoryData: WorkHistoryData[] = [
           {
             title: "js-big-decimal",
             description: `Published a NPM package for handling accurate floating-point computations in
-              JavaScript for small and large numbers. The package has over 3,000,000 downloads till now.
-              Link: https://www.npmjs.com/package/js-big-decimal`,
+              JavaScript for small and large numbers. The package has over 3,000,000 downloads till now.`,
+            links: [
+                {
+                    title: "JS Big Decimal (NPM Package)",
+                    url: "https://www.npmjs.com/package/js-big-decimal",
+                }
+            ],
             skills: ["Open Source Contribution"],
             technologies: ["TypeScript", "NodeJS", "Webpack"],
           },
