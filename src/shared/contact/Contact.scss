@@ -12,26 +12,29 @@
     a:visited,
     a:active {
         color: #ccc;
+        svg {
+            font-size: 36px;
+        }
 
-        .fa-linkedin {
+        &.linkedin {
             color: #0077B5;
         }
 
-        .fa-github {
+        &.github {
             color: #131418;
         }
 
-        .fa-graduation-cap {
+        &.school {
             color: #159957;
         }
 
-        .fa-instagram {
+        &.instagram {
             color: #e4405f;
         }
-        .fa-chalkboard-teacher{
+        &.blog{
             color: #2069e0;
         }
-        .fa-twitter {
+        &.twitter {
             color: #55acee;
         }
 
