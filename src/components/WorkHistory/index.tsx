@@ -95,7 +95,7 @@ const WorkHistory: React.FC = () => {
                         {project?.links && (
                           <div>
                             {project.links.map((link) => (
-                              <a href={link.url} target="_blank">
+                              <a href={link.url} target="_blank" rel="noreferrer">
                                 {link.title}
                               </a>
                             ))}
