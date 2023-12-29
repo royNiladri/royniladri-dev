@@ -1,44 +1,44 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Contact.scss";
+import { GitHub, HistoryEdu, Instagram, LinkedIn, School, Twitter } from "@mui/icons-material";
 
 function Contact() {
   return (
     <div className="contact">
       <div className="contact-links">
         <div>
-          <a href="https://www.linkedin.com/in/roy-niladri/">
-            <FontAwesomeIcon icon={["fab", "linkedin"]} />
+          <a href="https://www.linkedin.com/in/roy-niladri/" className="linkedin">
+            <LinkedIn />
           </a>
           <p>LinkedIn</p>
         </div>
         <div>
-          <a href="https://github.com/royNiladri/">
-            <FontAwesomeIcon icon={["fab", "github"]} />
+          <a href="https://github.com/royNiladri/" className="github">
+            <GitHub />
           </a>
           <p>GitHub</p>
         </div>
         <div>
-          <a href="https://omscs.royniladri.dev/">
-            <FontAwesomeIcon icon={["fas", "graduation-cap"]} />
+          <a href="https://omscs.royniladri.dev/" className="school">
+            <School />
           </a>
           <p>OMSCS Journey</p>
         </div>
         <div>
-          <a href="https://ones-zeros.royniladri.dev/">
-            <FontAwesomeIcon icon={["fas", "chalkboard-teacher"]} />
+          <a href="https://ones-zeros.royniladri.dev/" className="blog">
+            <HistoryEdu />
           </a>
           <p>Blog</p>
         </div>
         <div>
-          <a href="https://www.instagram.com/niladriclicks/">
-            <FontAwesomeIcon icon={["fab", "instagram"]} />
+          <a href="https://www.instagram.com/niladriclicks/" className="instagram">
+            <Instagram />
           </a>
           <p>Instagram</p>
         </div>
         <div>
-          <a href="https://twitter.com/royniladri42">
-            <FontAwesomeIcon icon={["fab", "twitter"]} />
+          <a href="https://twitter.com/royniladri42" className="twitter">
+            <Twitter />
           </a>
           <p>Twitter</p>
         </div>

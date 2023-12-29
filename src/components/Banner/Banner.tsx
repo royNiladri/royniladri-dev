@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './Banner.scss';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Contact from '../../shared/contact/Contact';
+import Business from '@mui/icons-material/Business';
+import { School } from '@mui/icons-material';
 
 interface IProps {
 }
@@ -62,8 +63,8 @@ class Banner extends Component<IProps, IState> {
                 <h2 className="title" >{this.state.textToDisplay}</h2>
               </div>
               <div className="col-md-5 intro">
-                <div className="work"><FontAwesomeIcon icon={['far', 'building']}/> Informatica | Visa Inc.</div>
-                <div className="edu"><FontAwesomeIcon icon={['fas', 'graduation-cap']}/> Georgia Tech | Jadavpur University</div>
+                <div className="work"><Business/> Informatica | Visa Inc.</div>
+                <div className="edu"><School/> Georgia Tech | Jadavpur University</div>
                 <Contact></Contact>
               </div>
             </div>
