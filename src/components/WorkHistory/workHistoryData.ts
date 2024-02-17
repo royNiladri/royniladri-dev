@@ -21,7 +21,7 @@ export const workHistoryData: WorkHistoryData[] = [
           {
             title: "AI Enrichment Integration",
             description: `Enhanced the MDM platform by integrating AI-generated enrichment
-                into the product lifecycle, which was showcased at Informatica World 2023. Contributions spanned
+                into the product lifecycle, which was showcased at Informatica World 2023, boosting sales by over 20%. Contributions spanned
                 across UI, backend service, Model Serve, business process (BPEL), and ElasticSearch optimization. ML contributions included parallelization
                 in prediction to support batch processing.`,
             skills: [
@@ -88,7 +88,7 @@ export const workHistoryData: WorkHistoryData[] = [
             description: `Improved Audit trail by introducing batching in
             ElasticSearch for import jobs and generating performance metrics for A/B testing. This enhancement
             introduced state of the art features like searchability, lifecycle management, disaster recovery, eventual
-            consistency, leading to a more resilient system and reduced operation cost.`,
+            consistency, leading to a more resilient system, reduced operation cost by 30% and improved response time by over 50%.`,
             skills: [
               "BackEnd Development",
               "Full Text Search",
