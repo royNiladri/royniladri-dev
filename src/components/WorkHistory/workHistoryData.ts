@@ -43,7 +43,7 @@ export const workHistoryData: WorkHistoryData[] = [
           {
             title: "DAAS Enrichment Enablement",
             description: `Developed a UI framework for configurable DAAS services to
-                enrich records on demand, while managing stringent deadlines and code reviews.`,
+            enrich records on demand. It is now a platform feature, used across teams.`,
             skills: ["Full Stack Web Development"],
             technologies: ["React", "TypeScript", "Java", "Spring"],
           },
@@ -200,7 +200,7 @@ export const workHistoryData: WorkHistoryData[] = [
           {
             title: "js-big-decimal",
             description: `Published a NPM package for handling accurate floating-point computations in
-              JavaScript for small and large numbers. The package has over 3,000,000 downloads till now.`,
+              JavaScript for small and large numbers. The package has over 3.5 Million downloads till now.`,
             links: [
                 {
                     title: "JS Big Decimal (NPM Package)",
