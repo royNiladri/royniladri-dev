@@ -5,11 +5,35 @@ export const workHistoryData: WorkHistoryData[] = [
     company: "Informatica",
     positions: [
       {
+        title: "Principal Software Engineer",
+        team: "Master Data Management, R&D",
+        location: "Bangalore, India",
+        startDate: new Date(2024, 3, 1),
+        projects: [
+          {
+            title: "Dynamic Fields in Workflows",
+            description: `Led the design and implementation of an epic that empowered reviewers to visualize and edit dynamic field definitions and values 
+                within the workflow. Successfully completed the project within the designated timeframe, prioritizing quality and performance, 
+                which facilitated a seamless production delivery in October.`,
+            skills: ["Full Stack Web Development", "End to End Ownership", "Team Execution"],
+            technologies: ["Java", "Spring", "MongoDB", "React", "TypeScript", "NodeJs"],
+          }
+        ]
+      },
+      {
         title: "Lead Software Engineer",
         team: "Master Data Management, R&D",
         location: "Bangalore, India",
         startDate: new Date(2020, 3, 9),
+        endDate: new Date(2024, 2, 31),
         projects: [
+          {
+            title: "Enrichment Integration with LLMs",
+            description: `Worked across teams, and revamped the Enrichment framework to work with multiple external systems, 
+                including custom fine tuned internal LLM models based on ChatGPT.`,
+            skills: ["Full Stack Web Development", "AI/ML", "Business Process Execution Language (BPEL)"],
+            technologies: ["Java", "Spring", "MongoDB", "ElasticSearch","React", "TypeScript"],
+          },
           {
             title: "2023 AI Hackathon",
             description: `Mentored three teams, across text, image and audio, and developed a Chat GPT
@@ -200,7 +224,7 @@ export const workHistoryData: WorkHistoryData[] = [
           {
             title: "js-big-decimal",
             description: `Published a NPM package for handling accurate floating-point computations in
-              JavaScript for small and large numbers. The package has over 3.5 Million downloads till now.`,
+              JavaScript for small and large numbers. The package has over 5 Million downloads till now.`,
             links: [
                 {
                     title: "JS Big Decimal (NPM Package)",
