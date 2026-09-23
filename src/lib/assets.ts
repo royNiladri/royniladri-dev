@@ -12,16 +12,23 @@
  */
 
 import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { join, resolve } from 'node:path';
 
-const publicDir = new URL('../../public/', import.meta.url);
+/**
+ * Resolved against the working directory rather than `import.meta.url`: the
+ * build bundles this module into a chunk somewhere else, so a path relative to
+ * the source file points at the wrong place. Astro always runs from the
+ * project root.
+ */
+const publicDir = resolve(process.cwd(), 'public');
 
 export function hasAsset(path: string | null | undefined): boolean {
   if (!path) return false;
   if (/^https?:\/\//.test(path)) return true;
-  const rel = path.replace(/^\/+/, '');
+  const rel = path.replace(/^\/+/, '').split('/').filter(Boolean);
+  if (rel.some((segment) => segment === '..')) return false;
   try {
-    return existsSync(fileURLToPath(new URL(rel, publicDir)));
+    return existsSync(join(publicDir, ...rel));
   } catch {
     return false;
   }
