@@ -42,6 +42,11 @@
   --r-story: 20px;
   --r-hero: 24px;
 
+  /* Component sizes ------------------------------------------------------- */
+  /* Handoff says 36px; enlarged because a face is not legible that small. */
+  --avatar: 44px;
+  --logo-tile: 32px;
+
   /* Spacing --------------------------------------------------------------- */
   --gutter: 64px;
   --maxw: 1280px;

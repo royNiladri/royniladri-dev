@@ -22,7 +22,7 @@ const items = [
 <nav class="nav shell" aria-label="Primary">
   <a class="brand" href="/">
     <span class="avatar">
-      <Media src={profile.portrait} alt="" width={36} loading="eager" />
+      <Media src={profile.portrait} alt="" width={44} loading="eager" />
     </span>
     <span class="name">{profile.name}</span>
   </a>
@@ -69,8 +69,8 @@ const items = [
   }
 
   .avatar {
-    width: 36px;
-    height: 36px;
+    width: var(--avatar);
+    height: var(--avatar);
     border-radius: 50%;
     overflow: hidden;
     flex: none;
