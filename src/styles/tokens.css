@@ -43,8 +43,8 @@
   --r-hero: 24px;
 
   /* Component sizes ------------------------------------------------------- */
-  /* Handoff says 36px; enlarged because a face is not legible that small. */
-  --avatar: 44px;
+  /* Handoff says 36px; enlarged so the face is actually legible. */
+  --avatar: 56px;
   --logo-tile: 32px;
 
   /* Spacing --------------------------------------------------------------- */

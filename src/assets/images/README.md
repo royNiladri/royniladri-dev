@@ -6,7 +6,7 @@ the design instead — nothing breaks, nothing 404s.
 
 | Path                    | What it is                         | Supply at least |
 | ----------------------- | ---------------------------------- | --------------- |
-| `portrait.jpg`          | Nav avatar, drawn as a 44px circle | 88×88, square   |
+| `portrait.jpg`          | Nav avatar, drawn as a 56px circle | 112×112, square |
 | `hero.jpg`              | Home hero band                     | 2304 wide       |
 | `photos/1–4.jpg`        | "Through my lens" strip            | 960 wide        |
 | `logos/sf.svg` etc.     | Employer logos, 32px tile          | SVG, or 64×64   |
@@ -54,7 +54,7 @@ wobbly edges besides. Prefer the vendor's official SVG where you can get it.
 ## The portrait
 
 Crop it **tight to the face** — head and shoulders, square — before dropping it
-in. It is drawn as a 44px circle, so a half-body shot leaves the face at a
+in. It is drawn as a 56px circle, so a half-body shot leaves the face at a
 quarter of that and unrecognisable. The size lives in `--avatar` in
 `src/styles/tokens.css` if you want to change it; keep the `width` passed to
 `<Media>` in `Nav.astro` in step so the 2x variant stays honest.
