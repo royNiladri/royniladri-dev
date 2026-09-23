@@ -10,6 +10,7 @@ npm run dev      # http://localhost:4321
 npm run build    # -> dist/
 npm run preview  # serve dist/ locally
 npm run check    # astro check (types + template diagnostics)
+npm run validate # sanity-check content.json
 npm test         # Playwright end-to-end tests
 ```
 
@@ -36,6 +37,12 @@ in templates — the pages read from that file and lay out whatever they find.
 | Change writing / education / footer links | `writing[]`, `education[]`, `links[]` |
 
 Ordering in the file is the ordering on the page. Employers are newest first.
+
+After editing, `npm run validate` checks the file against everything that reads
+it: skills used but missing a filter chip, tech with no icon slug, story files
+without a `caseStudies` entry (or the reverse), and stories with no project
+pointing at them — which silently empties that story's sidebar. It runs in CI
+too. Notes about assets you have not supplied yet are expected.
 
 ### Case studies
 
@@ -88,6 +95,7 @@ src/
   lib/types.ts                types for that file's shape
   lib/icons.ts                Simple Icons, inlined at build time
   lib/assets.ts               "has this image been supplied yet?"
+scripts/validate-content.mjs  content.json sanity check (npm run validate)
   layouts/Base.astro          head, fonts, theme bootstrap, nav, contact footer
   pages/index.astro           home
   pages/work.astro            work history

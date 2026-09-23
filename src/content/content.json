@@ -51,22 +51,63 @@
           "projects": [
             {
               "title": "Two concurrent P1 escalations",
-              "description": "Resolved two customer-blocking P1 production bugs at the same time, while carrying a steady load of around 21 open Jira issues.",
+              "description": "Two customer-blocking P1s at the same time, on top of a steady load of around 21 open issues: a dependent picklist that stayed greyed out after an enrichment rule filled its parent from another section, fixed in the UI and shipped as an emergency patch, and a data-quality validation error that kept resurfacing after the failing section of the record was deleted.",
               "skills": [
-                "Production support"
+                "Production support",
+                "Full stack"
               ],
-              "tech": [],
+              "tech": [
+                "Java",
+                "Spring",
+                "React",
+                "TypeScript",
+                "MongoDB"
+              ],
               "highlight": true,
               "caseStudy": null
             },
             {
-              "title": "Data-quality validation leak for Sopra Steria",
-              "description": "Root-caused and fixed a multi-layered data-quality validation leak for a named enterprise customer, tracing it through each layer instead of patching the symptom.",
+              "title": "A validation leak, three layers deep",
+              "description": "Root-caused and fixed a multi-layered data-quality validation leak for an enterprise customer, tracing it through each layer instead of patching the symptom. Took it through two rounds of architect review, including correcting a design that assumed the failure couldn't happen, and shipped it behind a feature flag across two services.",
               "skills": [
                 "Production support",
                 "Backend"
               ],
-              "tech": [],
+              "tech": [
+                "Java",
+                "Spring",
+                "MongoDB"
+              ],
+              "highlight": true,
+              "caseStudy": null
+            },
+            {
+              "title": "Transition mapping in the config UI",
+              "description": "Built transition mapping in the config UI end to end, the feature that lets a rule pull field inputs from a related business entity, covering both the create-and-edit path and the read-only view from the design spec. Then kept it solid under real use: a P1 fixed as an emergency patch, plus five more mapping-correctness fixes, including a bounded, cycle-safe redesign of how referenced fields expand and a read-side bug that would have let a save silently fail while still looking right.",
+              "skills": [
+                "Full stack",
+                "Backend"
+              ],
+              "tech": [
+                "React",
+                "TypeScript",
+                "Java",
+                "Spring"
+              ],
+              "highlight": true,
+              "caseStudy": null
+            },
+            {
+              "title": "Lenient validation for draft records",
+              "description": "Delivered the semantics that let a draft record save even when some rules fail, across every combination of the enable-rejection and reject-on-failure toggles, and backed it with a full test matrix. Shipped in the 2026.04 release.",
+              "skills": [
+                "Backend"
+              ],
+              "tech": [
+                "Java",
+                "Spring",
+                "MongoDB"
+              ],
               "highlight": true,
               "caseStudy": null
             }
