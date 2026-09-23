@@ -1,0 +1,55 @@
+---
+import Base from '~/layouts/Base.astro';
+import Hero from '~/components/Hero.astro';
+import StoryCard from '~/components/StoryCard.astro';
+import Principles from '~/components/Principles.astro';
+import Testimonials from '~/components/Testimonials.astro';
+import SelfHosted from '~/components/SelfHosted.astro';
+import PhotoStrip from '~/components/PhotoStrip.astro';
+import WritingEducation from '~/components/WritingEducation.astro';
+import { caseStudies, profile } from '~/lib/content.ts';
+---
+
+<Base title={profile.name} description={`${profile.headline} ${profile.intro}`}>
+  <Hero />
+
+  <section class="stories shell stack" id="stories">
+    <div class="section-head">
+      <h2 class="h2">Stories from the work</h2>
+      <a class="more-link" href="/work">All work history →</a>
+    </div>
+    <div class="grid">
+      {caseStudies.map((study) => <StoryCard study={study} />)}
+    </div>
+  </section>
+
+  <Principles />
+  <Testimonials />
+  <SelfHosted />
+  <PhotoStrip />
+  <WritingEducation />
+</Base>
+
+<style>
+  .stories {
+    padding-top: 96px;
+    padding-bottom: 48px;
+    gap: 32px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  @media (max-width: 860px) {
+    .stories {
+      padding-top: 56px;
+    }
+
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

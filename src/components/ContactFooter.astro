@@ -1,0 +1,79 @@
+---
+/** The "Say hello" CTA that closes every page. */
+import { links } from '~/lib/content.ts';
+---
+
+<footer class="shell" id="contact">
+  <div class="cta">
+    <div class="copy">
+      <p class="title">Say hello</p>
+      <p class="sub">LinkedIn is the best way to reach me.</p>
+    </div>
+    <ul class="pills">
+      {
+        links.map((link) => (
+          <li>
+            <a class="pill" href={link.url} rel="me noopener">
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .cta {
+    margin-bottom: 64px;
+    border-radius: var(--r-hero);
+    background: var(--acc);
+    color: #fff;
+    padding: 52px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .title {
+    font: 400 38px/1.1 var(--font-serif);
+  }
+
+  .sub {
+    font-size: 17px;
+    opacity: 0.92;
+    margin-top: 8px;
+  }
+
+  .pills {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pill {
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: var(--r-pill);
+    background: rgba(255, 255, 255, 0.16);
+    font-weight: 700;
+    font-size: 15px;
+    color: #fff;
+  }
+
+  @media (max-width: 860px) {
+    .cta {
+      padding: 36px 28px;
+      margin-bottom: 40px;
+    }
+
+    .title {
+      font-size: 30px;
+    }
+  }
+</style>

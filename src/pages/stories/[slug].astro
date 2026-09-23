@@ -1,0 +1,342 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '~/layouts/Base.astro';
+import TechChip from '~/components/TechChip.astro';
+import {
+  caseStudyBySlug,
+  nextCaseStudy,
+  storyContext,
+  workHistoryLink,
+} from '~/lib/content.ts';
+
+export async function getStaticPaths() {
+  const stories = await getCollection('stories');
+  return stories.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+
+const study = caseStudyBySlug(entry.id);
+if (!study) {
+  throw new Error(
+    `No caseStudies entry in content.json for story "${entry.id}". ` +
+      'Add one, or rename the Markdown file to match an existing slug.',
+  );
+}
+
+const context = storyContext(entry.id);
+const next = nextCaseStudy(entry.id);
+const { Content } = await render(entry);
+
+const tiles = [
+  { value: study.metric, label: study.metricLabel, accent: true },
+  ...entry.data.metrics.map((m) => ({ ...m, accent: false })),
+];
+---
+
+<Base
+  title={study.title}
+  description={study.summary}
+  active="stories"
+>
+  <article class="story shell">
+    <div class="main">
+      <p class="crumb"><a href="/stories">Stories</a> / {study.org}</p>
+      <h1>{study.title}</h1>
+      <p class="subtitle">{entry.data.subtitle}</p>
+
+      <div class="tiles">
+        {
+          tiles.map((tile) => (
+            <div class="tile">
+              <span class:list={['value', { accent: tile.accent }]}>
+                {tile.value}
+              </span>
+              <span class="label">{tile.label}</span>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="prose">
+        <Content />
+      </div>
+
+      {
+        entry.data.flow.length > 0 && (
+          <figure class="flow">
+            <figcaption class="eyebrow">{entry.data.flowCaption}</figcaption>
+            <div class="boxes">
+              {entry.data.flow.map((step, i) => (
+                <>
+                  {i > 0 && (
+                    <span class="arrow" aria-hidden="true">
+                      →
+                    </span>
+                  )}
+                  <span class="box">{step}</span>
+                </>
+              ))}
+            </div>
+          </figure>
+        )
+      }
+    </div>
+
+    <aside class="aside">
+      {
+        context && (
+          <div class="block">
+            <p class="eyebrow">My role</p>
+            <p class="value">{context.role.title}</p>
+          </div>
+        )
+      }
+
+      {
+        context && context.project.skills.length > 0 && (
+          <div class="block">
+            <p class="eyebrow">Skills</p>
+            <p class="value italic">{context.project.skills.join(', ')}</p>
+          </div>
+        )
+      }
+
+      {
+        context && context.project.tech.length > 0 && (
+          <div class="block">
+            <p class="eyebrow">Tech</p>
+            <div class="tag-row">
+              {context.project.tech.map((tech) => <TechChip name={tech} />)}
+            </div>
+          </div>
+        )
+      }
+
+      {
+        context && (
+          <a
+            class="jump"
+            href={workHistoryLink(context.employer.id, context.role.id)}
+          >
+            See it in the work history →
+          </a>
+        )
+      }
+
+      {
+        next && (
+          <a class="jump" href={`/stories/${next.slug}`}>
+            Next story: {next.title} →
+          </a>
+        )
+      }
+    </aside>
+  </article>
+</Base>
+
+<style>
+  .story {
+    padding-block: 48px 88px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 72px;
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    max-width: 720px;
+  }
+
+  .crumb {
+    font-size: 14px;
+    color: var(--mute);
+  }
+
+  h1 {
+    font: 400 54px/1.1 var(--font-serif);
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  .subtitle {
+    font: italic 400 22px/1.5 var(--font-serif);
+    color: var(--mute);
+  }
+
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .tile {
+    background: var(--card);
+    border-radius: var(--r-card);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .tile .value {
+    font: 400 34px/1.1 var(--font-serif);
+  }
+
+  /* --acc2 marks the headline metric only. */
+  .tile .value.accent {
+    color: var(--acc2);
+  }
+
+  .tile .label {
+    font-size: 14px;
+    color: var(--mute);
+  }
+
+  /* Markdown body ---------------------------------------------------------- */
+
+  .prose {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .prose :global(h2) {
+    font: 600 24px var(--font-serif);
+    margin-top: 22px;
+  }
+
+  .prose :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .prose :global(p) {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--mute);
+    text-wrap: pretty;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--mute);
+    padding-left: 1.2em;
+  }
+
+  .prose :global(a) {
+    color: var(--acc);
+    font-weight: 600;
+  }
+
+  .prose :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--soft);
+    border-radius: var(--r-chip);
+    padding: 2px 6px;
+  }
+
+  /* Flow diagram ----------------------------------------------------------- */
+
+  .flow {
+    background: var(--card);
+    border-radius: var(--r-story);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .boxes {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .box {
+    padding: 10px 14px;
+    border-radius: var(--r-btn);
+    background: var(--soft);
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .arrow {
+    color: var(--mute);
+  }
+
+  /* Aside ------------------------------------------------------------------ */
+
+  .aside {
+    position: sticky;
+    top: 16px;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding-left: 28px;
+    border-left: 1px solid var(--line);
+  }
+
+  .block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .block .value {
+    font-size: 15px;
+  }
+
+  .block .value.italic {
+    font-style: italic;
+  }
+
+  .jump {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--acc);
+  }
+
+  @media (max-width: 1000px) {
+    .story {
+      grid-template-columns: 1fr;
+      gap: 36px;
+      padding-block: 24px 56px;
+    }
+
+    h1 {
+      font-size: 36px;
+    }
+
+    .subtitle {
+      font-size: 19px;
+    }
+
+    .aside {
+      position: static;
+      padding-left: 0;
+      padding-top: 24px;
+      border-left: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .tiles {
+      grid-template-columns: 1fr;
+    }
+
+    .prose :global(p),
+    .prose :global(ul),
+    .prose :global(ol) {
+      font-size: 16px;
+    }
+  }
+</style>

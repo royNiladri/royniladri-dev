@@ -1,0 +1,738 @@
+{
+  "profile": {
+    "name": "Niladri Roy",
+    "headline": "I like making hard systems feel calm.",
+    "intro": "Eleven years on enterprise software at Visa, Informatica and Salesforce. Outside work I run my own small infrastructure, write, and take photographs.",
+    "current": {
+      "title": "Senior Member of Technical Staff",
+      "org": "Salesforce",
+      "team": "MDM R&D",
+      "location": "Bangalore"
+    },
+    "status": "Open to conversations",
+    "statusOptions": [
+      "Not looking",
+      "Open to conversations",
+      "Open to freelance",
+      "Open to new roles"
+    ],
+    "resumeUrl": "/resume.pdf",
+    "portrait": "/images/portrait.jpg",
+    "heroPhoto": "/images/hero.jpg"
+  },
+  "skills": [
+    "AI/ML",
+    "Full stack",
+    "Frontend",
+    "Backend",
+    "Performance",
+    "CI/CD",
+    "Leadership",
+    "Mentorship",
+    "Open source",
+    "Production support"
+  ],
+  "employers": [
+    {
+      "id": "sf",
+      "name": "Salesforce",
+      "years": "2026 — now",
+      "tenure": "8 mo",
+      "note": "The Informatica MDM team moved to Salesforce with the acquisition. Same product and team, new parent company.",
+      "roles": [
+        {
+          "id": "sf1",
+          "title": "Senior Member of Technical Staff",
+          "yr": "2026 —",
+          "team": "Master Data Management, R&D",
+          "loc": "Bangalore",
+          "dates": "Feb 2026 — Present",
+          "summary": "Came over with the acquisition and became the person the hardest customer bugs land on: two P1s at once, and a validation leak three layers deep.",
+          "projects": [
+            {
+              "title": "Two concurrent P1 escalations",
+              "description": "Two customer-blocking P1s at the same time, on top of a steady load of around 21 open issues: a dependent picklist that stayed greyed out after an enrichment rule filled its parent from another section, fixed in the UI and shipped as an emergency patch, and a data-quality validation error that kept resurfacing after the failing section of the record was deleted.",
+              "skills": [
+                "Production support",
+                "Full stack"
+              ],
+              "tech": [
+                "Java",
+                "Spring",
+                "React",
+                "TypeScript",
+                "MongoDB"
+              ],
+              "highlight": true,
+              "caseStudy": null
+            },
+            {
+              "title": "A validation leak, three layers deep",
+              "description": "Root-caused and fixed a multi-layered data-quality validation leak for an enterprise customer, tracing it through each layer instead of patching the symptom. Took it through two rounds of architect review, including correcting a design that assumed the failure couldn't happen, and shipped it behind a feature flag across two services.",
+              "skills": [
+                "Production support",
+                "Backend"
+              ],
+              "tech": [
+                "Java",
+                "Spring",
+                "MongoDB"
+              ],
+              "highlight": true,
+              "caseStudy": null
+            },
+            {
+              "title": "Transition mapping in the config UI",
+              "description": "Built transition mapping in the config UI end to end, the feature that lets a rule pull field inputs from a related business entity, covering both the create-and-edit path and the read-only view from the design spec. Then kept it solid under real use: a P1 fixed as an emergency patch, plus five more mapping-correctness fixes, including a bounded, cycle-safe redesign of how referenced fields expand and a read-side bug that would have let a save silently fail while still looking right.",
+              "skills": [
+                "Full stack",
+                "Backend"
+              ],
+              "tech": [
+                "React",
+                "TypeScript",
+                "Java",
+                "Spring"
+              ],
+              "highlight": true,
+              "caseStudy": null
+            },
+            {
+              "title": "Lenient validation for draft records",
+              "description": "Delivered the semantics that let a draft record save even when some rules fail, across every combination of the enable-rejection and reject-on-failure toggles, and backed it with a full test matrix. Shipped in the 2026.04 release.",
+              "skills": [
+                "Backend"
+              ],
+              "tech": [
+                "Java",
+                "Spring",
+                "MongoDB"
+              ],
+              "highlight": true,
+              "caseStudy": null
+            }
+          ]
+        }
+      ],
+      "years_numeric": 0.65,
+      "logo": "/images/logos/sf.svg"
+    },
+    {
+      "id": "inf",
+      "name": "Informatica",
+      "years": "2020 — 2026",
+      "tenure": "5 yr 10 mo",
+      "note": "Master Data Management R&D. MDM is how large companies keep one trusted record of each customer, product and supplier.",
+      "roles": [
+        {
+          "id": "inf1",
+          "title": "Principal Software Engineer",
+          "yr": "2024 — 26",
+          "team": "Master Data Management, R&D",
+          "loc": "Bangalore",
+          "dates": "Apr 2024 — Jan 2026",
+          "summary": "Senior IC across MDM UI and services. Took Dynamic Fields from design doc to production on the date we committed to.",
+          "projects": [
+            {
+              "title": "Dynamic fields in workflows",
+              "description": "Led design and delivery of an epic that lets reviewers see and edit dynamic field definitions and values inside a workflow. Shipped on schedule, with quality and performance intact, to production in October.",
+              "skills": [
+                "Full stack",
+                "Leadership"
+              ],
+              "tech": [
+                "Java",
+                "Spring",
+                "MongoDB",
+                "React",
+                "TypeScript",
+                "Node.js"
+              ],
+              "highlight": true,
+              "caseStudy": null
+            }
+          ]
+        },
+        {
+          "id": "inf2",
+          "title": "Lead Software Engineer",
+          "yr": "2020 — 24",
+          "team": "Master Data Management, R&D",
+          "loc": "Bangalore",
+          "dates": "Apr 2020 — Mar 2024",
+          "summary": "Four years that started with rescuing a fragile editor and ended with AI enrichment on the Informatica World stage.",
+          "projects": [
+            {
+              "title": "AI enrichment integration",
+              "description": "Brought AI-generated enrichment into the MDM product lifecycle. Showcased at Informatica World 2023, where it contributed to a sales lift of more than 20%. Work spanned UI, backend service, model serving, BPEL and Elasticsearch tuning, plus parallel prediction for batch jobs.",
+              "skills": [
+                "AI/ML",
+                "Full stack"
+              ],
+              "tech": [
+                "Java",
+                "Spring",
+                "Python",
+                "TensorFlow",
+                "MongoDB",
+                "Elasticsearch",
+                "React",
+                "TypeScript"
+              ],
+              "highlight": true,
+              "caseStudy": "ai-enrichment-inside-mdm"
+            },
+            {
+              "title": "Enrichment with LLMs",
+              "description": "Worked across teams to rebuild the enrichment framework so it could call multiple external systems, including fine-tuned internal LLMs based on ChatGPT.",
+              "skills": [
+                "AI/ML",
+                "Full stack"
+              ],
+              "tech": [
+                "Java",
+                "Spring",
+                "MongoDB",
+                "Elasticsearch",
+                "React",
+                "TypeScript"
+              ],
+              "highlight": true,
+              "caseStudy": null
+            },
+            {
+              "title": "Audit trail performance",
+              "description": "Added Elasticsearch batching for import jobs and measured it with A/B performance metrics. Brought search, lifecycle management, disaster recovery and eventual consistency. Operating cost fell 30% and response times improved by more than 50%.",
+              "skills": [
+                "Backend",
+                "Performance"
+              ],
+              "tech": [
+                "Java",
+                "Elasticsearch"
+              ],
+              "highlight": true,
+              "caseStudy": "an-audit-trail-that-scales"
+            },
+            {
+              "title": "New enrichment microservice",
+              "description": "Created and onboarded a new MDM microservice across DevOps, Security, Platform Integration and feature teams, and documented every step. The next team to onboard a service used the wiki and did it in under half the time.",
+              "skills": [
+                "Backend",
+                "CI/CD"
+              ],
+              "tech": [
+                "Java",
+                "Spring",
+                "Maven",
+                "Docker",
+                "Kubernetes",
+                "Jenkins",
+                "Bitbucket"
+              ],
+              "highlight": true,
+              "caseStudy": null
+            },
+            {
+              "title": "Sequential Edit stabilization",
+              "description": "Joined a bug-prone UI feature after COVID, made architectural changes, and brought component-library owners in early. PR reviews got faster and the feature shipped within months.",
+              "skills": [
+                "Frontend",
+                "Leadership",
+                "Mentorship"
+              ],
+              "tech": [
+                "React",
+                "TypeScript"
+              ],
+              "highlight": false,
+              "caseStudy": null
+            },
+            {
+              "title": "2023 AI Hackathon",
+              "description": "Mentored three teams across text, image and audio, and built a ChatGPT integration into the MDM platform that reached the finals.",
+              "skills": [
+                "AI/ML",
+                "Mentorship"
+              ],
+              "tech": [
+                "Python",
+                "TensorFlow",
+                "Java",
+                "React",
+                "Node.js"
+              ],
+              "highlight": false,
+              "caseStudy": null
+            },
+            {
+              "title": "DaaS enrichment enablement",
+              "description": "Built a UI framework for configurable DaaS services that enrich records on demand. It became a platform feature used across teams.",
+              "skills": [
+                "Full stack"
+              ],
+              "tech": [
+                "React",
+                "TypeScript",
+                "Java",
+                "Spring"
+              ],
+              "highlight": false,
+              "caseStudy": null
+            },
+            {
+              "title": "Germany office collaboration",
+              "description": "Worked on site with the German office on planning for Dynamic Fields and the CLAIRE platform.",
+              "skills": [
+                "Leadership"
+              ],
+              "tech": [
+                "React",
+                "TypeScript",
+                "Java"
+              ],
+              "highlight": false,
+              "caseStudy": null
+            },
+            {
+              "title": "Crystal theme upgrade",
+              "description": "Delivered a theme upgrade for on-premise P360 with PM and UX.",
+              "skills": [
+                "Frontend"
+              ],
+              "tech": [
+                "CSS"
+              ],
+              "highlight": false,
+              "caseStudy": null
+            },
+            {
+              "title": "Interview panels",
+              "description": "Assessed candidates on technical skill, teamwork and ability to learn.",
+              "skills": [
+                "Mentorship"
+              ],
+              "tech": [],
+              "highlight": false,
+              "caseStudy": null
+            },
+            {
+              "title": "Operational excellence",
+              "description": "Fixed bugs, led the team through releases, and took on-call production support.",
+              "skills": [
+                "Production support"
+              ],
+              "tech": [],
+              "highlight": false,
+              "caseStudy": null
+            }
+          ]
+        }
+      ],
+      "years_numeric": 5.8,
+      "logo": "/images/logos/infa.jpeg"
+    },
+    {
+      "id": "visa",
+      "name": "Visa",
+      "years": "2015 — 2020",
+      "tenure": "4 yr 7 mo",
+      "note": "Corporate IT, building internal platforms for revenue, pricing and engineering analytics.",
+      "roles": [
+        {
+          "id": "v1",
+          "title": "Senior Software Engineer",
+          "yr": "2018 — 20",
+          "team": "Engineering Application & Analytics",
+          "loc": "Bangalore",
+          "dates": "Apr 2018 — Feb 2020",
+          "summary": "Moved a global invoicing portal to modern Angular, started an internal tech forum, and began teaching across the org.",
+          "projects": [
+            {
+              "title": "VOIP moves to Angular 6",
+              "description": "Led the migration of the Visa Online Invoice Portal frontend to Angular 6 for performance, compatibility and security, backed by thorough testing.",
+              "skills": [
+                "Frontend"
+              ],
+              "tech": [
+                "Angular",
+                "TypeScript",
+                "Sass",
+                "Node.js"
+              ],
+              "highlight": true,
+              "caseStudy": null
+            },
+            {
+              "title": "Ready to Return mentoring",
+              "description": "Mentored women in technology returning to the workplace after a career break.",
+              "skills": [
+                "Mentorship"
+              ],
+              "tech": [],
+              "highlight": true,
+              "caseStudy": null
+            },
+            {
+              "title": "Visa Tech Forum and One Intake",
+              "description": "Started Visa Tech Forum, a platform for technical discussion that pulls from several sources, and contributed heavily to One Intake, a wrapper app for vendor and project requests.",
+              "skills": [
+                "Full stack"
+              ],
+              "tech": [
+                "Angular",
+                "React",
+                "TypeScript",
+                "Node.js",
+                "Express",
+                "MongoDB"
+              ],
+              "highlight": false,
+              "caseStudy": null
+            },
+            {
+              "title": "Global OpCerts",
+              "description": "UI improvements, performance work and code-quality monitoring on a major, well-funded EAA application.",
+              "skills": [
+                "Frontend",
+                "Performance"
+              ],
+              "tech": [
+                "React",
+                "TypeScript",
+                "Sass"
+              ],
+              "highlight": false,
+              "caseStudy": null
+            },
+            {
+              "title": "Tech talks",
+              "description": "Gave organization-wide talks on Angular, React with Redux, SCSS, and Node.js with Express.",
+              "skills": [
+                "Mentorship"
+              ],
+              "tech": [
+                "Angular",
+                "React",
+                "Node.js",
+                "Express",
+                "Sass"
+              ],
+              "highlight": false,
+              "caseStudy": null
+            }
+          ]
+        },
+        {
+          "id": "v2",
+          "title": "Software Engineer",
+          "yr": "2015 — 18",
+          "team": "Revenue & Pricing Systems",
+          "loc": "Bangalore",
+          "dates": "Aug 2015 — Apr 2018",
+          "summary": "First job: built the portal that invoices Visa’s member banks worldwide, and on the side wrote a library that now has 5M+ downloads.",
+          "projects": [
+            {
+              "title": "Visa Online Invoice Portal",
+              "description": "Helped build the portal that generates invoices for member banks worldwide. Set up Jenkins CI/CD on a dedicated build server and kept it compatible back to IE7. Live globally as of 2020.",
+              "skills": [
+                "Full stack",
+                "CI/CD"
+              ],
+              "tech": [
+                "AngularJS",
+                "JavaScript",
+                "Java",
+                "Jenkins"
+              ],
+              "highlight": true,
+              "caseStudy": "visa-online-invoice-portal"
+            },
+            {
+              "title": "js-big-decimal",
+              "description": "Published an npm package for exact decimal arithmetic in JavaScript, for very large and very small numbers. More than 5 million downloads so far.",
+              "skills": [
+                "Open source"
+              ],
+              "tech": [
+                "TypeScript",
+                "Node.js",
+                "Webpack"
+              ],
+              "highlight": true,
+              "link": {
+                "label": "js-big-decimal on npm",
+                "url": "https://www.npmjs.com/package/js-big-decimal"
+              },
+              "caseStudy": "js-big-decimal"
+            }
+          ]
+        }
+      ],
+      "years_numeric": 4.55,
+      "logo": "/images/logos/visa.svg"
+    }
+  ],
+  "caseStudies": [
+    {
+      "slug": "ai-enrichment-inside-mdm",
+      "title": "AI enrichment inside MDM",
+      "org": "Informatica, 2023",
+      "metric": "+20%",
+      "metricLabel": "sales lift after Informatica World 2023",
+      "summary": "AI-generated enrichment across the product record lifecycle: UI, service, model serving, BPEL and Elasticsearch.",
+      "layers": [
+        "UI",
+        "Service",
+        "Model serving",
+        "BPEL",
+        "Elasticsearch"
+      ]
+    },
+    {
+      "slug": "an-audit-trail-that-scales",
+      "title": "An audit trail that scales",
+      "org": "Informatica",
+      "metric": "−30%",
+      "metricLabel": "operating cost, with 50%+ faster responses",
+      "summary": "Elasticsearch batching for import jobs, with every change measured by A/B performance metrics.",
+      "layers": [
+        "Import jobs",
+        "Elasticsearch",
+        "Search",
+        "Disaster recovery"
+      ]
+    },
+    {
+      "slug": "js-big-decimal",
+      "title": "js-big-decimal",
+      "org": "Open source, npm",
+      "metric": "5M+",
+      "metricLabel": "downloads",
+      "summary": "A small library for exact decimal arithmetic in JavaScript, published while at Visa.",
+      "layers": [
+        "npm",
+        "TypeScript",
+        "Browser + Node"
+      ]
+    },
+    {
+      "slug": "visa-online-invoice-portal",
+      "title": "Visa Online Invoice Portal",
+      "org": "Visa, 2015–2018",
+      "metric": "Global",
+      "metricLabel": "invoicing for member banks",
+      "summary": "Invoices for member banks worldwide, Jenkins CI/CD, and support all the way back to IE7.",
+      "layers": [
+        "Frontend",
+        "Java backend",
+        "Jenkins CI/CD",
+        "IE7+"
+      ]
+    }
+  ],
+  "principles": [
+    {
+      "title": "Write it down",
+      "body": "I documented how to onboard a new MDM microservice, end to end. The next team used that wiki and finished in under half the time."
+    },
+    {
+      "title": "Bring owners in early",
+      "body": "When Sequential Edit kept breaking, I brought the component-library owners in before writing code. Reviews got shorter and the feature shipped within months."
+    },
+    {
+      "title": "Measure, then argue",
+      "body": "Performance work ships with before-and-after numbers, like the A/B metrics behind the audit trail changes."
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "Placeholder: a former manager on ownership, e.g. how an unstable feature shipped once Niladri took it on.",
+      "name": "Name Surname",
+      "role": "Engineering Manager, Informatica",
+      "placeholder": true
+    },
+    {
+      "quote": "Placeholder: a peer or mentee on teaching: tech talks, Ready to Return, hackathon mentoring.",
+      "name": "Name Surname",
+      "role": "Colleague, Visa",
+      "placeholder": true
+    }
+  ],
+  "selfHosted": {
+    "intro": "An old laptop runs my family's photos, files and paperwork, so they stay with us. It's a small production system: people depend on it, it gets backed up, and I get alerts when something breaks.",
+    "groups": [
+      {
+        "group": "Privacy",
+        "services": [
+          {
+            "name": "Nextcloud",
+            "icon": "nextcloud",
+            "description": "Family files, calendars and contacts."
+          },
+          {
+            "name": "Immich",
+            "icon": "immich",
+            "description": "Photo and video library, backed up from our phones."
+          }
+        ]
+      },
+      {
+        "group": "Household",
+        "services": [
+          {
+            "name": "Homebox",
+            "icon": null,
+            "description": "Valuables, receipts, warranties and service history."
+          },
+          {
+            "name": "n8n",
+            "icon": "n8n",
+            "description": "Pulls bank statements from email into Nextcloud for archiving."
+          }
+        ]
+      },
+      {
+        "group": "Network",
+        "services": [
+          {
+            "name": "Tailscale",
+            "icon": "tailscale",
+            "description": "How family devices reach everything, from anywhere."
+          },
+          {
+            "name": "Pi-hole",
+            "icon": "pihole",
+            "description": "DNS and ad blocking for the whole network."
+          }
+        ]
+      },
+      {
+        "group": "Observability",
+        "services": [
+          {
+            "name": "Prometheus",
+            "icon": "prometheus",
+            "description": "Collects metrics from every service and host."
+          },
+          {
+            "name": "Grafana",
+            "icon": "grafana",
+            "description": "Dashboards and alerts on top of those metrics."
+          }
+        ]
+      }
+    ],
+    "backupChain": [
+      {
+        "t": "Old laptop",
+        "s": "Runs every service",
+        "i": "linux"
+      },
+      {
+        "e": "Borg · weekly",
+        "s": "encrypted, deduplicated, streamed over the LAN"
+      },
+      {
+        "t": "Desktop",
+        "s": "Local backup copy",
+        "i": null
+      },
+      {
+        "e": "rclone · sync",
+        "s": "any remote works"
+      },
+      {
+        "t": "Google Drive",
+        "s": "Offsite copy (can be swapped)",
+        "i": "googledrive"
+      }
+    ]
+  },
+  "photography": {
+    "instagram": "https://www.instagram.com/niladriclicks/",
+    "photos": [
+      "/images/photos/1.jpg",
+      "/images/photos/2.jpg",
+      "/images/photos/3.jpg",
+      "/images/photos/4.jpg"
+    ]
+  },
+  "writing": [
+    {
+      "title": "Ones & Zeros",
+      "description": "Blog on software and engineering",
+      "url": "https://ones-zeros.royniladri.dev/"
+    },
+    {
+      "title": "OMSCS Journey",
+      "description": "Notes from a part-time M.S. at Georgia Tech",
+      "url": "https://omscs.royniladri.dev/"
+    },
+    {
+      "title": "Tech talks at Visa",
+      "description": "Angular, React with Redux, SCSS, Node.js",
+      "url": "#"
+    },
+    {
+      "title": "Ready to Return mentor",
+      "description": "Supporting women returning to tech",
+      "url": "#"
+    }
+  ],
+  "education": [
+    {
+      "degree": "M.S. Computer Science",
+      "school": "Georgia Institute of Technology",
+      "years": "2020 — 2023",
+      "note": "Online, part-time, alongside full-time work."
+    },
+    {
+      "degree": "B.E. Electrical Engineering",
+      "school": "Jadavpur University",
+      "years": "2011 — 2015",
+      "note": "Kolkata."
+    }
+  ],
+  "links": [
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/roy-niladri/"
+    },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/royNiladri/"
+    },
+    {
+      "label": "Blog",
+      "url": "https://ones-zeros.royniladri.dev/"
+    },
+    {
+      "label": "Instagram",
+      "url": "https://www.instagram.com/niladriclicks/"
+    }
+  ],
+  "techIcons": {
+    "Java": "openjdk",
+    "Spring": "spring",
+    "MongoDB": "mongodb",
+    "React": "react",
+    "TypeScript": "typescript",
+    "Node.js": "nodedotjs",
+    "Python": "python",
+    "TensorFlow": "tensorflow",
+    "Elasticsearch": "elasticsearch",
+    "Maven": "apachemaven",
+    "Docker": "docker",
+    "Kubernetes": "kubernetes",
+    "Jenkins": "jenkins",
+    "Bitbucket": "bitbucket",
+    "CSS": "css",
+    "Angular": "angular",
+    "AngularJS": "angular",
+    "Sass": "sass",
+    "Express": "express",
+    "JavaScript": "javascript",
+    "Webpack": "webpack"
+  }
+}

@@ -1,0 +1,275 @@
+---
+/**
+ * Sticky left rail: employers, skill filters, resume link.
+ * Grows on its own as employers are added to content.json.
+ */
+import Media from '~/components/Media.astro';
+import { employers, profile, skillFilters } from '~/lib/content.ts';
+import { hasImage } from '~/lib/images.ts';
+
+const filters = skillFilters();
+---
+
+<aside class="rail">
+  <div class="group">
+    <p class="eyebrow pad">Employers</p>
+    <div class="employers">
+      <button
+        class="emp-btn all"
+        type="button"
+        data-employer-pick="all"
+        data-active="true"
+        aria-pressed="true"
+      >
+        All employers
+      </button>
+
+      {
+        employers.map((employer) => (
+          <button
+            class="emp-btn"
+            type="button"
+            data-employer-pick={employer.id}
+            data-active="false"
+            aria-pressed="false"
+          >
+            <span class:list={['logo', { tile: hasImage(employer.logo) }]}>
+              <Media src={employer.logo} alt="" width={32} fit="contain" />
+            </span>
+            <span class="meta">
+              <span class="name">{employer.name}</span>
+              <span class="years">{employer.years}</span>
+            </span>
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="group filters">
+    <p class="eyebrow pad">Filter by skill</p>
+    <div class="chips">
+      {
+        filters.map((skill) => (
+          <button
+            class="chip"
+            type="button"
+            data-skill-pick={skill}
+            data-active={String(skill === 'All')}
+            aria-pressed={skill === 'All'}
+          >
+            {skill}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <a class="resume" href={profile.resumeUrl}>Download resume (PDF) →</a>
+</aside>
+
+<style>
+  .rail {
+    position: sticky;
+    top: 16px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .pad {
+    padding: 0 14px 6px;
+  }
+
+  .employers {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .emp-btn {
+    text-align: left;
+    border: 0;
+    border-radius: var(--r-pill);
+    padding: 10px 14px;
+    background: transparent;
+    color: var(--ink);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .emp-btn.all {
+    color: var(--mute);
+  }
+
+  .emp-btn[data-active='true'] {
+    background: var(--card);
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .logo {
+    width: var(--logo-tile);
+    height: var(--logo-tile);
+    border-radius: 9px;
+    flex: none;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /*
+   * Brand logos arrive in whatever shape and background the vendor ships:
+   * Salesforce is 1.4:1 and transparent, Visa is 3:1, Informatica came as an
+   * opaque JPEG. A white tile gives all of them the light background their
+   * colours assume, and stops an opaque one reading as a stray white block in
+   * dark mode. Only applied when a real logo is present — the placeholder
+   * fills the tile itself.
+   */
+  .logo.tile {
+    background: #fff;
+    padding: 4px;
+    box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.06);
+  }
+
+  .meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+  }
+
+  .name {
+    font: 600 17px var(--font-serif);
+  }
+
+  .years {
+    font-size: 13px;
+    color: var(--mute);
+    font-weight: 400;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 10px;
+  }
+
+  .chip {
+    border: 0;
+    border-radius: 9px;
+    padding: 6px 11px;
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--card);
+    color: var(--mute);
+  }
+
+  .chip[data-active='true'] {
+    background: var(--acc);
+    color: var(--on-acc);
+    font-weight: 700;
+  }
+
+  .resume {
+    margin: 0 14px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--acc);
+  }
+
+  /* The whole rail is interactive, so it only appears once JS is running. */
+  .rail {
+    display: none;
+  }
+
+  :global([data-js='on']) .rail {
+    display: flex;
+  }
+
+  /* Phones: employers become one scrolling row pinned under the header. */
+  @media (max-width: 860px) {
+    .rail {
+      position: static;
+      gap: 14px;
+    }
+
+    .pad {
+      padding: 0;
+    }
+
+    .employers {
+      flex-direction: row;
+      min-width: 0;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+
+    .employers::-webkit-scrollbar {
+      display: none;
+    }
+
+    .emp-btn {
+      flex: none;
+      min-height: 40px;
+      background: var(--card);
+      padding: 0 14px;
+      font-size: 14px;
+    }
+
+    .emp-btn[data-active='true'] {
+      background: var(--acc);
+      color: var(--on-acc);
+    }
+
+    .emp-btn[data-active='true'] .years {
+      color: var(--on-acc);
+      opacity: 0.8;
+    }
+
+    .logo,
+    .years {
+      display: none;
+    }
+
+    .name {
+      font-family: var(--font-sans);
+      font-size: 14px;
+    }
+
+    .chips {
+      padding: 0;
+      min-width: 0;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .chips::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chip {
+      flex: none;
+      min-height: 36px;
+    }
+
+    .resume {
+      margin: 0;
+    }
+  }
+</style>

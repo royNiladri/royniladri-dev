@@ -1,0 +1,93 @@
+---
+/** One employer: heading, note, tenure, then its roles on the timeline. */
+import RoleBlock from './RoleBlock.astro';
+import type { Employer } from '~/lib/types.ts';
+
+interface Props {
+  employer: Employer;
+}
+
+const { employer } = Astro.props;
+---
+
+<section class="emp" data-emp={employer.id} id={`employer-${employer.id}`}>
+  <div class="head">
+    <div class="who">
+      <h2 class="name">{employer.name}</h2>
+      <p class="note">{employer.note}</p>
+    </div>
+    <div class="span">
+      <span class="tenure">{employer.tenure}</span>
+      <span class="years">{employer.years}</span>
+    </div>
+  </div>
+
+  {
+    employer.roles.map((role) => (
+      <RoleBlock role={role} employerId={employer.id} />
+    ))
+  }
+</section>
+
+<style>
+  .emp {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    scroll-margin-top: 24px;
+  }
+
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .who {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .name {
+    font: 400 38px/1 var(--font-serif);
+  }
+
+  .note {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--mute);
+    max-width: 62ch;
+  }
+
+  .span {
+    flex: none;
+    text-align: right;
+    font-size: 14px;
+    color: var(--mute);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tenure {
+    font: 400 22px var(--font-serif);
+    color: var(--ink);
+  }
+
+  @media (max-width: 860px) {
+    .name {
+      font-size: 26px;
+    }
+
+    .head {
+      gap: 12px;
+    }
+
+    .tenure {
+      font-size: 17px;
+    }
+  }
+</style>
