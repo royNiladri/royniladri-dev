@@ -1,0 +1,52 @@
+---
+/** "Through my lens" — four photographs in an uneven row. */
+import Media from './Media.astro';
+import { photography } from '~/lib/content.ts';
+
+const handle = '@' + photography.instagram.replace(/\/+$/, '').split('/').pop();
+---
+
+<section class="section shell stack" id="photography">
+  <div class="section-head">
+    <h2 class="h2">Through my lens</h2>
+    <a class="more-link" href={photography.instagram} rel="noopener">
+      {handle} →
+    </a>
+  </div>
+
+  <div class="strip">
+    {
+      photography.photos.map((src, i) => (
+        <div class="frame">
+          <Media src={src} alt={`Photograph ${i + 1} by Niladri Roy`} />
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .stack {
+    gap: 28px;
+  }
+
+  .strip {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.4fr;
+    gap: 16px;
+    height: 240px;
+  }
+
+  .frame {
+    border-radius: var(--r-card);
+    overflow: hidden;
+  }
+
+  @media (max-width: 860px) {
+    .strip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      height: auto;
+      grid-auto-rows: 150px;
+    }
+  }
+</style>

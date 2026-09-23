@@ -1,0 +1,100 @@
+---
+/** Two list columns: writing and teaching, then education. */
+import { writing, education } from '~/lib/content.ts';
+---
+
+<section class="shell grid" id="writing">
+  <div class="col">
+    <h2 class="h3">Writing &amp; teaching</h2>
+    <ul class="list">
+      {
+        writing.map((item) => (
+          <li>
+            {item.url && item.url !== '#' ? (
+              <a class="row" href={item.url} rel="noopener">
+                <span class="title">{item.title}</span>
+                <span class="sub">{item.description}</span>
+              </a>
+            ) : (
+              <span class="row">
+                <span class="title">{item.title}</span>
+                <span class="sub">{item.description}</span>
+              </span>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="col" id="education">
+    <h2 class="h3">Education</h2>
+    <ul class="list">
+      {
+        education.map((item) => (
+          <li>
+            <span class="row">
+              <span class="title">{item.degree}</span>
+              <span class="sub">
+                {item.school} · {item.years}
+              </span>
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 64px;
+    padding-bottom: var(--section-y);
+  }
+
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .h3 {
+    font: 400 28px var(--font-serif);
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .title {
+    font-weight: 700;
+    font-size: 17px;
+  }
+
+  .sub {
+    font-size: 15px;
+    color: var(--mute);
+  }
+
+  @media (max-width: 860px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+  }
+</style>

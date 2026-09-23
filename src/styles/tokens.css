@@ -1,0 +1,72 @@
+/* ---------------------------------------------------------------------------
+   Design tokens. Every colour, radius and spacing step in the site comes from
+   here — change a value once and it moves everywhere.
+   Light is the default; dark overrides only the colours.
+--------------------------------------------------------------------------- */
+
+:root {
+  /* Colour ---------------------------------------------------------------- */
+  --bg: oklch(0.972 0.004 230);
+  --card: #ffffff;
+  --ink: #1b1f24;
+  --mute: #56606b;
+  --line: #e2e6ea;
+
+  /* Primary accent. Everything interactive uses this. */
+  --acc: oklch(0.47 0.08 200);
+  --soft: oklch(0.95 0.018 200);
+
+  /* Secondary accent — highlight stars/badges and headline metrics ONLY. */
+  --acc2: oklch(0.55 0.13 45);
+  --soft2: oklch(0.95 0.03 60);
+
+  /* Placeholder hatching, used until a real image is dropped into public/. */
+  --ph1: #eceff2;
+  --ph2: #e3e7eb;
+
+  --on-acc: #ffffff;
+  --shadow-card: 0 20px 50px -30px rgba(40, 30, 20, 0.35);
+
+  /* Type ------------------------------------------------------------------ */
+  --font-serif: 'Literata', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Radii ----------------------------------------------------------------- */
+  --r-chip: 6px;
+  --r-tag: 8px;
+  --r-btn: 10px;
+  --r-pill: 12px;
+  --r-tile: 14px;
+  --r-card: 16px;
+  --r-story: 20px;
+  --r-hero: 24px;
+
+  /* Spacing --------------------------------------------------------------- */
+  --gutter: 64px;
+  --maxw: 1280px;
+  --section-y: 72px;
+}
+
+[data-theme='dark'] {
+  --bg: #121417;
+  --card: #1a1d21;
+  --ink: #e8eaed;
+  --mute: #9aa3ad;
+  --line: #2a2f35;
+  --acc: oklch(0.76 0.09 200);
+  --soft: oklch(0.3 0.04 200);
+  --acc2: oklch(0.8 0.12 60);
+  --soft2: oklch(0.32 0.05 55);
+  --ph1: #1f2226;
+  --ph2: #262a2f;
+  --on-acc: #10262b;
+  --shadow-card: 0 20px 50px -30px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 860px) {
+  :root {
+    --gutter: 20px;
+    --section-y: 48px;
+  }
+}
