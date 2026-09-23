@@ -77,10 +77,12 @@ entry.
 
 ### Images
 
-See [`public/images/README.md`](public/images/README.md). Until a file exists,
+Images live in `src/assets/images/` so Astro resizes them at build time and
+emits 1x/2x WebP — see [`src/assets/images/README.md`](src/assets/images/README.md)
+for names, sizes and the two things to check in a logo SVG. Until a file exists,
 components draw the hatched placeholder from the design instead of a broken
 image, so the site always builds. Still to supply: `hero.jpg`, `photos/1–4.jpg`,
-`logos/*.svg`, and `public/resume.pdf`. (`portrait.jpg` is in place.)
+`logos/inf.svg`, `logos/visa.svg`, and `public/resume.pdf`.
 
 ---
 
@@ -90,11 +92,12 @@ image, so the site always builds. Still to supply: `hero.jpg`, `photos/1–4.jpg
 src/
   content/content.json        the single source of truth
   content/stories/*.md        long-form case studies
+  assets/images/              images, resized and re-encoded at build time
   content.config.ts           schema for the story frontmatter
   lib/content.ts              the only module that reads content.json
   lib/types.ts                types for that file's shape
   lib/icons.ts                Simple Icons, inlined at build time
-  lib/assets.ts               "has this image been supplied yet?"
+  lib/images.ts               resolves /images/... and says what is supplied
 scripts/validate-content.mjs  content.json sanity check (npm run validate)
   layouts/Base.astro          head, fonts, theme bootstrap, nav, contact footer
   pages/index.astro           home

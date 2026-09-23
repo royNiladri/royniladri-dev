@@ -111,6 +111,13 @@ if (stray.length) {
 }
 
 // --- assets ----------------------------------------------------------------
+// Images resolve to src/assets/images (Astro processes them); everything else
+// is served straight from public/.
+const resolveAsset = (p) =>
+  p.startsWith('/images/')
+    ? 'src/assets/images/' + p.slice('/images/'.length)
+    : 'public' + p;
+
 const assets = [
   ['profile.portrait', c.profile.portrait],
   ['profile.heroPhoto', c.profile.heroPhoto],
@@ -118,7 +125,7 @@ const assets = [
   ...c.photography.photos.map((p, i) => [`photography.photos[${i}]`, p]),
   ...c.employers.map((e) => [`${e.name} logo`, e.logo]),
 ];
-const missing = assets.filter(([, p]) => p && !existsSync('public' + p));
+const missing = assets.filter(([, p]) => p && !existsSync(resolveAsset(p)));
 if (missing.length) {
   notes.push(`${missing.length} asset(s) not supplied yet (placeholder shown): ${missing.map(([k]) => k).join(', ')}`);
 }

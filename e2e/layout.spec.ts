@@ -70,3 +70,17 @@ test('the self-hosted band paints edge to edge behind a gutter-aligned column', 
   const headingBox = await heading.boundingBox();
   expect(headingBox!.x).toBeGreaterThanOrEqual(64);
 });
+
+test('employer logos are fitted, not cropped', async ({ page }) => {
+  await page.goto('/work');
+
+  // Logos are rarely square. `contain` keeps the whole mark inside the tile;
+  // `cover` would crop a wide logo to its middle and enlarge it.
+  const logo = page.locator('.logo img').first();
+  await expect(logo).toBeVisible();
+  await expect(logo).toHaveCSS('object-fit', 'contain');
+
+  const box = await logo.boundingBox();
+  expect(box!.width).toBeLessThanOrEqual(32);
+  expect(box!.height).toBeLessThanOrEqual(32);
+});

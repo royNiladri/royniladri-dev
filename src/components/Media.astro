@@ -1,39 +1,98 @@
 ---
 /**
- * An image, or the hatched placeholder from the design until the real file is
- * dropped into `public/`. Existence is checked at build time — see
- * `src/lib/assets.ts`.
+ * An image, or the hatched placeholder from the design until a real file is
+ * added to `src/assets/images/`.
+ *
+ * Rasters go through Astro's image pipeline: resized at build time to the size
+ * they are drawn at, emitted at 1x and 2x, and re-encoded. SVGs pass straight
+ * through. `fit` matters — a photograph should fill its box, a logo should sit
+ * inside it, because logos are rarely the same shape as the box.
  */
-import { hasAsset } from '~/lib/assets.ts';
+import { Image } from 'astro:assets';
+import { resolveImage } from '~/lib/images.ts';
 
 interface Props {
+  /** Path as written in content.json, e.g. `/images/logos/sf.svg`. */
   src: string;
   alt: string;
   /** Shown inside the placeholder to say what belongs there. */
   note?: string;
+  /** `cover` crops to fill (photographs); `contain` fits inside (logos). */
+  fit?: 'cover' | 'contain';
+  /** Drawn width in CSS pixels. Fixed-size images get 1x and 2x from this. */
+  width?: number;
+  /** Candidate widths for a fluid image; pair with `sizes`. */
+  widths?: number[];
+  sizes?: string;
   class?: string;
   loading?: 'lazy' | 'eager';
 }
 
-const { src, alt, note, class: className = '', loading = 'lazy' } = Astro.props;
-const ready = hasAsset(src);
+const {
+  src,
+  alt,
+  note,
+  fit = 'cover',
+  width,
+  widths,
+  sizes,
+  class: className = '',
+  loading = 'lazy',
+} = Astro.props;
+
+const resolved = resolveImage(src);
+const classes = `media fit-${fit} ${className}`.trim();
 ---
 
 {
-  ready ? (
-    <img class={`media ${className}`} src={src} alt={alt} loading={loading} />
-  ) : (
-    <div class={`media placeholder ${className}`} role="img" aria-label={alt}>
+  resolved === null && (
+    <div class={`media placeholder ${className}`.trim()} role="img" aria-label={alt}>
       {note && <span class="note">{note}</span>}
     </div>
   )
+}
+
+{
+  resolved?.kind === 'vector' && (
+    <img class={classes} src={resolved.url} alt={alt} loading={loading} />
+  )
+}
+
+{
+  resolved?.kind === 'raster' &&
+    (widths ? (
+      <Image
+        class={classes}
+        src={resolved.image}
+        alt={alt}
+        widths={widths}
+        sizes={sizes}
+        loading={loading}
+      />
+    ) : (
+      <Image
+        class={classes}
+        src={resolved.image}
+        alt={alt}
+        width={width ?? resolved.image.width}
+        densities={[1, 2]}
+        loading={loading}
+      />
+    ))
 }
 
 <style>
   .media {
     width: 100%;
     height: 100%;
+  }
+
+  .fit-cover {
     object-fit: cover;
+  }
+
+  .fit-contain {
+    object-fit: contain;
   }
 
   .placeholder {

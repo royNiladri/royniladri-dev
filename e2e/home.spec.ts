@@ -95,8 +95,16 @@ test('images that have not been supplied render as placeholders, not 404s', asyn
 
   expect(failures).toEqual([]);
 
-  // The portrait is a real file; the hero has not been supplied yet.
-  await expect(page.locator(`img[src="${profile.portrait}"]`)).toBeVisible();
+  // The portrait is a real file, resized at build time and served at 1x/2x
+  // rather than shipping the full-size original to paint a 36px circle.
+  const avatar = page.locator('.avatar img');
+  await expect(avatar).toBeVisible();
+  await expect(avatar).toHaveAttribute('src', /^\/_astro\//);
+  await expect(avatar).toHaveAttribute('srcset', /2x/);
+  expect(await avatar.evaluate((img: HTMLImageElement) => img.naturalWidth))
+    .toBeLessThanOrEqual(128);
+
+  // The hero has not been supplied yet, so it draws the placeholder.
   await expect(
     page.getByRole('img', { name: 'Landscape photograph by Niladri Roy' }),
   ).toBeVisible();

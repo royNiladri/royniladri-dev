@@ -18,7 +18,12 @@ const handle = '@' + photography.instagram.replace(/\/+$/, '').split('/').pop();
     {
       photography.photos.map((src, i) => (
         <div class="frame">
-          <Media src={src} alt={`Photograph ${i + 1} by Niladri Roy`} />
+          <Media
+            src={src}
+            alt={`Photograph ${i + 1} by Niladri Roy`}
+            widths={[320, 480, 640, 960]}
+            sizes="(max-width: 860px) 50vw, 460px"
+          />
         </div>
       ))
     }
