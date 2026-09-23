@@ -83,16 +83,31 @@ const classes = `media fit-${fit} ${className}`.trim();
 
 <style>
   .media {
-    width: 100%;
-    height: 100%;
+    display: block;
   }
 
+  /* A photograph fills its box and is cropped to do it. */
   .fit-cover {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 
+  /*
+   * A logo sits inside its box instead. This caps the intrinsic size rather
+   * than relying on object-fit alone: browsers disagree about the intrinsic
+   * size of an SVG that carries a viewBox but no width/height, and where that
+   * goes wrong the image is laid out at its natural size and cropped by the
+   * parent's overflow — a wide wordmark ends up showing only its middle.
+   * max-width/max-height cannot overflow whatever the intrinsic size is.
+   */
   .fit-contain {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
     object-fit: contain;
+    margin: auto;
   }
 
   .placeholder {

@@ -71,16 +71,44 @@ test('the self-hosted band paints edge to edge behind a gutter-aligned column', 
   expect(headingBox!.x).toBeGreaterThanOrEqual(64);
 });
 
-test('employer logos are fitted, not cropped', async ({ page }) => {
+test('every employer logo fits inside its tile and is shown whole', async ({
+  page,
+}) => {
   await page.goto('/work');
 
-  // Logos are rarely square. `contain` keeps the whole mark inside the tile;
-  // `cover` would crop a wide logo to its middle and enlarge it.
-  const logo = page.locator('.logo img').first();
-  await expect(logo).toBeVisible();
-  await expect(logo).toHaveCSS('object-fit', 'contain');
+  const logos = page.locator('.logo img');
+  const count = await logos.count();
+  expect(count).toBeGreaterThan(0);
 
-  const box = await logo.boundingBox();
-  expect(box!.width).toBeLessThanOrEqual(32);
-  expect(box!.height).toBeLessThanOrEqual(32);
+  for (let i = 0; i < count; i++) {
+    const measured = await logos.nth(i).evaluate((img: HTMLImageElement) => {
+      const tile = img.parentElement!;
+      const t = tile.getBoundingClientRect();
+      const cs = getComputedStyle(tile);
+      const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+      const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+      const r = img.getBoundingClientRect();
+      return {
+        src: img.getAttribute('src') ?? '',
+        inner: { w: t.width - padX, h: t.height - padY },
+        drawn: { w: r.width, h: r.height },
+        natural: { w: img.naturalWidth, h: img.naturalHeight },
+      };
+    });
+
+    const where = `logo ${i} (${measured.src.slice(-28)})`;
+
+    // Laid out larger than the space it has is what gets cropped by overflow.
+    expect(measured.drawn.w, where).toBeLessThanOrEqual(measured.inner.w + 0.5);
+    expect(measured.drawn.h, where).toBeLessThanOrEqual(measured.inner.h + 0.5);
+    expect(measured.drawn.w, where).toBeGreaterThan(0);
+
+    // The whole mark is visible: drawn shape still matches the file's shape.
+    // A centre-cropped 3:1 wordmark would come back square.
+    if (measured.natural.w > 0 && measured.natural.h > 0) {
+      const natural = measured.natural.w / measured.natural.h;
+      const drawn = measured.drawn.w / measured.drawn.h;
+      expect(Math.abs(drawn - natural), `${where} aspect`).toBeLessThan(0.15);
+    }
+  }
 });
