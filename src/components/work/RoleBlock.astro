@@ -1,0 +1,255 @@
+---
+/**
+ * One role on the timeline.
+ *
+ * Renders every project. With JavaScript the island collapses it and swaps in
+ * the highlight chips; with JavaScript off the whole role stays open and
+ * readable, which is the point of rendering it this way.
+ */
+import ProjectCard from './ProjectCard.astro';
+import type { Role } from '~/lib/types.ts';
+
+interface Props {
+  role: Role;
+  employerId: string;
+}
+
+const { role, employerId } = Astro.props;
+const highlights = role.projects.filter((p) => p.highlight);
+const panelId = `projects-${role.id}`;
+
+// Rendered in the state JavaScript would put it in, so the page does not paint
+// expanded and then collapse. The collapse CSS is gated on `data-js`, so with
+// JavaScript off these values are ignored and everything stays open.
+const initialLabel =
+  highlights.length > 0
+    ? `+ Show ${highlights.length} highlight${highlights.length === 1 ? '' : 's'}`
+    : `See ${role.projects.length} in Everything`;
+---
+
+<div
+  class="role"
+  id={`role-${role.id}`}
+  data-role={role.id}
+  data-emp={employerId}
+  data-open="false"
+>
+  <div class="when">
+    <span class="dates">{role.dates}</span>
+    <span class="loc">{role.loc}</span>
+  </div>
+
+  <div class="track">
+    <span class="dot" aria-hidden="true"></span>
+
+    <div class="head">
+      <div class="who">
+        <h3 class="title">{role.title}</h3>
+        <p class="team">{role.team}</p>
+      </div>
+      <button
+        class="toggle js-only"
+        type="button"
+        data-role-toggle
+        data-action={highlights.length > 0 ? 'toggle' : 'to-everything'}
+        aria-expanded="false"
+        aria-controls={panelId}
+      >
+        {initialLabel}
+      </button>
+    </div>
+
+    <p class="summary">{role.summary}</p>
+
+    {/* Collapsed view: highlight titles as chips. */}
+    <div class="chips" data-role-chips>
+      {
+        highlights.map((project) => (
+          <span class="chip" data-hi-chip data-skills={project.skills.join('|')}>
+            <span class="star" aria-hidden="true">
+              ★
+            </span>
+            {project.title}
+          </span>
+        ))
+      }
+    </div>
+
+    <div class="panel" id={panelId} data-role-panel>
+      {role.projects.map((project) => <ProjectCard project={project} />)}
+      <button class="more js-only" type="button" data-role-more hidden></button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .role {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 28px;
+    scroll-margin-top: 24px;
+  }
+
+  .when {
+    padding-top: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 13px;
+    color: var(--mute);
+  }
+
+  .dates {
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .track {
+    border-left: 2px solid var(--line);
+    padding: 22px 0 22px 28px;
+    position: relative;
+  }
+
+  .dot {
+    position: absolute;
+    left: -7px;
+    top: 30px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--acc);
+  }
+
+  .head {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: baseline;
+  }
+
+  .title {
+    font: 600 23px/1.25 var(--font-serif);
+  }
+
+  .team {
+    font-size: 14px;
+    color: var(--mute);
+  }
+
+  .toggle {
+    flex: none;
+    border: 0;
+    border-radius: var(--r-btn);
+    background: var(--card);
+    color: var(--acc);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 7px 12px;
+    min-height: 34px;
+  }
+
+  .summary {
+    margin-top: 12px;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 64ch;
+  }
+
+  .chips {
+    margin-top: 12px;
+    display: none;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .chip {
+    display: inline-flex;
+    gap: 6px;
+    align-items: baseline;
+    font: italic 15px var(--font-serif);
+    padding: 4px 10px;
+    border-radius: var(--r-tag);
+    background: var(--soft2);
+  }
+
+  .star {
+    font-style: normal;
+    font-size: 11px;
+    color: var(--acc2);
+  }
+
+  .panel {
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .more {
+    order: 99;
+    align-self: flex-start;
+    border: 1px dashed var(--line);
+    border-radius: var(--r-btn);
+    background: transparent;
+    color: var(--mute);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 8px 14px;
+  }
+
+  /* --- Progressive collapse. Only applies once the inline script runs. --- */
+  .js-only {
+    display: none;
+  }
+
+  :global([data-js='on']) .toggle,
+  :global([data-js='on']) .more:not([hidden]) {
+    display: inline-flex;
+  }
+
+  :global([data-js='on']) .role[data-open='false'] .panel {
+    display: none;
+  }
+
+  :global([data-js='on']) .role[data-open='false'] .chips {
+    display: flex;
+  }
+
+  @media (max-width: 860px) {
+    .role {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .when {
+      padding-top: 14px;
+      flex-direction: row;
+      gap: 10px;
+    }
+
+    .track {
+      margin-left: 5px;
+      padding: 10px 0 18px 16px;
+    }
+
+    .dot {
+      top: 16px;
+      left: -7px;
+    }
+
+    .head {
+      align-items: center;
+      min-height: 44px;
+      gap: 12px;
+    }
+
+    .title {
+      font-size: 19px;
+    }
+
+    .summary {
+      font-size: 15px;
+    }
+  }
+</style>

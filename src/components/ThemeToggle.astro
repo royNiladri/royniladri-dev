@@ -1,0 +1,70 @@
+---
+/** Light/dark switch. The saved choice wins over the OS preference. */
+---
+
+<button class="toggle" type="button" data-theme-toggle aria-live="polite">
+  <svg class="sun" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+    <circle cx="12" cy="12" r="4.2" fill="currentColor"></circle>
+    <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+      <path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2"></path>
+      <path d="M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4L17 7M7 17l-1.6 1.6"></path>
+    </g>
+  </svg>
+  <svg class="moon" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+    <path
+      d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.4 8.4 0 1 0 10.2 10.2Z"
+      fill="currentColor"></path>
+  </svg>
+  <span class="label" data-theme-label>Dark</span>
+</button>
+
+<style>
+  .toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border: 0;
+    background: var(--card);
+    color: var(--ink);
+    border-radius: var(--r-btn);
+    padding: 7px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    min-height: 34px;
+  }
+
+  .moon {
+    display: none;
+  }
+
+  :global([data-theme='dark']) .sun {
+    display: none;
+  }
+
+  :global([data-theme='dark']) .moon {
+    display: block;
+  }
+</style>
+
+<script>
+  import { applyTheme, nextTheme, readTheme } from '~/scripts/theme.ts';
+
+  const button = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  const label = document.querySelector<HTMLElement>('[data-theme-label]');
+
+  function sync() {
+    const target = nextTheme();
+    if (label) label.textContent = target === 'dark' ? 'Dark' : 'Light';
+    button?.setAttribute(
+      'aria-label',
+      `Switch to ${target} theme. Current theme: ${readTheme()}.`,
+    );
+  }
+
+  button?.addEventListener('click', () => {
+    applyTheme(nextTheme(), { persist: true });
+    sync();
+  });
+
+  sync();
+</script>

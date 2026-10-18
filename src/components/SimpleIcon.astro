@@ -1,0 +1,50 @@
+---
+/**
+ * A Simple Icon inlined as SVG. Uses `currentColor`, so it themes itself.
+ * Falls back to the initial letter when the slug has no icon (e.g. Homebox).
+ */
+import { iconBySlug } from '~/lib/icons.ts';
+
+interface Props {
+  slug?: string | null;
+  /** Used for the initial-letter fallback and the accessible name. */
+  name: string;
+  size?: number;
+}
+
+const { slug, name, size = 15 } = Astro.props;
+const icon = iconBySlug(slug);
+---
+
+{
+  icon ? (
+    <svg
+      class="icon"
+      role="img"
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="currentColor"
+    >
+      <path d={icon.path} />
+    </svg>
+  ) : (
+    <span class="initial" aria-hidden="true" style={`font-size:${size * 0.8}px`}>
+      {name.charAt(0)}
+    </span>
+  )
+}
+
+<style>
+  .icon {
+    display: block;
+    flex: none;
+  }
+
+  .initial {
+    font-weight: 700;
+    color: var(--mute);
+    line-height: 1;
+  }
+</style>

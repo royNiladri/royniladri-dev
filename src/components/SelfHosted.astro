@@ -1,0 +1,283 @@
+---
+/**
+ * "What I self-host": four service groups plus the backup chain.
+ * The chain is a flat list in content.json that alternates nodes (`t`) and
+ * edges (`e`); adding a hop means adding two entries.
+ */
+import SimpleIcon from './SimpleIcon.astro';
+import { selfHosted } from '~/lib/content.ts';
+
+const { intro, groups, backupChain } = selfHosted;
+---
+
+<section class="band" id="self-hosted">
+  <div class="shell inner">
+    <div class="top">
+      <div class="lead">
+        <h2 class="h2">What I self-host</h2>
+        <p class="text">{intro}</p>
+      </div>
+
+      <div class="groups">
+        {
+          groups.map((group) => (
+            <div class="group">
+              <p class="eyebrow">{group.group}</p>
+              {group.services.map((service) => (
+                <div class="service">
+                  <span class="tile">
+                    <SimpleIcon slug={service.icon} name={service.name} />
+                  </span>
+                  <span class="meta">
+                    <span class="name">{service.name}</span>
+                    <span class="desc">{service.description}</span>
+                  </span>
+                </div>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="chain">
+      <div class="chain-head">
+        <h3 class="chain-title">Backup chain</h3>
+        <p class="chain-note">Three copies, two locations, one offsite</p>
+      </div>
+
+      <ol class="chain-row">
+        {
+          backupChain.map((step) =>
+            step.t ? (
+              <li class="node">
+                <span class="tile">
+                  <SimpleIcon slug={step.i} name={step.t} />
+                </span>
+                <span class="meta">
+                  <span class="name">{step.t}</span>
+                  <span class="desc">{step.s}</span>
+                </span>
+              </li>
+            ) : (
+              <li class="edge">
+                <span class="edge-label">{step.e}</span>
+                <span class="line" aria-hidden="true" />
+                <span class="edge-note">{step.s}</span>
+              </li>
+            ),
+          )
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .inner {
+    padding-block: var(--section-y);
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .top {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 64px;
+  }
+
+  .lead {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--mute);
+    text-wrap: pretty;
+  }
+
+  .groups {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .group {
+    border: 1px solid var(--line);
+    border-radius: var(--r-card);
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .service,
+  .node {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .tile {
+    width: 28px;
+    height: 28px;
+    flex: none;
+    border-radius: var(--r-tag);
+    background: var(--soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--mute);
+  }
+
+  .meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .name {
+    font: 600 17px var(--font-serif);
+  }
+
+  .desc {
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--mute);
+  }
+
+  /* Backup chain ---------------------------------------------------------- */
+
+  .chain {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+  }
+
+  .chain-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .chain-title {
+    font: 600 20px var(--font-serif);
+  }
+
+  .chain-note {
+    font-size: 14px;
+    color: var(--mute);
+  }
+
+  .chain-row {
+    display: flex;
+    align-items: stretch;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .node {
+    flex: 1 1 0;
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--r-tile);
+    padding: 16px 18px;
+    align-items: center;
+    background: var(--bg);
+  }
+
+  .node .desc {
+    font-size: 13px;
+  }
+
+  .edge {
+    flex: 0 1 190px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    padding: 0 10px;
+    text-align: center;
+  }
+
+  .edge-label {
+    font: 600 12px var(--font-mono);
+    color: var(--acc);
+  }
+
+  .edge-note {
+    font-size: 12px;
+    line-height: 1.35;
+    color: var(--mute);
+  }
+
+  .line {
+    width: 100%;
+    height: 1px;
+    background: var(--acc);
+    position: relative;
+  }
+
+  .line::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: -4px;
+    width: 0;
+    height: 0;
+    border-left: 7px solid var(--acc);
+    border-top: 4.5px solid transparent;
+    border-bottom: 4.5px solid transparent;
+  }
+
+  @media (max-width: 1000px) {
+    .top {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .groups {
+      grid-template-columns: 1fr;
+    }
+
+    /* The chain turns vertical and the arrows point down. */
+    .chain-row {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .edge {
+      flex: none;
+      padding: 10px 0;
+      gap: 6px;
+    }
+
+    .line {
+      width: 1px;
+      height: 26px;
+    }
+
+    .line::after {
+      right: -4px;
+      top: auto;
+      bottom: -1px;
+      border-left: 4.5px solid transparent;
+      border-right: 4.5px solid transparent;
+      border-top: 7px solid var(--acc);
+      border-bottom: 0;
+    }
+  }
+</style>
