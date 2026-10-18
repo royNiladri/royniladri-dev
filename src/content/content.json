@@ -1,8 +1,8 @@
 {
   "profile": {
     "name": "Niladri Roy",
-    "headline": "I like making hard systems feel calm.",
-    "intro": "Eleven years on enterprise software at Visa, Informatica and Salesforce. Outside work I run my own small infrastructure, write, and take photographs.",
+    "headline": "Taking things from design to production, and beyond.",
+    "intro": "Eleven years across Visa, Informatica and Salesforce, owning the full stack—UI, services, data, the ML behind it. AI enrichment that lifted sales 20%. An audit trail that's 30% cheaper and twice as fast. An npm library at 5M+ downloads, still running. Outside work: my own server, writing, photography.",
     "current": {
       "title": "Senior Member of Technical Staff",
       "org": "Salesforce",
@@ -16,7 +16,6 @@
       "Open to freelance",
       "Open to new roles"
     ],
-    "resumeUrl": "/resume.pdf",
     "portrait": "/images/portrait.jpg",
     "heroPhoto": "/images/hero.jpg"
   },
@@ -108,7 +107,7 @@
                 "Spring",
                 "MongoDB"
               ],
-              "highlight": true,
+              "highlight": false,
               "caseStudy": null
             }
           ]
@@ -245,7 +244,7 @@
                 "React",
                 "TypeScript"
               ],
-              "highlight": false,
+              "highlight": true,
               "caseStudy": null
             },
             {
@@ -387,7 +386,7 @@
                 "Express",
                 "MongoDB"
               ],
-              "highlight": false,
+              "highlight": true,
               "caseStudy": null
             },
             {
@@ -492,7 +491,7 @@
     {
       "slug": "an-audit-trail-that-scales",
       "title": "An audit trail that scales",
-      "org": "Informatica",
+      "org": "Informatica, 2020–2021",
       "metric": "−30%",
       "metricLabel": "operating cost, with 50%+ faster responses",
       "summary": "Elasticsearch batching for import jobs, with every change measured by A/B performance metrics.",
@@ -506,7 +505,7 @@
     {
       "slug": "js-big-decimal",
       "title": "js-big-decimal",
-      "org": "Open source, npm",
+      "org": "Open source, 2015–2018",
       "metric": "5M+",
       "metricLabel": "downloads",
       "summary": "A small library for exact decimal arithmetic in JavaScript, published while at Visa.",
@@ -547,20 +546,18 @@
   ],
   "testimonials": [
     {
-      "quote": "Placeholder: a former manager on ownership, e.g. how an unstable feature shipped once Niladri took it on.",
-      "name": "Name Surname",
-      "role": "Engineering Manager, Informatica",
-      "placeholder": true
+      "quote": "Niladri is a talented professional and doesn't shy away from helping and sharing knowledge. He is a strong team player and an asset to retain for the long run.",
+      "name": "Kanika Goel",
+      "role": "Software Developer, Visa"
     },
     {
-      "quote": "Placeholder: a peer or mentee on teaching: tech talks, Ready to Return, hackathon mentoring.",
-      "name": "Name Surname",
-      "role": "Colleague, Visa",
-      "placeholder": true
+      "quote": "I worked with Niladri closely for 3.5+ years at Visa. He's a quick learner who brought new technologies and best practices to the team—setting up CI/CD from scratch, a unit testing framework, and Checkmarx and SonarQube scans for code quality, all of which he owned end to end. He was our go-to person for tech queries, with strong dedication and ownership.",
+      "name": "Ramnikunj Prajapati",
+      "role": "Senior Consultant, Visa"
     }
   ],
   "selfHosted": {
-    "intro": "An old laptop runs my family's photos, files and paperwork, so they stay with us. It's a small production system: people depend on it, it gets backed up, and I get alerts when something breaks.",
+    "intro": "An old laptop runs my family's photos, files and paperwork, so they stay with us. It's a small production system: people depend on it, it gets backed up, and I get alerts when something breaks. These are the services that matter most — a few more run alongside them without earning their own card here.",
     "groups": [
       {
         "group": "Privacy",
@@ -650,7 +647,7 @@
     ]
   },
   "photography": {
-    "instagram": "https://www.instagram.com/niladriclicks/",
+    "instagram": "https://www.instagram.com/tickets_tales/",
     "photos": [
       "/images/photos/1.jpg",
       "/images/photos/2.jpg",
@@ -709,7 +706,7 @@
     },
     {
       "label": "Instagram",
-      "url": "https://www.instagram.com/niladriclicks/"
+      "url": "https://www.instagram.com/tickets_tales/"
     }
   ],
   "techIcons": {

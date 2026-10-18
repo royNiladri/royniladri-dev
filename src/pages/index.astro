@@ -16,7 +16,10 @@ import { caseStudies, profile } from '~/lib/content.ts';
   <section class="stories shell stack" id="stories">
     <div class="section-head">
       <h2 class="h2">Stories from the work</h2>
-      <a class="more-link" href="/work">All work history →</a>
+      <span class="more-links">
+        <a class="more-link" href="/stories">All stories →</a>
+        <a class="more-link" href="/work">All work history →</a>
+      </span>
     </div>
     <div class="grid">
       {caseStudies.map((study) => <StoryCard study={study} />)}
@@ -41,6 +44,12 @@ import { caseStudies, profile } from '~/lib/content.ts';
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
+  }
+
+  .more-links {
+    display: flex;
+    gap: 20px;
+    flex: none;
   }
 
   @media (max-width: 860px) {

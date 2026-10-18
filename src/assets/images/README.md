@@ -62,6 +62,3 @@ quarter of that and unrecognisable. The size lives in `--avatar` in
 Paths are configured in `src/content/content.json` (`profile.portrait`,
 `profile.heroPhoto`, `photography.photos`, and `logo` on each employer) and are
 written as `/images/...`, which resolves to this folder.
-
-`public/resume.pdf` is still expected for the resume link — that one is a
-download, not an image, so it belongs in `public/`.

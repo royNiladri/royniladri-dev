@@ -98,7 +98,6 @@ export interface Profile {
   current: { title: string; org: string; team: string; location: string };
   status: string;
   statusOptions: string[];
-  resumeUrl: string;
   portrait: string;
   heroPhoto: string;
 }

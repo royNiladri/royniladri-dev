@@ -1,10 +1,10 @@
 ---
 /**
- * Sticky left rail: employers, skill filters, resume link.
+ * Sticky left rail: employers, skill filters.
  * Grows on its own as employers are added to content.json.
  */
 import Media from '~/components/Media.astro';
-import { employers, profile, skillFilters } from '~/lib/content.ts';
+import { employers, skillFilters } from '~/lib/content.ts';
 import { hasImage } from '~/lib/images.ts';
 
 const filters = skillFilters();
@@ -64,8 +64,6 @@ const filters = skillFilters();
       }
     </div>
   </div>
-
-  <a class="resume" href={profile.resumeUrl}>Download resume (PDF) →</a>
 </aside>
 
 <style>
@@ -183,13 +181,6 @@ const filters = skillFilters();
     font-weight: 700;
   }
 
-  .resume {
-    margin: 0 14px;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--acc);
-  }
-
   /* The whole rail is interactive, so it only appears once JS is running. */
   .rail {
     display: none;
@@ -266,10 +257,6 @@ const filters = skillFilters();
     .chip {
       flex: none;
       min-height: 36px;
-    }
-
-    .resume {
-      margin: 0;
     }
   }
 </style>
