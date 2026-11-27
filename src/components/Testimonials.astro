@@ -1,0 +1,70 @@
+---
+/** Two quote cards. Entries flagged `placeholder` are drafts to be replaced. */
+import { testimonials } from '~/lib/content.ts';
+---
+
+{
+  testimonials.length > 0 && (
+    <section class="shell grid">
+      {testimonials.map((t) => (
+        <figure class="quote">
+          <blockquote>{`“${t.quote}”`}</blockquote>
+          <figcaption>
+            <span class="who">{t.name}</span>
+            <span class="role">{t.role}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </section>
+  )
+}
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    padding-bottom: var(--section-y);
+  }
+
+  .quote {
+    background: var(--soft);
+    border-radius: var(--r-story);
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  blockquote {
+    font: italic 400 21px/1.5 var(--font-serif);
+  }
+
+  figcaption {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+  }
+
+  .who {
+    font-weight: 700;
+  }
+
+  .role {
+    color: var(--mute);
+  }
+
+  @media (max-width: 860px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+
+    .quote {
+      padding: 26px;
+    }
+
+    blockquote {
+      font-size: 18px;
+    }
+  }
+</style>

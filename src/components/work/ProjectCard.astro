@@ -1,0 +1,121 @@
+---
+/** One project inside an expanded role. */
+import TechChip from '~/components/TechChip.astro';
+import type { Project } from '~/lib/types.ts';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<article
+  class="proj"
+  data-proj
+  data-hi={String(project.highlight)}
+  data-skills={project.skills.join('|')}
+>
+  <div class="top">
+    <h4 class="title">{project.title}</h4>
+    {project.highlight && <span class="badge">★ Highlight</span>}
+  </div>
+
+  <p class="desc">{project.description}</p>
+
+  <div class="meta">
+    {project.skills.length > 0 && (
+      <span class="skills">{project.skills.join(', ')}</span>
+    )}
+    {project.tech.map((tech) => <TechChip name={tech} />)}
+  </div>
+
+  {
+    project.caseStudy && (
+      <a class="link" href={`/stories/${project.caseStudy}`}>
+        Read the story →
+      </a>
+    )
+  }
+
+  {
+    project.link && (
+      <a class="link" href={project.link.url} rel="noopener">
+        {project.link.label} ↗
+      </a>
+    )
+  }
+</article>
+
+<style>
+  .proj {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--r-card);
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: baseline;
+  }
+
+  .title {
+    font: 600 18px/1.3 var(--font-serif);
+  }
+
+  /* --acc2: highlights only. */
+  .badge {
+    flex: none;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--acc2);
+  }
+
+  .desc {
+    font-size: 15px;
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    align-items: center;
+  }
+
+  .skills {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--mute);
+  }
+
+  .link {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--acc);
+  }
+
+  @media (max-width: 560px) {
+    .proj {
+      padding: 14px 16px;
+      border-radius: var(--r-pill);
+    }
+
+    .title {
+      font-size: 16px;
+    }
+
+    .desc {
+      font-size: 14px;
+    }
+  }
+</style>

@@ -1,0 +1,108 @@
+---
+/**
+ * Page shell: head, fonts, theme bootstrap, nav and the contact footer.
+ * Every page renders through here.
+ */
+import Nav from '~/components/Nav.astro';
+import ContactFooter from '~/components/ContactFooter.astro';
+import { profile } from '~/lib/content.ts';
+import '~/styles/tokens.css';
+import '~/styles/base.css';
+
+interface Props {
+  title: string;
+  description: string;
+  active?: 'work' | 'stories' | 'self-hosted' | 'writing' | 'contact';
+  /** Set false on pages that end with their own closing block. */
+  contact?: boolean;
+}
+
+const {
+  title,
+  description,
+  active,
+  contact = true,
+} = Astro.props;
+
+const pageTitle =
+  title === profile.name ? profile.name : `${title} · ${profile.name}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+
+const fonts =
+  'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600' +
+  '&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400' +
+  '&family=Nunito+Sans:wght@400;600;700&display=swap';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href={fonts} />
+
+    {/* Runs before first paint: no flash of the wrong theme. */}
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        root.dataset.js = 'on';
+        var saved = null;
+        try {
+          saved = localStorage.getItem('theme');
+        } catch (e) {}
+        if (saved === 'dark' || saved === 'light') {
+          root.dataset.theme = saved;
+        } else {
+          root.dataset.theme = window.matchMedia(
+            '(prefers-color-scheme: dark)',
+          ).matches
+            ? 'dark'
+            : 'light';
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Nav active={active} />
+    <main id="main">
+      <slot />
+    </main>
+    {contact && <ContactFooter />}
+
+    <style>
+      .skip {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        z-index: 10;
+        background: var(--card);
+        color: var(--ink);
+        padding: 10px 16px;
+        border-radius: var(--r-btn);
+        font-weight: 700;
+      }
+
+      .skip:focus {
+        left: 16px;
+        top: 16px;
+      }
+    </style>
+  </body>
+</html>

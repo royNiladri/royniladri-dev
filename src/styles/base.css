@@ -1,0 +1,179 @@
+/* ---------------------------------------------------------------------------
+   Reset, element defaults and the handful of primitives shared across pages
+   (page shell, section headers, chips, placeholder hatching).
+   Component-specific CSS lives inside its own .astro file.
+--------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+:where(a, button, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--acc);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--soft);
+  color: var(--ink);
+}
+
+/* Page shell ------------------------------------------------------------- */
+
+.shell {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* A band that paints edge to edge but keeps its content on the grid. */
+.band {
+  background: var(--card);
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Section header: title left, optional link right ------------------------- */
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.h2 {
+  font: 400 36px/1.15 var(--font-serif);
+  letter-spacing: -0.01em;
+}
+
+.more-link {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--acc);
+  flex: none;
+}
+
+/* Small shared bits ------------------------------------------------------- */
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.tag {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: var(--r-tag);
+  background: var(--soft);
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Diagonal hatching stands in for an image that has not been supplied yet. */
+.placeholder {
+  background: repeating-linear-gradient(
+    135deg,
+    var(--ph1) 0 8px,
+    var(--ph2) 8px 16px
+  );
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 860px) {
+  .h2 {
+    font-size: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Filtering uses the `hidden` attribute; make it beat flex/grid display. */
+[hidden] {
+  display: none !important;
+}

@@ -1,0 +1,139 @@
+---
+import Media from './Media.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { profile } from '~/lib/content.ts';
+
+interface Props {
+  /** Which nav item to mark as current. */
+  active?: 'work' | 'stories' | 'self-hosted' | 'writing' | 'contact';
+}
+
+const { active } = Astro.props;
+
+const items = [
+  { key: 'work', label: 'Work', href: '/work' },
+  { key: 'stories', label: 'Stories', href: '/stories' },
+  { key: 'self-hosted', label: 'Self-hosted', href: '/#self-hosted' },
+  { key: 'writing', label: 'Writing', href: '/#writing' },
+  { key: 'contact', label: 'Contact', href: '/#contact' },
+] as const;
+---
+
+<nav class="nav shell" aria-label="Primary">
+  <a class="brand" href="/">
+    <span class="avatar">
+      <Media src={profile.portrait} alt="" width={56} loading="eager" />
+    </span>
+    <span class="name">{profile.name}</span>
+  </a>
+
+  <ul class="links">
+      {
+        items.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={['link', { current: active === item.key }]}
+              aria-current={active === item.key ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+  </ul>
+
+  <div class="toggle-slot">
+    <ThemeToggle />
+  </div>
+</nav>
+
+<style>
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding-block: 22px;
+  }
+
+  .brand {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex: none;
+    margin-right: auto;
+  }
+
+  .brand:hover {
+    text-decoration: none;
+  }
+
+  .avatar {
+    width: var(--avatar);
+    height: var(--avatar);
+    border-radius: 50%;
+    overflow: hidden;
+    flex: none;
+    display: block;
+  }
+
+  .name {
+    font: 600 18px var(--font-serif);
+  }
+
+  .toggle-slot {
+    flex: none;
+  }
+
+  .links {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 15px;
+    color: var(--mute);
+  }
+
+  .link.current {
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  /*
+   * No burger menu. On phones the theme toggle stays on the brand row and the
+   * links get the full width below it as one scrollable strip, faded on the
+   * right so it reads as scrollable rather than cut off.
+   */
+  @media (max-width: 860px) {
+    .nav {
+      flex-wrap: wrap;
+      gap: 10px 12px;
+      padding-block: 16px;
+    }
+
+    .links {
+      order: 3;
+      width: 100%;
+      min-width: 0;
+      gap: 20px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-block: 2px;
+      mask-image: linear-gradient(
+        to right,
+        #000 calc(100% - 28px),
+        transparent
+      );
+    }
+
+    .links::-webkit-scrollbar {
+      display: none;
+    }
+
+    .links li {
+      flex: none;
+    }
+  }
+</style>

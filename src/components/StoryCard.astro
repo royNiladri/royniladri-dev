@@ -1,0 +1,120 @@
+---
+/** Case-study card. Used on the home page grid and the stories index. */
+import type { CaseStudy } from '~/lib/types.ts';
+
+interface Props {
+  study: CaseStudy;
+}
+
+const { study } = Astro.props;
+---
+
+<a class="card" href={`/stories/${study.slug}`}>
+  <span class="head">
+    <span class="org">{study.org}</span>
+    <span class="title">{study.title}</span>
+  </span>
+
+  <span class="metric">
+    <span class="value">{study.metric}</span>
+    <span class="label">{study.metricLabel}</span>
+  </span>
+
+  <span class="summary">{study.summary}</span>
+
+  <span class="layers">
+    <span class="eyebrow">Layers it touched</span>
+    <span class="tag-row">
+      {study.layers.map((layer) => <span class="tag">{layer}</span>)}
+    </span>
+  </span>
+</a>
+
+<style>
+  .card {
+    background: var(--card);
+    border-radius: var(--r-story);
+    padding: 32px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 18px 28px;
+    align-content: start;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .card:hover {
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+  }
+
+  .head {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .org {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+
+  .title {
+    font: 400 27px/1.2 var(--font-serif);
+  }
+
+  .metric {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    max-width: 160px;
+  }
+
+  /* --acc2 is reserved for highlights and headline metrics. */
+  .value {
+    font: 400 40px/1 var(--font-serif);
+    color: var(--acc2);
+  }
+
+  .label {
+    font-size: 13px;
+    line-height: 1.35;
+    color: var(--mute);
+    margin-top: 6px;
+  }
+
+  .summary {
+    grid-column: 1 / -1;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--mute);
+  }
+
+  .layers {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+
+  @media (max-width: 560px) {
+    .card {
+      padding: 24px;
+      gap: 14px 16px;
+    }
+
+    .title {
+      font-size: 23px;
+    }
+
+    .value {
+      font-size: 32px;
+    }
+  }
+</style>

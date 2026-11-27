@@ -1,0 +1,50 @@
+---
+/** Monospace chip with the technology's icon. */
+import SimpleIcon from './SimpleIcon.astro';
+import { techIcons } from '~/lib/content.ts';
+
+interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+---
+
+<span class="chip">
+  <SimpleIcon slug={techIcons[name]} name={name} size={12} />
+  {name}
+</span>
+
+<style>
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 3px 8px 3px 6px;
+    border-radius: var(--r-chip);
+    background: var(--soft);
+    color: var(--ink);
+  }
+
+  /* On phones the chips collapse into one "·"-joined monospace line. */
+  @media (max-width: 560px) {
+    .chip {
+      background: none;
+      padding: 0;
+      font-size: 12px;
+      color: var(--mute);
+    }
+
+    .chip :global(svg),
+    .chip :global(.initial) {
+      display: none;
+    }
+
+    .chip + .chip::before {
+      content: '·';
+      margin-right: 6px;
+    }
+  }
+</style>

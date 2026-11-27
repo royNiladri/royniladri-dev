@@ -1,0 +1,63 @@
+---
+import Base from '~/layouts/Base.astro';
+import StoryCard from '~/components/StoryCard.astro';
+import { caseStudies } from '~/lib/content.ts';
+---
+
+<Base
+  title="Stories"
+  description="Long-form write-ups of the work: what the problem was, what I did, and what it cost."
+  active="stories"
+>
+  <header class="head shell">
+    <h1>Stories from the work</h1>
+    <p class="lede">
+      A few pieces of work written out properly — the problem, the decisions and
+      the numbers. No screenshots: the products are proprietary, so these are
+      told in text.
+    </p>
+  </header>
+
+  <div class="grid shell">
+    {caseStudies.map((study) => <StoryCard study={study} />)}
+  </div>
+</Base>
+
+<style>
+  .head {
+    padding-block: 48px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  h1 {
+    font: 400 52px/1.1 var(--font-serif);
+    letter-spacing: -0.015em;
+  }
+
+  .lede {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--mute);
+    max-width: 58ch;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    padding-bottom: 80px;
+  }
+
+  @media (max-width: 860px) {
+    h1 {
+      font-size: 36px;
+    }
+
+    .grid {
+      grid-template-columns: 1fr;
+      padding-bottom: 48px;
+    }
+  }
+</style>

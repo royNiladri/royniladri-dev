@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Source+Sans+3:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&family=Archivo:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#e9e7e2;font-family:system-ui,sans-serif}
+a{color:inherit;text-decoration:none}a:hover{color:var(--acc)}
+button{font:inherit;cursor:pointer}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#1a1a1a}.dv-opts{display:flex;flex-direction:column;gap:64px;align-items:flex-start}.dv-opt{flex:none;display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px}.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 12px/1.3 system-ui,sans-serif;color:rgba(0,0,0,.6)}.dv-card{max-width:100%;border:1px solid rgba(0,0,0,.08);border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}.dv-opt:target .dv-oid{background:#2a78d6;color:#fff}.dv-next{margin:22px 0 0;font:12px/1.5 system-ui,sans-serif;color:rgba(0,0,0,.5)}
+[data-dir="a"]{--bg:#f6f4ef;--card:#fbfaf7;--ink:#1d1b18;--mute:#655f56;--line:#dfd9ce;--acc:oklch(0.5 0.12 35);--soft:oklch(0.94 0.025 35);--ph1:#ece8e0;--ph2:#e4dfd5}
+[data-dir="a"][data-theme="dark"]{--bg:#161513;--card:#1e1c19;--ink:#ece8e1;--mute:#a39b8f;--line:#35312b;--acc:oklch(0.74 0.12 35);--soft:oklch(0.28 0.04 35);--ph1:#23211d;--ph2:#2a2723}
+[data-dir="b"]{--bg:#f2ede5;--card:#faf7f2;--ink:#2a2622;--mute:#675f56;--line:#e0d8cc;--acc:oklch(0.48 0.07 155);--soft:oklch(0.92 0.03 155);--ph1:#e7e0d5;--ph2:#ded6c9}
+[data-dir="b"][data-theme="dark"]{--bg:#1a1917;--card:#23211e;--ink:#eee9e1;--mute:#a8a095;--line:#37332e;--acc:oklch(0.76 0.08 155);--soft:oklch(0.3 0.04 155);--ph1:#262420;--ph2:#2d2a26}
+[data-dir="d"]{--bg:oklch(0.972 0.004 230);--card:#ffffff;--ink:#1b1f24;--mute:#56606b;--line:#e2e6ea;--acc:oklch(0.47 0.08 200);--soft:oklch(0.95 0.018 200);--acc2:oklch(0.55 0.13 45);--soft2:oklch(0.95 0.03 60);--ph1:#eceff2;--ph2:#e3e7eb}
+[data-dir="d"][data-theme="dark"]{--bg:#121417;--card:#1a1d21;--ink:#e8eaed;--mute:#9aa3ad;--line:#2a2f35;--acc:oklch(0.76 0.09 200);--soft:oklch(0.3 0.04 200);--acc2:oklch(0.8 0.12 60);--soft2:oklch(0.32 0.05 55);--ph1:#1f2226;--ph2:#262a2f}
+[data-dir="c"]{--bg:#f3f3f1;--card:#ffffff;--ink:#111111;--mute:#5a5a56;--line:#d9d9d4;--acc:oklch(0.64 0.2 40);--soft:oklch(0.94 0.04 40);--onacc:#111;--ph1:#e8e8e5;--ph2:#e0e0dc}
+[data-dir="c"][data-theme="dark"]{--bg:#0f0f0f;--card:#191919;--ink:#f2f2ef;--mute:#9a9a95;--line:#2e2e2c;--acc:oklch(0.72 0.18 40);--soft:oklch(0.3 0.07 40);--onacc:#111;--ph1:#1c1c1c;--ph2:#232323}
+</style>
+</helmet>
+
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Building on 1b: stories without screenshots, a self-hosting section, and 1a's inline timeline inside employer pages</span></div>
+<div class="dv-opts">
+<div class="dv-opt" id="2a">
+<div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Home: story cards built from text (outcome, the layers it touched), plus a "What I self-host" section</div>
+<div style="display:flex;gap:28px;align-items:flex-start">
+<div class="dv-card" data-dir="d" data-theme="{{ d.theme }}" style="width:1280px;background:var(--bg);color:var(--ink);font-family:'Nunito Sans',sans-serif">
+<nav style="display:flex;justify-content:space-between;align-items:center;padding:22px 64px">
+<div style="display:flex;gap:12px;align-items:center"><span style="width:36px;height:36px;border-radius:50%;background:repeating-linear-gradient(135deg,var(--ph1) 0 4px,var(--ph2) 4px 8px)"></span><span style="font:600 18px 'Literata',serif">Niladri Roy</span></div>
+<div style="display:flex;gap:28px;align-items:center;font-size:15px;color:var(--mute)"><a href="#">Work</a><a href="#">Stories</a><a href="#">Self-hosted</a><a href="#">Writing</a><a href="#">Contact</a><button onClick="{{ d.toggleTheme }}" style="border:0;background:var(--card);color:var(--ink);border-radius:10px;padding:7px 12px;font-size:13px">{{ d.themeLabel }}</button></div>
+</nav>
+<div style="margin:0 64px;height:380px;border-radius:24px;background:repeating-linear-gradient(135deg,var(--ph1) 0 10px,var(--ph2) 10px 20px);display:flex;justify-content:flex-end;padding:20px;font:11px 'JetBrains Mono',monospace;color:var(--mute)">wide landscape, one of your own photographs</div>
+<div style="margin:-110px 64px 0 128px;position:relative;background:var(--card);border-radius:24px;padding:44px 52px;display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:56px;box-shadow:0 20px 50px -30px rgba(40,30,20,.35)">
+<div style="display:flex;flex-direction:column;gap:18px">
+<h1 style="margin:0;font:400 50px/1.1 'Literata',serif;letter-spacing:-.015em">Hi, I'm Niladri. <span style="font-style:italic;color:var(--acc)">I like making hard systems feel calm.</span></h1>
+<p style="margin:0;font-size:18px;line-height:1.65;max-width:58ch">Eleven years on enterprise software at Visa, Informatica and Salesforce. Outside work I run my own small infrastructure, write, and take photographs.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;border-left:1px solid var(--line);padding-left:32px">
+<div style="font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)">Right now</div>
+<div style="font:600 18px/1.35 'Literata',serif">Senior Member of Technical Staff</div>
+<div style="font-size:15px;color:var(--mute)">Salesforce · MDM R&amp;D · Bangalore</div>
+<span style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:10px;background:var(--soft);font-size:14px;font-weight:600"><span style="width:8px;height:8px;border-radius:50%;background:var(--acc)"></span>{{ status }}</span>
+</div>
+</div>
+<section style="padding:96px 64px 48px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><h2 style="margin:0;font:400 36px 'Literata',serif">Stories from the work</h2><a href="#" style="font-size:15px;font-weight:700;color:var(--acc)">All work history →</a></div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px">
+<sc-for list="{{ cases2 }}" as="c" hint-placeholder-count="4">
+<a href="#" style="background:var(--card);border-radius:20px;padding:32px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px 28px">
+<span style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mute)">{{ c.org }}</span><span style="font:400 27px/1.2 'Literata',serif">{{ c.t }}</span></span>
+<span style="display:flex;flex-direction:column;align-items:flex-end;text-align:right;max-width:160px"><span style="font:400 40px/1 'Literata',serif;color:var(--acc2)">{{ c.metric }}</span><span style="font-size:13px;line-height:1.35;color:var(--mute);margin-top:6px">{{ c.mlabel }}</span></span>
+<span style="grid-column:1 / -1;font-size:16px;line-height:1.55;color:var(--mute)">{{ c.d }}</span>
+<span style="grid-column:1 / -1;display:flex;flex-direction:column;gap:8px;padding-top:16px;border-top:1px solid var(--line)"><span style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)">Layers it touched</span><span style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ c.layerList }}" as="ly"><span style="font-size:13px;font-weight:600;padding:5px 10px;border-radius:8px;background:var(--soft)">{{ ly }}</span></sc-for></span></span>
+</a>
+</sc-for>
+</div>
+</section>
+<section style="padding:48px 64px 72px;display:grid;grid-template-columns:320px minmax(0,1fr);gap:64px">
+<h2 style="margin:0;font:400 36px/1.15 'Literata',serif">How I like to work</h2>
+<div style="display:flex;flex-direction:column;gap:28px">
+<sc-for list="{{ principles }}" as="p" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px"><span style="font:italic 400 28px 'Literata',serif;color:var(--acc)">{{ p.n }}</span><div style="display:flex;flex-direction:column;gap:6px"><div style="font:600 21px 'Literata',serif">{{ p.t }}</div><p style="margin:0;font-size:16px;line-height:1.6;color:var(--mute)">{{ p.d }}</p></div></div>
+</sc-for>
+</div>
+</section>
+<section style="padding:0 64px 72px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px">
+<sc-for list="{{ quotes }}" as="q" hint-placeholder-count="2">
+<figure style="margin:0;background:var(--soft);border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:20px"><blockquote style="margin:0;font:italic 400 21px/1.5 'Literata',serif">“{{ q.q }}”</blockquote><figcaption style="display:flex;flex-direction:column;font-size:14px"><span style="font-weight:700">{{ q.who }}</span><span style="color:var(--mute)">{{ q.role }}</span></figcaption></figure>
+</sc-for>
+</section>
+<section style="padding:72px 64px;background:var(--card);display:flex;flex-direction:column;gap:40px">
+<div style="display:grid;grid-template-columns:320px minmax(0,1fr);gap:64px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<h2 style="margin:0;font:400 36px/1.15 'Literata',serif">What I self-host</h2>
+<p style="margin:0;font-size:16px;line-height:1.6;color:var(--mute);text-wrap:pretty">An old laptop runs my family's photos, files and paperwork, so they stay with us. It's a small production system: people depend on it, it gets backed up, and I get alerts when something breaks.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px">
+<sc-for list="{{ shGroups }}" as="g" hint-placeholder-count="4">
+<div style="border:1px solid var(--line);border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;gap:14px">
+<div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)">{{ g.g }}</div>
+<sc-for list="{{ g.items }}" as="x" hint-placeholder-count="2">
+<div style="display:flex;gap:12px;align-items:flex-start"><span style="width:28px;height:28px;flex:none;border-radius:8px;background:var(--soft);display:flex;align-items:center;justify-content:center"><sc-if value="{{ x.src }}" hint-placeholder-val="{{ false }}"><img src="{{ x.src }}" alt="" width="15" height="15" style="display:block"></sc-if><sc-if value="{{ x.init }}" hint-placeholder-val="{{ false }}"><span style="font:700 12px 'Nunito Sans';color:var(--mute)">{{ x.init }}</span></sc-if></span>
+<div style="display:flex;flex-direction:column;gap:2px"><span style="font:600 17px 'Literata',serif">{{ x.t }}</span><span style="font-size:14px;line-height:1.45;color:var(--mute)">{{ x.d }}</span></div></div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;padding-top:28px;border-top:1px solid var(--line)">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px"><span style="font:600 20px 'Literata',serif">Backup chain</span><span style="font-size:14px;color:var(--mute)">Three copies, two locations, one offsite</span></div>
+<div style="display:flex;align-items:stretch;gap:0">
+<sc-for list="{{ shChain }}" as="s" hint-placeholder-count="5">
+<sc-if value="{{ s.node }}" hint-placeholder-val="{{ true }}"><div style="flex:1 1 0;min-width:0;border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;gap:12px;align-items:center;background:var(--bg)"><span style="width:28px;height:28px;flex:none;border-radius:8px;background:var(--soft);display:flex;align-items:center;justify-content:center"><sc-if value="{{ s.src }}" hint-placeholder-val="{{ false }}"><img src="{{ s.src }}" alt="" width="15" height="15" style="display:block"></sc-if></span><div style="display:flex;flex-direction:column;gap:2px"><span style="font:600 17px 'Literata',serif">{{ s.t }}</span><span style="font-size:13px;color:var(--mute)">{{ s.s }}</span></div></div></sc-if>
+<sc-if value="{{ s.edge }}" hint-placeholder-val="{{ false }}"><div style="flex:0 1 190px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;padding:0 10px;text-align:center"><span style="font:600 12px 'JetBrains Mono',monospace;color:var(--acc)">{{ s.e }}</span><span style="width:100%;height:1px;background:var(--acc);position:relative"><span style="position:absolute;right:-1px;top:-4px;width:0;height:0;border-left:7px solid var(--acc);border-top:4.5px solid transparent;border-bottom:4.5px solid transparent"></span></span><span style="font-size:12px;line-height:1.35;color:var(--mute)">{{ s.s }}</span></div></sc-if>
+</sc-for>
+</div>
+</div>
+</section>
+<section style="padding:72px 64px 48px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><h2 style="margin:0;font:400 36px 'Literata',serif">Through my lens</h2><a href="https://www.instagram.com/niladriclicks/" style="font-size:15px;font-weight:700;color:var(--acc)">@niladriclicks →</a></div>
+<div style="display:grid;grid-template-columns:2fr 1fr 1fr 1.4fr;gap:16px;height:240px"><div style="border-radius:16px;background:repeating-linear-gradient(135deg,var(--ph1) 0 8px,var(--ph2) 8px 16px)"></div><div style="border-radius:16px;background:repeating-linear-gradient(135deg,var(--ph1) 0 8px,var(--ph2) 8px 16px)"></div><div style="border-radius:16px;background:repeating-linear-gradient(135deg,var(--ph1) 0 8px,var(--ph2) 8px 16px)"></div><div style="border-radius:16px;background:repeating-linear-gradient(135deg,var(--ph1) 0 8px,var(--ph2) 8px 16px)"></div></div>
+</section>
+<section style="padding:48px 64px 72px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:64px">
+<div style="display:flex;flex-direction:column;gap:18px"><h2 style="margin:0;font:400 28px 'Literata',serif">Writing &amp; teaching</h2><sc-for list="{{ writing }}" as="w" hint-placeholder-count="4"><a href="{{ w.url }}" style="display:flex;flex-direction:column;gap:2px;padding-bottom:14px;border-bottom:1px solid var(--line)"><span style="font-weight:700;font-size:17px">{{ w.t }}</span><span style="font-size:15px;color:var(--mute)">{{ w.d }}</span></a></sc-for></div>
+<div style="display:flex;flex-direction:column;gap:18px"><h2 style="margin:0;font:400 28px 'Literata',serif">Education</h2><sc-for list="{{ edu }}" as="e" hint-placeholder-count="2"><div style="display:flex;flex-direction:column;gap:2px;padding-bottom:14px;border-bottom:1px solid var(--line)"><span style="font-weight:700;font-size:17px">{{ e.t }}</span><span style="font-size:15px;color:var(--mute)">{{ e.s }} · {{ e.y }}</span></div></sc-for></div>
+</section>
+<footer style="margin:0 64px 64px;border-radius:24px;background:var(--acc);color:#fff;padding:52px 56px;display:flex;justify-content:space-between;align-items:center;gap:32px">
+<div style="display:flex;flex-direction:column;gap:8px"><div style="font:400 38px/1.1 'Literata',serif">Say hello</div><div style="font-size:17px;opacity:.92">LinkedIn is the best way to reach me.</div></div>
+<div style="display:flex;gap:12px"><sc-for list="{{ links }}" as="l" hint-placeholder-count="4"><a href="{{ l.url }}" style="padding:10px 16px;border-radius:12px;background:rgba(255,255,255,.16);font-weight:700;font-size:15px;color:#fff">{{ l.t }}</a></sc-for></div>
+</footer>
+</div>
+</div>
+</div>
+<div class="dv-opt" id="2b">
+<div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>Work history in one view: an employer rail (All, or one employer) that grows as you change jobs, and roles that open in place. Try the rail, the filters, Highlights/Everything and the + buttons.</div>
+<div style="display:flex;gap:28px;align-items:flex-start">
+<div class="dv-card" data-dir="d" data-theme="{{ d.theme }}" style="width:1280px;background:var(--bg);color:var(--ink);font-family:'Nunito Sans',sans-serif">
+<nav style="display:flex;justify-content:space-between;align-items:center;padding:22px 64px">
+<div style="display:flex;gap:12px;align-items:center"><span style="width:36px;height:36px;border-radius:50%;background:repeating-linear-gradient(135deg,var(--ph1) 0 4px,var(--ph2) 4px 8px)"></span><span style="font:600 18px 'Literata',serif">Niladri Roy</span></div>
+<div style="display:flex;gap:28px;align-items:center;font-size:15px;color:var(--mute)"><a href="#" style="color:var(--ink);font-weight:700">Work</a><a href="#">Stories</a><a href="#">Self-hosted</a><a href="#">Writing</a><a href="#">Contact</a><button onClick="{{ d.toggleTheme }}" style="border:0;background:var(--card);color:var(--ink);border-radius:10px;padding:7px 12px;font-size:13px">{{ d.themeLabel }}</button></div>
+</nav>
+<header style="padding:48px 64px 32px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px"><h1 style="margin:0;font:400 52px/1.1 'Literata',serif">Where I've worked</h1><p style="margin:0;font-size:18px;line-height:1.6;color:var(--mute);max-width:58ch">Eleven years, newest first. Highlights keeps roles closed so you can skim; Everything opens every role with every project.</p><div style="font-size:14px;font-weight:700;color:var(--acc)">{{ d.countLine }}</div></div>
+<div style="display:flex;background:var(--card);border-radius:12px;padding:4px;flex:none">
+<sc-if value="{{ d.hiOn }}" hint-placeholder-val="{{ true }}"><button onClick="{{ d.setHi }}" style="border:0;border-radius:9px;padding:8px 14px;font-size:14px;font-weight:700;background:var(--acc);color:#fff">Highlights</button><button onClick="{{ d.setAll }}" style="border:0;border-radius:9px;padding:8px 14px;font-size:14px;font-weight:600;background:transparent;color:var(--mute)">Everything</button></sc-if>
+<sc-if value="{{ d.allOn }}" hint-placeholder-val="{{ false }}"><button onClick="{{ d.setHi }}" style="border:0;border-radius:9px;padding:8px 14px;font-size:14px;font-weight:600;background:transparent;color:var(--mute)">Highlights</button><button onClick="{{ d.setAll }}" style="border:0;border-radius:9px;padding:8px 14px;font-size:14px;font-weight:700;background:var(--acc);color:#fff">Everything</button></sc-if>
+</div>
+</header>
+<div style="padding:0 64px 80px;display:grid;grid-template-columns:260px minmax(0,1fr);gap:48px;align-items:start">
+<aside style="position:sticky;top:16px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:4px">
+<div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);padding:0 14px 6px">Employers</div>
+<sc-if value="{{ d.allActive }}" hint-placeholder-val="{{ true }}"><button onClick="{{ d.pickAll }}" style="text-align:left;border:0;border-radius:12px;padding:10px 14px;background:var(--card);color:var(--ink);font-weight:700;font-size:15px">All employers</button></sc-if>
+<sc-if value="{{ d.allIdle }}" hint-placeholder-val="{{ false }}"><button onClick="{{ d.pickAll }}" style="text-align:left;border:0;border-radius:12px;padding:10px 14px;background:transparent;color:var(--mute);font-weight:600;font-size:15px">All employers</button></sc-if>
+<sc-for list="{{ d.companies }}" as="co" hint-placeholder-count="3">
+<button onClick="{{ co.pick }}" style="text-align:left;border:0;border-radius:12px;padding:10px 14px;background:transparent;color:var(--ink);display:flex;gap:12px;align-items:center">
+<span style="width:32px;height:32px;border-radius:9px;flex:none;background:repeating-linear-gradient(135deg,var(--ph1) 0 3px,var(--ph2) 3px 6px);outline:{{ co.outline }}"></span>
+<span style="display:flex;flex-direction:column;gap:1px"><span style="font:600 17px 'Literata',serif">{{ co.name }}</span><span style="font-size:13px;color:var(--mute)">{{ co.years }}</span></span>
+</button>
+</sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);padding:0 14px">Filter by skill</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;padding:0 10px">
+<sc-for list="{{ d.filters }}" as="f" hint-placeholder-count="10">
+<sc-if value="{{ f.on }}" hint-placeholder-val="{{ false }}"><button onClick="{{ f.pick }}" style="border:0;border-radius:9px;padding:6px 11px;font-size:13px;font-weight:700;background:var(--acc);color:#fff">{{ f.label }}</button></sc-if>
+<sc-if value="{{ f.off }}" hint-placeholder-val="{{ true }}"><button onClick="{{ f.pick }}" style="border:0;border-radius:9px;padding:6px 11px;font-size:13px;font-weight:600;background:var(--card);color:var(--mute)">{{ f.label }}</button></sc-if>
+</sc-for>
+</div>
+</div>
+<a href="#" style="margin:0 14px;font-size:14px;font-weight:700;color:var(--acc)">Download resume (PDF) →</a>
+</aside>
+<div style="display:flex;flex-direction:column;gap:40px">
+<sc-for list="{{ d.shown }}" as="co" hint-placeholder-count="3">
+<section style="display:flex;flex-direction:column;gap:6px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding-bottom:14px;border-bottom:1px solid var(--line)">
+<div style="display:flex;flex-direction:column;gap:6px"><h2 style="margin:0;font:400 38px/1 'Literata',serif">{{ co.name }}</h2><div style="font-size:15px;line-height:1.5;color:var(--mute);max-width:62ch">{{ co.note }}</div></div>
+<div style="flex:none;text-align:right;font-size:14px;color:var(--mute)"><div style="font:400 22px 'Literata',serif;color:var(--ink)">{{ co.tenure }}</div>{{ co.years }}</div>
+</div>
+<sc-for list="{{ co.roles }}" as="r" hint-placeholder-count="1">
+<div style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:28px;opacity:{{ r.dim }}">
+<div style="padding-top:26px;display:flex;flex-direction:column;gap:2px;font-size:13px;color:var(--mute)"><span style="font-weight:700;color:var(--ink)">{{ r.dates }}</span><span>{{ r.loc }}</span></div>
+<div style="border-left:2px solid var(--line);padding:22px 0 22px 28px;position:relative">
+<span style="position:absolute;left:-7px;top:30px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--acc)"></span>
+<div style="display:flex;justify-content:space-between;gap:20px;align-items:baseline">
+<div style="display:flex;flex-direction:column;gap:2px"><div style="font:600 23px/1.25 'Literata',serif">{{ r.title }}</div><div style="font-size:14px;color:var(--mute)">{{ r.team }}</div></div>
+<button onClick="{{ r.toggle }}" style="flex:none;border:0;border-radius:10px;background:var(--card);color:var(--acc);font-size:14px;font-weight:700;padding:7px 12px">{{ r.toggleLabel }}</button>
+</div>
+<p style="margin:12px 0 0;font-size:16px;line-height:1.6;max-width:64ch">{{ r.summary }}</p>
+<sc-if value="{{ r.closed }}" hint-placeholder-val="{{ true }}"><div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ r.hiList }}" as="h"><span style="display:inline-flex;gap:6px;align-items:baseline;font:italic 15px 'Literata',serif;padding:4px 10px;border-radius:8px;background:var(--soft2)"><span style="font-style:normal;font-size:11px;color:var(--acc2)">★</span>{{ h }}</span></sc-for></div></sc-if>
+<sc-if value="{{ r.open }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:18px;display:flex;flex-direction:column;gap:12px"><sc-if value="{{ r.more }}" hint-placeholder-val="{{ false }}"><button onClick="{{ r.setAll }}" style="order:99;align-self:flex-start;border:1px dashed var(--line);border-radius:10px;background:transparent;color:var(--mute);font-size:14px;font-weight:700;padding:8px 14px">{{ r.more }}</button></sc-if>
+<sc-for list="{{ r.vis }}" as="p" hint-placeholder-count="3">
+<article style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline"><span style="font:600 18px/1.3 'Literata',serif">{{ p.t }}</span><sc-if value="{{ p.hi }}" hint-placeholder-val="{{ false }}"><span style="flex:none;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--acc2)">★ Highlight</span></sc-if></div>
+<p style="margin:0;font-size:15px;line-height:1.6;text-wrap:pretty">{{ p.d }}</p>
+<div style="display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center"><span style="font-size:14px;font-style:italic;color:var(--mute)">{{ p.skl }}</span><sc-for list="{{ p.techI }}" as="ti"><span style="display:inline-flex;align-items:center;gap:5px;font:11px 'JetBrains Mono',monospace;padding:3px 8px 3px 6px;border-radius:6px;background:var(--soft)"><sc-if value="{{ ti.src }}" hint-placeholder-val="{{ false }}"><img src="{{ ti.src }}" alt="" width="12" height="12" style="display:block"></sc-if>{{ ti.n }}</span></sc-for></div>
+<sc-if value="{{ p.link }}" hint-placeholder-val="{{ false }}"><a href="{{ p.link.url }}" style="font-size:14px;font-weight:700;color:var(--acc)">{{ p.link.label }} ↗</a></sc-if>
+</article>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-for>
+</section>
+</sc-for>
+</div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px"><div style="font:11px ui-monospace,monospace;color:rgba(0,0,0,.45)">Mobile 390: rail becomes a scrolling row</div>
+<div class="dv-card" data-dir="d" data-theme="{{ d.theme }}" style="width:390px;background:var(--bg);color:var(--ink);font-family:'Nunito Sans',sans-serif;border-radius:28px">
+<nav style="display:flex;justify-content:space-between;align-items:center;padding:18px 20px"><span style="font:600 16px 'Literata',serif">Niladri Roy</span><span style="font-size:14px;color:var(--mute)">Menu</span></nav>
+<div style="padding:8px 20px 16px"><h1 style="margin:0;font:400 32px/1.1 'Literata',serif">Where I've worked</h1></div>
+<div style="padding:0 20px 12px;display:flex;gap:6px;overflow-x:auto">
+<sc-if value="{{ d.allActive }}" hint-placeholder-val="{{ true }}"><button onClick="{{ d.pickAll }}" style="flex:none;min-height:40px;border:0;border-radius:10px;padding:0 14px;background:var(--acc);color:#fff;font-weight:700;font-size:14px">All</button></sc-if>
+<sc-if value="{{ d.allIdle }}" hint-placeholder-val="{{ false }}"><button onClick="{{ d.pickAll }}" style="flex:none;min-height:40px;border:0;border-radius:10px;padding:0 14px;background:var(--card);color:var(--ink);font-weight:600;font-size:14px">All</button></sc-if>
+<sc-for list="{{ d.companies }}" as="co" hint-placeholder-count="3">
+<sc-if value="{{ co.active }}" hint-placeholder-val="{{ false }}"><button onClick="{{ co.pick }}" style="flex:none;min-height:40px;border:0;border-radius:10px;padding:0 14px;background:var(--acc);color:#fff;font-weight:700;font-size:14px">{{ co.name }}</button></sc-if>
+<sc-if value="{{ co.idle }}" hint-placeholder-val="{{ true }}"><button onClick="{{ co.pick }}" style="flex:none;min-height:40px;border:0;border-radius:10px;padding:0 14px;background:var(--card);color:var(--ink);font-weight:600;font-size:14px">{{ co.name }}</button></sc-if>
+</sc-for>
+</div>
+<div style="padding:0 20px 28px;display:flex;flex-direction:column">
+<sc-for list="{{ d.shown }}" as="co" hint-placeholder-count="3">
+<div style="padding:18px 0 4px;display:flex;justify-content:space-between;align-items:baseline"><span style="font:400 24px 'Literata',serif">{{ co.name }}</span><span style="font-size:13px;color:var(--mute)">{{ co.years }}</span></div>
+<sc-for list="{{ co.roles }}" as="r" hint-placeholder-count="1">
+<div style="border-left:2px solid var(--line);margin-left:5px;padding:12px 0 12px 16px;display:flex;flex-direction:column;gap:6px;opacity:{{ r.dim }}">
+<div onClick="{{ r.toggle }}" style="min-height:44px;display:flex;justify-content:space-between;gap:10px;align-items:center;cursor:pointer"><span style="display:flex;flex-direction:column"><span style="font:600 17px/1.25 'Literata',serif">{{ r.title }}</span><span style="font-size:12px;color:var(--mute)">{{ r.dates }}</span></span><span style="flex:none;font-size:14px;font-weight:700;color:var(--acc)">{{ r.mobLabel }}</span></div>
+<sc-if value="{{ r.closed }}" hint-placeholder-val="{{ true }}"><div style="font:italic 14px/1.45 'Literata',serif;color:var(--mute)">{{ r.hiTitles }}</div></sc-if>
+<sc-if value="{{ r.open }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:10px"><sc-for list="{{ r.vis }}" as="p" hint-placeholder-count="2"><div style="background:var(--card);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:4px"><span style="font:600 15px 'Literata',serif">{{ p.t }}</span><span style="font-size:14px;line-height:1.5">{{ p.d }}</span><span style="font:10px 'JetBrains Mono',monospace;color:var(--mute)">{{ p.techLine }}</span></div></sc-for></div></sc-if>
+</div>
+</sc-for>
+</sc-for>
+</div>
+</div></div>
+</div>
+</div>
+<div class="dv-opt" id="2c">
+<div class="dv-olabel"><a class="dv-oid" href="#2c">2c</a>Case study page: long-form writing only, no proprietary screenshots</div>
+<div class="dv-card" data-dir="d" data-theme="{{ d.theme }}" style="width:1280px;background:var(--bg);color:var(--ink);font-family:'Nunito Sans',sans-serif">
+<nav style="display:flex;justify-content:space-between;align-items:center;padding:22px 64px"><span style="font:600 18px 'Literata',serif">Niladri Roy</span><div style="display:flex;gap:28px;font-size:15px;color:var(--mute)"><a href="#">Work</a><a href="#" style="color:var(--ink);font-weight:700">Stories</a><a href="#">Self-hosted</a><a href="#">Writing</a><a href="#">Contact</a></div></nav>
+<article style="padding:48px 64px 88px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:72px">
+<div style="display:flex;flex-direction:column;gap:28px;max-width:720px">
+<div style="font-size:14px;color:var(--mute)"><a href="#">Stories</a> / Informatica, 2023</div>
+<h1 style="margin:0;font:400 54px/1.1 'Literata',serif;letter-spacing:-.015em">AI enrichment inside MDM</h1>
+<p style="margin:0;font:italic 400 22px/1.5 'Literata',serif;color:var(--mute)">One-line summary of the problem and the outcome.</p>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
+<div style="background:var(--card);border-radius:16px;padding:20px"><div style="font:400 34px 'Literata',serif;color:var(--acc2)">+20%</div><div style="font-size:14px;color:var(--mute)">sales lift</div></div>
+<div style="background:var(--card);border-radius:16px;padding:20px"><div style="font:400 34px 'Literata',serif">5 layers</div><div style="font-size:14px;color:var(--mute)">UI to search index</div></div>
+<div style="background:var(--card);border-radius:16px;padding:20px"><div style="font:400 34px 'Literata',serif">Stage</div><div style="font-size:14px;color:var(--mute)">Informatica World 2023</div></div>
+</div>
+<sc-for list="{{ csSections }}" as="s" hint-placeholder-count="4">
+<section style="display:flex;flex-direction:column;gap:10px"><h2 style="margin:0;font:600 24px 'Literata',serif">{{ s.h }}</h2><p style="margin:0;font-size:18px;line-height:1.7;color:var(--mute)">{{ s.p }}</p></section>
+</sc-for>
+<figure style="margin:0;background:var(--card);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:14px">
+<figcaption style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)">How a record flows (simplified diagram)</figcaption>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><sc-for list="{{ flow }}" as="fl"><span style="padding:10px 14px;border-radius:10px;background:var(--soft);font-size:14px;font-weight:700">{{ fl }}</span></sc-for></div>
+</figure>
+</div>
+<aside style="position:sticky;top:16px;align-self:start;display:flex;flex-direction:column;gap:22px;padding-left:28px;border-left:1px solid var(--line)">
+<div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)">My role</span><span style="font-size:15px">Lead Software Engineer</span></div>
+<div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)">Skills</span><span style="font-size:15px;font-style:italic">AI/ML, Full stack</span></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)">Tech</span><div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ csTech }}" as="ti"><span style="display:inline-flex;align-items:center;gap:5px;font:11px 'JetBrains Mono',monospace;padding:3px 8px 3px 6px;border-radius:6px;background:var(--soft)"><sc-if value="{{ ti.src }}" hint-placeholder-val="{{ false }}"><img src="{{ ti.src }}" alt="" width="12" height="12" style="display:block"></sc-if>{{ ti.n }}</span></sc-for></div></div>
+<a href="#" style="font-size:14px;font-weight:700;color:var(--acc)">See it in the work history →</a>
+<a href="#" style="font-size:14px;font-weight:700;color:var(--acc)">Next story: Audit trail →</a>
+</aside>
+</article>
+</div>
+</div>
+</div>
+</section>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Three directions: home, work history, mobile</span></div>
+<div style="max-width:880px;margin:0 0 36px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;font:13px/1.55 system-ui,sans-serif;color:rgba(0,0,0,.7)">
+<div><div style="font-weight:600;color:#1a1a1a;margin-bottom:4px">Who it's for</div>Hiring managers, tech leads and HR who already have the resume. The home page reads in about a minute; detail is there for anyone who wants it.</div>
+<div><div style="font-weight:600;color:#1a1a1a;margin-bottom:4px">Work history</div>Three levels of detail: role summaries and highlight titles, then full project write-ups, then a page per employer. You can filter by skill, switch between highlights and everything, and each project keeps its skill and tech markers.</div>
+<div><div style="font-weight:600;color:#1a1a1a;margin-bottom:4px">Static by design</div>All content lives in one JSON file (employers → roles → projects), so a new employer is one new entry. Builds with Astro or plain HTML on GitHub Pages. No API or database.</div>
+</div>
+<div class="dv-opts">
+
+<!-- ================= 1a EDITORIAL ================= -->
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Editorial: Newsreader serif, lots of white space, timeline with a year gutter and roles that expand in place</div>
+<div style="display:flex;gap:28px;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:8px"><div style="font:11px ui-monospace,monospace;color:rgba(0,0,0,.45)">Home · 1280</div>
+<div class="dv-card" data-dir="a" data-theme="{{ a.theme }}" style="width:1280px;background:var(--bg);color:var(--ink);font-family:'Source Sans 3',sans-serif">
+<nav style="display:flex;justify-content:space-between;align-items:center;padding:28px 72px;border-bottom:1px solid var(--line)">
+<div style="font:500 22px 'Newsreader',serif;letter-spacing:-.01em">Niladri Roy</div>
+<div style="display:flex;gap:32px;align-items:center;font-size:15px;color:var(--mute)"><a href="#">Work</a><a href="#">Case studies</a><a href="#">Open source</a><a href="#">Writing</a><a href="#">Contact</a><button onClick="{{ a.toggleTheme }}" style="border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:5px 12px;font-size:13px">{{ a.themeLabel }}</button></div>
+</nav>
+<header style="display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:72px;padding:88px 72px 72px;align-items:end">
+<div style="display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;gap:14px;align-items:center;font-size:14px;color:var(--mute)"><span style="display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:999px;background:var(--soft);color:var(--ink)"><span style="width:7px;height:7px;border-radius:50%;background:var(--acc)"></span>{{ status }}</span><span>Senior Member of Technical Staff, Salesforce</span></div>
+<h1 style="margin:0;font:400 76px/1.02 'Newsreader',serif;letter-spacing:-.025em;text-wrap:balance">I build the dependable middle of enterprise software.</h1>
+<p style="margin:0;font-size:19px;line-height:1.6;max-width:56ch;color:var(--ink);text-wrap:pretty">I'm Niladri, a software engineer in Bangalore. For eleven years I've worked on data-heavy enterprise products: invoicing at Visa, Master Data Management at Informatica, and now the same MDM platform at Salesforce. The work I like best is the unglamorous part: the service nobody wants to onboard, the feature that keeps breaking, the query that got slow.</p>
+</div>
+<div style="aspect-ratio:4/5;border-radius:2px;background:repeating-linear-gradient(135deg,var(--ph1) 0 8px,var(--ph2) 8px 16px);display:flex;align-items:flex-end;padding:16px;font:11px 'JetBrains Mono',monospace;color:var(--mute)">portrait, natural light</div>
+</header>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;padding:0 72px 88px">
+<div style="border-top:1px solid var(--ink);padding-top:14px"><div style="font:400 40px 'Newsreader',serif">11 years</div><div style="font-size:14px;color:var(--mute);margin-top:4px">building software since 2015</div></div>
+<div style="border-top:1px solid var(--ink);padding-top:14px"><div style="font:400 40px 'Newsreader',serif">3 employers</div><div style="font-size:14px;color:var(--mute);margin-top:4px">Visa, Informatica, Salesforce</div></div>
+<div style="border-top:1px solid var(--ink);padding-top:14px"><div style="font:400 40px 'Newsreader',serif">5M+</div><div style="font-size:14px;color:var(--mute);margin-top:4px">npm downloads of js-big-decimal</div></div>
+<div style="border-top:1px solid var(--ink);padding-top:14px"><div style="font:400 40px 'Newsreader',serif">M.S. CS</div><div style="font-size:14px;color:var(--mute);margin-top:4px">Georgia Tech, while working full time</div></div>
+</div>
+<section style="padding:72px;border-top:1px solid var(--line);display:grid;grid-template-columns:240px minmax(0,1fr);gap:48px">
+<div style="font:italic 400 22px 'Newsreader',serif;color:var(--mute)">Selected work</div>
+<div style="display:flex;flex-direction:column">
+<sc-for list="{{ cases }}" as="c" hint-placeholder-count="4">
+<a href="#" style="display:grid;grid-template-columns:48px minmax(0,1fr) 180px;gap:24px;padding:28px 0;border-bottom:1px solid var(--line);align-items:baseline">
+<span style="font:12px 'JetBrains Mono',monospace;color:var(--mute)">{{ c.n }}</span>
+<span style="display:flex;flex-direction:column;gap:8px"><span style="font:400 32px/1.15 'Newsreader',serif;letter-spacing:-.01em">{{ c.t }}</span><span style="font-size:16px;line-height:1.55;color:var(--mute);max-width:60ch">{{ c.d }}</span></span>
+<span style="text-align:right;display:flex;flex-direction:column;gap:2px"><span style="font:400 30px 'Newsreader',serif;color:var(--acc)">{{ c.metric }}</span><span style="font-size:13px;color:var(--mute)">{{ c.mlabel }}</span></span>
+</a>
+</sc-for>
+</div>
+</section>
+<section style="padding:72px;border-top:1px solid var(--line);display:grid;grid-template-columns:240px minmax(0,1fr);gap:48px">
+<div style="font:italic 400 22px 'Newsreader',serif;color:var(--mute)">How I work</div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px">
+<sc-for list="{{ principles }}" as="p" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:10px"><div style="font:400 26px/1.2 'Newsreader',serif">{{ p.t }}</div><p style="margin:0;font-size:16px;line-height:1.6;color:var(--mute);text-wrap:pretty">{{ p.d }}</p></div>
+</sc-for>
+</div>
+</section>
+<section style="padding:72px;border-top:1px solid var(--line);display:grid;grid-template-columns:240px minmax(0,1fr);gap:48px;background:var(--card)">
+<div style="font:italic 400 22px 'Newsreader',serif;color:var(--mute)">Kind words</div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px">
+<sc-for list="{{ quotes }}" as="q" hint-placeholder-count="2">
+<figure style="margin:0;display:flex;flex-direction:column;gap:18px"><blockquote style="margin:0;font:italic 400 24px/1.4 'Newsreader',serif;text-wrap:pretty">“{{ q.q }}”</blockquote><figcaption style="font-size:14px;color:var(--mute)"><span style="color:var(--ink);font-weight:600">{{ q.who }}</span> · {{ q.role }}</figcaption></figure>
+</sc-for>
+</div>
+</section>
+<section style="padding:72px;border-top:1px solid var(--line);display:grid;grid-template-columns:240px minmax(0,1fr) minmax(0,1fr);gap:48px">
+<div style="font:italic 400 22px 'Newsreader',serif;color:var(--mute)">Also</div>
+<div style="display:flex;flex-direction:column;gap:18px"><div style="font:12px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)">Writing &amp; talks</div>
+<sc-for list="{{ writing }}" as="w" hint-placeholder-count="4"><a href="{{ w.url }}" style="display:flex;flex-direction:column;gap:2px"><span style="font:400 20px 'Newsreader',serif">{{ w.t }}</span><span style="font-size:15px;color:var(--mute)">{{ w.d }}</span></a></sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:18px"><div style="font:12px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)">Education</div>
+<sc-for list="{{ edu }}" as="e" hint-placeholder-count="2"><div style="display:flex;flex-direction:column;gap:2px"><span style="font:400 20px 'Newsreader',serif">{{ e.t }}</span><span style="font-size:15px;color:var(--mute)">{{ e.s }} · {{ e.y }}</span></div></sc-for>
+</div>
+</section>
+<footer style="padding:96px 72px 56px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px"><div style="font:400 64px/1 'Newsreader',serif;letter-spacing:-.02em">Let's talk.</div><div style="font-size:17px;color:var(--mute)">LinkedIn is the fastest way to reach me.</div></div>
+<div style="display:flex;gap:28px;font-size:16px"><sc-for list="{{ links }}" as="l" hint-placeholder-count="4"><a href="{{ l.url }}" style="border-bottom:1px solid var(--line);padding-bottom:2px">{{ l.t }}</a></sc-for></div>
+</footer>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:8px"><div style="font:11px ui-monospace,monospace;color:rgba(0,0,0,.45)">Work history · 1280 · interactive</div>
+<div class="dv-card" data-dir="a" data-theme="{{ a.theme }}" style="width:1280px;background:var(--bg);color:var(--ink);font-family:'Source Sans 3',sans-serif">
+<nav style="display:flex;justify-content:space-between;align-items:center;padding:28px 72px;border-bottom:1px solid var(--line)">
+<div style="font:500 22px 'Newsreader',serif;letter-spacing:-.01em">Niladri Roy</div>
+<div style="display:flex;gap:32px;align-items:center;font-size:15px;color:var(--mute)"><a href="#" style="color:var(--ink)">Work</a><a href="#">Case studies</a><a href="#">Open source</a><a href="#">Writing</a><a href="#">Contact</a><button onClick="{{ a.toggleTheme }}" style="border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:5px 12px;font-size:13px">{{ a.themeLabel }}</button></div>
+</nav>
+<header style="padding:80px 72px 40px;display:flex;flex-direction:column;gap:20px">
+<h1 style="margin:0;font:400 64px/1.05 'Newsreader',serif;letter-spacing:-.02em">Work history</h1>
+<p style="margin:0;font-size:19px;line-height:1.55;color:var(--mute);max-width:60ch">Eleven years, three employers. You're seeing the highlights; open any role for the full list of projects.</p>
+</header>
+<div style="position:sticky;top:0;padding:18px 72px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;gap:28px;align-items:center;background:var(--bg);z-index:1">
+<div style="display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;flex:none">
+<sc-if value="{{ a.hiOn }}" hint-placeholder-val="{{ true }}"><button onClick="{{ a.setHi }}" style="border:0;border-radius:999px;padding:6px 14px;font-size:14px;background:var(--ink);color:var(--bg)">Highlights</button><button onClick="{{ a.setAll }}" style="border:0;border-radius:999px;padding:6px 14px;font-size:14px;background:transparent;color:var(--mute)">Everything</button></sc-if>
+<sc-if value="{{ a.allOn }}" hint-placeholder-val="{{ false }}"><button onClick="{{ a.setHi }}" style="border:0;border-radius:999px;padding:6px 14px;font-size:14px;background:transparent;color:var(--mute)">Highlights</button><button onClick="{{ a.setAll }}" style="border:0;border-radius:999px;padding:6px 14px;font-size:14px;background:var(--ink);color:var(--bg)">Everything</button></sc-if>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px">
+<sc-for list="{{ a.filters }}" as="f" hint-placeholder-count="10">
+<sc-if value="{{ f.on }}" hint-placeholder-val="{{ false }}"><button onClick="{{ f.pick }}" style="border:0;background:transparent;padding:2px 0;color:var(--acc);font-style:italic;font-family:'Newsreader',serif;font-size:17px;border-bottom:1px solid var(--acc)">{{ f.label }}</button></sc-if>
+<sc-if value="{{ f.off }}" hint-placeholder-val="{{ true }}"><button onClick="{{ f.pick }}" style="border:0;background:transparent;padding:2px 0;color:var(--mute);font-style:italic;font-family:'Newsreader',serif;font-size:17px;border-bottom:1px solid transparent">{{ f.label }}</button></sc-if>
+</sc-for>
+</div>
+</div>
+<div style="padding:24px 72px 96px">
+<sc-for list="{{ a.companies }}" as="co" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:200px minmax(0,1fr);gap:48px;padding-top:56px">
+<div style="font:400 26px/1.1 'Newsreader',serif;color:var(--mute)">{{ co.years }}</div>
+<div style="display:flex;flex-direction:column;gap:6px;padding-bottom:12px"><div style="font:400 44px/1 'Newsreader',serif;letter-spacing:-.015em">{{ co.name }}</div><div style="font-size:16px;color:var(--mute);max-width:64ch">{{ co.note }}</div></div>
+</div>
+<sc-for list="{{ co.roles }}" as="r" hint-placeholder-count="1">
+<div style="display:grid;grid-template-columns:200px minmax(0,1fr);gap:48px;opacity:{{ r.dim }}">
+<div style="padding-top:30px;display:flex;flex-direction:column;gap:4px;font:12px/1.5 'JetBrains Mono',monospace;color:var(--mute)"><span>{{ r.dates }}</span><span>{{ r.loc }}</span></div>
+<div style="border-left:1px solid var(--line);padding:28px 0 28px 36px;position:relative">
+<span style="position:absolute;left:-5px;top:36px;width:9px;height:9px;border-radius:50%;background:var(--bg);border:1px solid var(--ink)"></span>
+<div style="display:flex;justify-content:space-between;gap:24px;align-items:baseline">
+<div style="display:flex;flex-direction:column;gap:4px"><div style="font:500 26px/1.2 'Newsreader',serif">{{ r.title }}</div><div style="font-size:15px;color:var(--mute)">{{ r.team }}</div></div>
+<button onClick="{{ r.toggle }}" style="flex:none;border:0;background:transparent;color:var(--acc);font-size:14px;font-weight:600;padding:4px 0">{{ r.toggleLabel }}</button>
+</div>
+<p style="margin:14px 0 0;font-size:17px;line-height:1.6;max-width:66ch;text-wrap:pretty">{{ r.summary }}</p>
+<sc-if value="{{ r.closed }}" hint-placeholder-val="{{ true }}"><div style="margin-top:14px;font:italic 16px/1.5 'Newsreader',serif;color:var(--mute)">{{ r.hiTitles }}</div></sc-if>
+<sc-if value="{{ r.open }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:20px;display:flex;flex-direction:column">
+<sc-for list="{{ r.vis }}" as="p" hint-placeholder-count="3">
+<div style="display:grid;gap:8px;padding:18px 0;border-top:1px solid var(--line)">
+<div style="display:flex;gap:12px;align-items:baseline"><span style="font:500 19px/1.3 'Newsreader',serif">{{ p.t }}</span><sc-if value="{{ p.hi }}" hint-placeholder-val="{{ false }}"><span style="font:500 10px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)">Highlight</span></sc-if></div>
+<p style="margin:0;font-size:16px;line-height:1.6;max-width:66ch;text-wrap:pretty">{{ p.d }}</p>
+<div style="display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center"><span style="font:italic 15px 'Newsreader',serif;color:var(--mute)">{{ p.skl }}</span><sc-for list="{{ p.tech }}" as="tech"><span style="font:11px 'JetBrains Mono',monospace;padding:2px 7px;border:1px solid var(--line);border-radius:3px;color:var(--mute)">{{ tech }}</span></sc-for></div>
+<sc-if value="{{ p.link }}" hint-placeholder-val="{{ false }}"><a href="{{ p.link.url }}" style="font-size:14px;color:var(--acc)">{{ p.link.label }} ↗</a></sc-if>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-for>
+</sc-for>
+<div style="display:grid;grid-template-columns:200px minmax(0,1fr);gap:48px;padding-top:40px"><div></div><div style="font:italic 18px 'Newsreader',serif;color:var(--mute)">Before 2015: B.E. Electrical Engineering, Jadavpur University.</div></div>
+</div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:8px"><div style="font:11px ui-monospace,monospace;color:rgba(0,0,0,.45)">Home · mobile 390</div>
+<div class="dv-card" data-dir="a" data-theme="{{ a.theme }}" style="width:390px;background:var(--bg);color:var(--ink);font-family:'Source Sans 3',sans-serif;border-radius:28px">
+<nav style="display:flex;justify-content:space-between;align-items:center;padding:22px 24px;border-bottom:1px solid var(--line)"><div style="font:500 19px 'Newsreader',serif">Niladri Roy</div><div style="font-size:14px;color:var(--mute)">Menu</div></nav>
+<div style="padding:28px 24px;display:flex;flex-direction:column;gap:20px">
+<div style="aspect-ratio:1/1;background:repeating-linear-gradient(135deg,var(--ph1) 0 8px,var(--ph2) 8px 16px);display:flex;align-items:flex-end;padding:12px;font:10px 'JetBrains Mono',monospace;color:var(--mute)">portrait</div>
+<span style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:999px;background:var(--soft);font-size:13px"><span style="width:7px;height:7px;border-radius:50%;background:var(--acc)"></span>{{ status }}</span>
+<h1 style="margin:0;font:400 40px/1.05 'Newsreader',serif;letter-spacing:-.02em">I build the dependable middle of enterprise software.</h1>
+<p style="margin:0;font-size:16px;line-height:1.6">Software engineer in Bangalore. Eleven years on data-heavy products at Visa, Informatica and now Salesforce.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+<div style="border-top:1px solid var(--ink);padding-top:10px"><div style="font:400 28px 'Newsreader',serif">11 yrs</div><div style="font-size:13px;color:var(--mute)">since 2015</div></div>
+<div style="border-top:1px solid var(--ink);padding-top:10px"><div style="font:400 28px 'Newsreader',serif">5M+</div><div style="font-size:13px;color:var(--mute)">npm downloads</div></div>
+</div>
+</div>
+<div style="padding:8px 24px 16px;font:italic 18px 'Newsreader',serif;color:var(--mute)">Selected work</div>
+<sc-for list="{{ cases }}" as="c" hint-placeholder-count="4"><a href="#" style="display:flex;flex-direction:column;gap:4px;padding:18px 24px;border-top:1px solid var(--line)"><span style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><span style="font:400 22px/1.2 'Newsreader',serif">{{ c.t }}</span><span style="font:400 18px 'Newsreader',serif;color:var(--acc);flex:none">{{ c.metric }}</span></span><span style="font-size:14px;color:var(--mute)">{{ c.org }}</span></a></sc-for>
+<div style="padding:24px;border-top:1px solid var(--line)"><a href="#" style="display:block;text-align:center;padding:14px;border:1px solid var(--ink);border-radius:999px;font-size:15px;font-weight:600">Full work history</a></div>
+</div></div>
+
+</div></div>
+
+<!-- ================= 1b WARM ================= -->
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Warm and personal: Literata with Nunito Sans, sage accent, led by photography, one card per employer that opens a full page</div>
+<div style="display:flex;gap:28px;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:8px"><div style="font:11px ui-monospace,monospace;color:rgba(0,0,0,.45)">Home · 1280</div>
+<div class="dv-card" data-dir="b" data-theme="{{ b.theme }}" style="width:1280px;background:var(--bg);color:var(--ink);font-family:'Nunito Sans',sans-serif">
+<nav style="display:flex;justify-content:space-between;align-items:center;padding:22px 64px">
+<div style="display:flex;gap:12px;align-items:center"><span style="width:36px;height:36px;border-radius:50%;background:repeating-linear-gradient(135deg,var(--ph1) 0 4px,var(--ph2) 4px 8px)"></span><span style="font:600 18px 'Literata',serif">Niladri Roy</span></div>
+<div style="display:flex;gap:28px;align-items:center;font-size:15px;color:var(--mute)"><a href="#">Work</a><a href="#">Stories</a><a href="#">Writing</a><a href="#">Contact</a><button onClick="{{ b.toggleTheme }}" style="border:0;background:var(--card);color:var(--ink);border-radius:10px;padding:7px 12px;font-size:13px">{{ b.themeLabel }}</button></div>
+</nav>
+<div style="margin:0 64px;height:420px;border-radius:24px;background:repeating-linear-gradient(135deg,var(--ph1) 0 10px,var(--ph2) 10px 20px);display:flex;align-items:flex-start;justify-content:flex-end;padding:20px;font:11px 'JetBrains Mono',monospace;color:var(--mute)">wide landscape, one of your own photographs</div>
+<div style="margin:-120px 64px 0 128px;position:relative;background:var(--card);border-radius:24px;padding:48px 56px;display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:56px;box-shadow:0 20px 50px -30px rgba(40,30,20,.35)">
+<div style="display:flex;flex-direction:column;gap:20px">
+<h1 style="margin:0;font:400 54px/1.1 'Literata',serif;letter-spacing:-.015em">Hi, I'm Niladri. <span style="font-style:italic;color:var(--acc)">I like making hard systems feel calm.</span></h1>
+<p style="margin:0;font-size:18px;line-height:1.65;max-width:58ch;text-wrap:pretty">I've spent eleven years on enterprise software, from invoicing at Visa to Master Data Management at Informatica, which is now part of Salesforce. Along the way I earned a master's at Georgia Tech, published a library that passed five million downloads, and kept a camera close by.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;border-left:1px solid var(--line);padding-left:32px">
+<div style="font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)">Right now</div>
+<div style="font:600 18px/1.35 'Literata',serif">Senior Member of Technical Staff</div>
+<div style="font-size:15px;color:var(--mute)">Salesforce · MDM R&amp;D · Bangalore</div>
+<span style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:10px;background:var(--soft);font-size:14px;font-weight:600"><span style="width:8px;height:8px;border-radius:50%;background:var(--acc)"></span>{{ status }}</span>
+</div>
+</div>
+<section style="padding:96px 64px 40px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><h2 style="margin:0;font:400 36px 'Literata',serif">Stories from the work</h2><a href="#" style="font-size:15px;font-weight:600;color:var(--acc)">All work history →</a></div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px">
+<sc-for list="{{ cases }}" as="c" hint-placeholder-count="4">
+<a href="#" style="background:var(--card);border-radius:20px;overflow:hidden;display:flex;flex-direction:column">
+<span style="height:200px;background:repeating-linear-gradient(135deg,var(--ph1) 0 8px,var(--ph2) 8px 16px);display:flex;align-items:flex-end;padding:14px;font:10px 'JetBrains Mono',monospace;color:var(--mute)">diagram or screenshot</span>
+<span style="padding:24px 28px 28px;display:flex;flex-direction:column;gap:10px"><span style="font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mute)">{{ c.org }}</span><span style="font:400 26px/1.2 'Literata',serif">{{ c.t }}</span><span style="font-size:16px;line-height:1.55;color:var(--mute)">{{ c.d }}</span><span style="display:flex;gap:10px;align-items:baseline;margin-top:6px"><span style="font:600 22px 'Literata',serif;color:var(--acc)">{{ c.metric }}</span><span style="font-size:14px;color:var(--mute)">{{ c.mlabel }}</span></span></span>
+</a>
+</sc-for>
+</div>
+</section>
+<section style="padding:72px 64px;display:grid;grid-template-columns:320px minmax(0,1fr);gap:64px">
+<h2 style="margin:0;font:400 36px/1.15 'Literata',serif">How I like to work</h2>
+<div style="display:flex;flex-direction:column;gap:28px">
+<sc-for list="{{ principles }}" as="p" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px"><span style="font:italic 400 28px 'Literata',serif;color:var(--acc)">{{ p.n }}</span><div style="display:flex;flex-direction:column;gap:6px"><div style="font:600 21px 'Literata',serif">{{ p.t }}</div><p style="margin:0;font-size:16px;line-height:1.6;color:var(--mute)">{{ p.d }}</p></div></div>
+</sc-for>
+</div>
+</section>
+<section style="padding:0 64px 72px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px">
+<sc-for list="{{ quotes }}" as="q" hint-placeholder-count="2">
+<figure style="margin:0;background:var(--soft);border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:20px"><blockquote style="margin:0;font:italic 400 21px/1.5 'Literata',serif">“{{ q.q }}”</blockquote><figcaption style="display:flex;gap:12px;align-items:center"><span style="width:40px;height:40px;border-radius:50%;background:repeating-linear-gradient(135deg,var(--ph1) 0 4px,var(--ph2) 4px 8px)"></span><span style="display:flex;flex-direction:column;font-size:14px"><span style="font-weight:700">{{ q.who }}</span><span style="color:var(--mute)">{{ q.role }}</span></span></figcaption></figure>
+</sc-for>
+</section>
+<section style="padding:72px 64px;background:var(--card);display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><h2 style="margin:0;font:400 36px 'Literata',serif">Through my lens</h2><a href="https://www.instagram.com/niladriclicks/" style="font-size:15px;font-weight:600;color:var(--acc)">@niladriclicks on Instagram →</a></div>
+<div style="display:grid;grid-template-columns:2fr 1fr 1fr 1.4fr;gap:16px;height:280px">
+<div style="border-radius:16px;background:repeating-linear-gradient(135deg,var(--ph1) 0 8px,var(--ph2) 8px 16px);display:flex;align-items:flex-end;padding:12px;font:10px 'JetBrains Mono',monospace;color:var(--mute)">photo 1</div>
+<div style="border-radius:16px;background:repeating-linear-gradient(135deg,var(--ph1) 0 8px,var(--ph2) 8px 16px);display:flex;align-items:flex-end;padding:12px;font:10px 'JetBrains Mono',monospace;color:var(--mute)">photo 2</div>
+<div style="border-radius:16px;background:repeating-linear-gradient(135deg,var(--ph1) 0 8px,var(--ph2) 8px 16px);display:flex;align-items:flex-end;padding:12px;font:10px 'JetBrains Mono',monospace;color:var(--mute)">photo 3</div>
+<div style="border-radius:16px;background:repeating-linear-gradient(135deg,var(--ph1) 0 8px,var(--ph2) 8px 16px);display:flex;align-items:flex-end;padding:12px;font:10px 'JetBrains Mono',monospace;color:var(--mute)">photo 4</div>
+</div>
+</section>
+<section style="padding:72px 64px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:64px">
+<div style="display:flex;flex-direction:column;gap:20px"><h2 style="margin:0;font:400 28px 'Literata',serif">Writing &amp; teaching</h2>
+<sc-for list="{{ writing }}" as="w" hint-placeholder-count="4"><a href="{{ w.url }}" style="display:flex;flex-direction:column;gap:2px;padding-bottom:14px;border-bottom:1px solid var(--line)"><span style="font-weight:700;font-size:17px">{{ w.t }}</span><span style="font-size:15px;color:var(--mute)">{{ w.d }}</span></a></sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:20px"><h2 style="margin:0;font:400 28px 'Literata',serif">Education</h2>
+<sc-for list="{{ edu }}" as="e" hint-placeholder-count="2"><div style="display:flex;flex-direction:column;gap:2px;padding-bottom:14px;border-bottom:1px solid var(--line)"><span style="font-weight:700;font-size:17px">{{ e.t }}</span><span style="font-size:15px;color:var(--mute)">{{ e.s }} · {{ e.y }}</span><span style="font-size:15px;color:var(--mute)">{{ e.n }}</span></div></sc-for>
+</div>
+</section>
+<footer style="margin:0 64px 64px;border-radius:24px;background:var(--acc);color:#fff;padding:56px;display:flex;justify-content:space-between;align-items:center;gap:32px" data-theme-invert="1">
+<div style="display:flex;flex-direction:column;gap:8px"><div style="font:400 40px/1.1 'Literata',serif">Say hello</div><div style="font-size:17px;opacity:.9">Hiring, collaborating or just curious: LinkedIn is the best way to reach me.</div></div>
+<div style="display:flex;gap:12px"><sc-for list="{{ links }}" as="l" hint-placeholder-count="4"><a href="{{ l.url }}" style="padding:10px 16px;border-radius:12px;background:rgba(255,255,255,.16);font-weight:600;font-size:15px;color:#fff">{{ l.t }}</a></sc-for></div>
+</footer>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:8px"><div style="font:11px ui-monospace,monospace;color:rgba(0,0,0,.45)">Work history overview · 1280 · click a card</div>
+<div class="dv-card" data-dir="b" data-theme="{{ b.theme }}" style="width:1280px;background:var(--bg);color:var(--ink);font-family:'Nunito Sans',sans-serif">
+<nav style="display:flex;justify-content:space-between;align-items:center;padding:22px 64px">
+<div style="display:flex;gap:12px;align-items:center"><span style="width:36px;height:36px;border-radius:50%;background:repeating-linear-gradient(135deg,var(--ph1) 0 4px,var(--ph2) 4px 8px)"></span><span style="font:600 18px 'Literata',serif">Niladri Roy</span></div>
+<div style="display:flex;gap:28px;align-items:center;font-size:15px;color:var(--mute)"><a href="#" style="color:var(--ink);font-weight:700">Work</a><a href="#">Stories</a><a href="#">Writing</a><a href="#">Contact</a><button onClick="{{ b.toggleTheme }}" style="border:0;background:var(--card);color:var(--ink);border-radius:10px;padding:7px 12px;font-size:13px">{{ b.themeLabel }}</button></div>
+</nav>
+<header style="padding:56px 64px 36px;display:flex;flex-direction:column;gap:14px">
+<h1 style="margin:0;font:400 52px/1.1 'Literata',serif">Where I've worked</h1>
+<p style="margin:0;font-size:18px;line-height:1.6;color:var(--mute);max-width:62ch">Three places over eleven years, newest first. Each card has the headline projects; open one for the full story, role by role.</p>
+</header>
+<div style="padding:0 64px 72px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px">
+<sc-for list="{{ b.companies }}" as="co" hint-placeholder-count="3">
+<div onClick="{{ co.pick }}" style="cursor:pointer;background:var(--card);border-radius:22px;padding:28px;display:flex;flex-direction:column;gap:18px;outline:{{ co.outline }};outline-offset:-2px">
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="width:48px;height:48px;border-radius:12px;background:repeating-linear-gradient(135deg,var(--ph1) 0 4px,var(--ph2) 4px 8px);display:flex;align-items:center;justify-content:center;font:9px 'JetBrains Mono',monospace;color:var(--mute)">logo</span><span style="font-size:14px;color:var(--mute)">{{ co.years }} · {{ co.tenure }}</span></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font:400 32px 'Literata',serif">{{ co.name }}</div><div style="font-size:15px;line-height:1.5;color:var(--mute)">{{ co.note }}</div></div>
+<div style="display:flex;flex-direction:column;gap:6px;padding-top:14px;border-top:1px solid var(--line)">
+<sc-for list="{{ co.roles }}" as="r" hint-placeholder-count="2"><div style="display:flex;justify-content:space-between;gap:12px;font-size:15px"><span style="font-weight:700">{{ r.title }}</span><span style="color:var(--mute);flex:none">{{ r.yr }}</span></div></sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)">Highlights</div>
+<sc-for list="{{ co.hiTop }}" as="h" hint-placeholder-count="3"><div style="font:400 17px/1.35 'Literata',serif">{{ h }}</div></sc-for>
+</div>
+<div style="margin-top:auto;font-size:15px;font-weight:700;color:var(--acc)">Open the full story ({{ co.projCount }} projects) →</div>
+</div>
+</sc-for>
+</div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:8px"><div style="font:11px ui-monospace,monospace;color:rgba(0,0,0,.45)">Employer page · 1280 · shows the selected card</div>
+<div class="dv-card" data-dir="b" data-theme="{{ b.theme }}" style="width:1280px;background:var(--bg);color:var(--ink);font-family:'Nunito Sans',sans-serif">
+<nav style="display:flex;justify-content:space-between;align-items:center;padding:22px 64px">
+<div style="display:flex;gap:12px;align-items:center"><span style="width:36px;height:36px;border-radius:50%;background:repeating-linear-gradient(135deg,var(--ph1) 0 4px,var(--ph2) 4px 8px)"></span><span style="font:600 18px 'Literata',serif">Niladri Roy</span></div>
+<div style="display:flex;gap:28px;align-items:center;font-size:15px;color:var(--mute)"><a href="#" style="color:var(--ink);font-weight:700">Work</a><a href="#">Stories</a><a href="#">Writing</a><a href="#">Contact</a></div>
+</nav>
+<header style="padding:40px 64px 40px;display:flex;flex-direction:column;gap:16px">
+<div style="font-size:14px;color:var(--mute)"><a href="#">Work history</a> / {{ b.sel.name }}</div>
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
+<div style="display:flex;flex-direction:column;gap:10px"><h1 style="margin:0;font:400 64px/1 'Literata',serif">{{ b.sel.name }}</h1><p style="margin:0;font-size:18px;line-height:1.6;color:var(--mute);max-width:62ch">{{ b.sel.note }}</p></div>
+<div style="display:flex;gap:36px;flex:none"><div><div style="font:400 30px 'Literata',serif">{{ b.sel.tenure }}</div><div style="font-size:14px;color:var(--mute)">{{ b.sel.years }}</div></div><div><div style="font:400 30px 'Literata',serif">{{ b.sel.projCount }}</div><div style="font-size:14px;color:var(--mute)">projects</div></div></div>
+</div>
+</header>
+<div style="padding:0 64px 16px;display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{ b.filters }}" as="f" hint-placeholder-count="10">
+<sc-if value="{{ f.on }}" hint-placeholder-val="{{ false }}"><button onClick="{{ f.pick }}" style="border:0;border-radius:10px;padding:7px 13px;font-size:14px;font-weight:700;background:var(--acc);color:#fff">{{ f.label }}</button></sc-if>
+<sc-if value="{{ f.off }}" hint-placeholder-val="{{ true }}"><button onClick="{{ f.pick }}" style="border:0;border-radius:10px;padding:7px 13px;font-size:14px;font-weight:600;background:var(--card);color:var(--mute)">{{ f.label }}</button></sc-if>
+</sc-for>
+</div>
+<div style="padding:24px 64px 80px;display:flex;flex-direction:column;gap:56px">
+<sc-for list="{{ b.sel.roles }}" as="r" hint-placeholder-count="2">
+<section style="display:grid;grid-template-columns:280px minmax(0,1fr);gap:48px;opacity:{{ r.dim }}">
+<div style="display:flex;flex-direction:column;gap:8px"><div style="font:400 26px/1.2 'Literata',serif">{{ r.title }}</div><div style="font-size:15px;color:var(--mute)">{{ r.team }}</div><div style="font-size:14px;color:var(--mute)">{{ r.dates }} · {{ r.loc }}</div><p style="margin:8px 0 0;font-size:16px;line-height:1.6">{{ r.summary }}</p></div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-content:start">
+<sc-for list="{{ r.full }}" as="p" hint-placeholder-count="4">
+<article style="background:var(--card);border-radius:18px;padding:22px 24px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline"><span style="font:600 18px/1.3 'Literata',serif">{{ p.t }}</span><sc-if value="{{ p.hi }}" hint-placeholder-val="{{ false }}"><span style="flex:none;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--acc)">★ Highlight</span></sc-if></div>
+<p style="margin:0;font-size:15px;line-height:1.6;color:var(--ink);text-wrap:pretty">{{ p.d }}</p>
+<div style="font-size:14px;font-style:italic;color:var(--mute)">{{ p.skl }}</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ p.tech }}" as="tech"><span style="font:11px 'JetBrains Mono',monospace;padding:3px 8px;border-radius:6px;background:var(--soft);color:var(--ink)">{{ tech }}</span></sc-for></div>
+<sc-if value="{{ p.link }}" hint-placeholder-val="{{ false }}"><a href="{{ p.link.url }}" style="font-size:14px;font-weight:700;color:var(--acc)">{{ p.link.label }} ↗</a></sc-if>
+</article>
+</sc-for>
+</div>
+</section>
+</sc-for>
+</div>
+<div style="margin:0 64px 64px;padding-top:28px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:15px;font-weight:700"><button onClick="{{ b.prev }}" style="border:0;background:transparent;color:var(--acc);font-weight:700">← {{ b.prevName }}</button><button onClick="{{ b.next }}" style="border:0;background:transparent;color:var(--acc);font-weight:700">{{ b.nextName }} →</button></div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:8px"><div style="font:11px ui-monospace,monospace;color:rgba(0,0,0,.45)">Work history · mobile 390</div>
+<div class="dv-card" data-dir="b" data-theme="{{ b.theme }}" style="width:390px;background:var(--bg);color:var(--ink);font-family:'Nunito Sans',sans-serif;border-radius:28px">
+<nav style="display:flex;justify-content:space-between;align-items:center;padding:18px 20px"><div style="display:flex;gap:10px;align-items:center"><span style="width:32px;height:32px;border-radius:50%;background:repeating-linear-gradient(135deg,var(--ph1) 0 4px,var(--ph2) 4px 8px)"></span><span style="font:600 16px 'Literata',serif">Niladri Roy</span></div><span style="font-size:14px;color:var(--mute)">Menu</span></nav>
+<div style="padding:16px 20px 8px"><h1 style="margin:0;font:400 34px/1.1 'Literata',serif">Where I've worked</h1></div>
+<div style="padding:16px 20px 28px;display:flex;flex-direction:column;gap:14px">
+<sc-for list="{{ b.companies }}" as="co" hint-placeholder-count="3">
+<div onClick="{{ co.pick }}" style="background:var(--card);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:400 24px 'Literata',serif">{{ co.name }}</span><span style="font-size:13px;color:var(--mute)">{{ co.years }}</span></div>
+<sc-for list="{{ co.roles }}" as="r" hint-placeholder-count="2"><div style="font-size:14px;font-weight:700">{{ r.title }}</div></sc-for>
+<div style="font:italic 15px/1.4 'Literata',serif;color:var(--mute)">{{ co.hiLine }}</div>
+<div style="font-size:14px;font-weight:700;color:var(--acc);min-height:24px;display:flex;align-items:center">Full story →</div>
+</div>
+</sc-for>
+</div>
+</div></div>
+
+</div></div>
+
+<!-- ================= 1c BOLD ================= -->
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Bold modern: heavy Archivo type, one orange accent, mono tech markers, a proportional career bar, and a dense list you can filter and expand</div>
+<div style="display:flex;gap:28px;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:8px"><div style="font:11px ui-monospace,monospace;color:rgba(0,0,0,.45)">Home · 1280</div>
+<div class="dv-card" data-dir="c" data-theme="{{ c.theme }}" style="width:1280px;background:var(--bg);color:var(--ink);font-family:'Archivo',sans-serif">
+<nav style="display:flex;justify-content:space-between;align-items:center;padding:24px 56px">
+<div style="display:flex;gap:12px;align-items:center"><span style="width:40px;height:40px;background:var(--ink);color:var(--bg);display:flex;align-items:center;justify-content:center;font:900 16px 'Archivo'">NR</span><span style="font:700 16px 'Archivo'">Niladri Roy</span></div>
+<div style="display:flex;gap:28px;align-items:center;font:500 13px 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.04em"><a href="#">Work</a><a href="#">Cases</a><a href="#">OSS</a><a href="#">Writing</a><a href="#">Contact</a><button onClick="{{ c.toggleTheme }}" style="border:1.5px solid var(--ink);background:transparent;color:var(--ink);padding:6px 10px;font:500 12px 'JetBrains Mono',monospace;text-transform:uppercase">{{ c.themeLabel }}</button></div>
+</nav>
+<header style="padding:72px 56px 56px;display:flex;flex-direction:column;gap:40px">
+<span style="align-self:flex-start;display:inline-flex;gap:10px;align-items:center;font:500 13px 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.04em"><span style="width:10px;height:10px;background:var(--acc)"></span>{{ status }}</span>
+<h1 style="margin:0;font:800 118px/.92 'Archivo',sans-serif;letter-spacing:-.045em;text-wrap:balance">Eleven years shipping <span style="color:var(--acc)">data-heavy</span> software.</h1>
+<div style="display:grid;grid-template-columns:180px minmax(0,560px) 1fr;gap:32px;align-items:end">
+<div style="aspect-ratio:1/1;background:repeating-linear-gradient(135deg,var(--ph1) 0 6px,var(--ph2) 6px 12px);display:flex;align-items:flex-end;padding:8px;font:10px 'JetBrains Mono',monospace;color:var(--mute)">portrait</div>
+<p style="margin:0;font-size:19px;line-height:1.55;text-wrap:pretty">I'm a Senior Member of Technical Staff at Salesforce in Bangalore, working on Master Data Management. Before that: Informatica and Visa. I work across the stack and tend to end up owning the parts that need to not break.</p>
+<div style="justify-self:end;display:flex;gap:10px"><a href="#" style="background:var(--acc);color:var(--onacc);padding:14px 20px;font:700 15px 'Archivo'">See the work</a><a href="#" style="border:1.5px solid var(--ink);padding:12.5px 20px;font:700 15px 'Archivo'">LinkedIn ↗</a></div>
+</div>
+</header>
+<section style="border-top:1.5px solid var(--ink)">
+<sc-for list="{{ cases }}" as="cs" hint-placeholder-count="4">
+<a href="#" style="display:grid;grid-template-columns:300px minmax(0,1fr) 300px;gap:40px;padding:36px 56px;border-bottom:1.5px solid var(--ink);align-items:center" style-hover="background:var(--soft)">
+<span style="font:800 88px/.9 'Archivo';letter-spacing:-.04em;color:var(--acc)">{{ cs.metric }}</span>
+<span style="display:flex;flex-direction:column;gap:8px"><span style="font:800 36px/1.05 'Archivo';letter-spacing:-.02em">{{ cs.t }}</span><span style="font-size:16px;line-height:1.5;color:var(--mute);max-width:56ch">{{ cs.mlabel }}. {{ cs.org }}.</span></span>
+<span style="font:12px/1.6 'JetBrains Mono',monospace;color:var(--mute);text-align:right">{{ cs.tags }}</span>
+</a>
+</sc-for>
+</section>
+<section style="padding:80px 56px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px">
+<sc-for list="{{ principles }}" as="p" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:12px;border-top:6px solid var(--ink);padding-top:18px"><span style="font:500 12px 'JetBrains Mono',monospace;color:var(--mute)">{{ p.n }}</span><div style="font:800 30px/1.05 'Archivo';letter-spacing:-.02em">{{ p.t }}</div><p style="margin:0;font-size:16px;line-height:1.55;color:var(--mute)">{{ p.d }}</p></div>
+</sc-for>
+</section>
+<section style="background:var(--ink);color:var(--bg);padding:72px 56px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px">
+<sc-for list="{{ quotes }}" as="q" hint-placeholder-count="2">
+<figure style="margin:0;display:flex;flex-direction:column;gap:18px"><blockquote style="margin:0;font:600 26px/1.3 'Archivo';letter-spacing:-.01em">“{{ q.q }}”</blockquote><figcaption style="font:12px 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.04em;opacity:.75">{{ q.who }} / {{ q.role }}</figcaption></figure>
+</sc-for>
+</section>
+<section style="padding:72px 56px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px">
+<div style="display:flex;flex-direction:column;gap:14px"><div style="font:500 12px 'JetBrains Mono',monospace;text-transform:uppercase;color:var(--mute)">Open source</div><div style="font:800 28px/1.05 'Archivo'">js-big-decimal</div><div style="font-size:16px;line-height:1.5;color:var(--mute)">Exact decimal arithmetic for JavaScript. 5M+ downloads on npm.</div><a href="https://www.npmjs.com/package/js-big-decimal" style="font:700 15px 'Archivo';color:var(--acc)">npm ↗</a></div>
+<div style="display:flex;flex-direction:column;gap:12px"><div style="font:500 12px 'JetBrains Mono',monospace;text-transform:uppercase;color:var(--mute)">Writing &amp; talks</div><sc-for list="{{ writing }}" as="w" hint-placeholder-count="4"><a href="{{ w.url }}" style="font:700 18px 'Archivo'">{{ w.t }}</a></sc-for></div>
+<div style="display:flex;flex-direction:column;gap:12px"><div style="font:500 12px 'JetBrains Mono',monospace;text-transform:uppercase;color:var(--mute)">Education</div><sc-for list="{{ edu }}" as="e" hint-placeholder-count="2"><div style="display:flex;flex-direction:column"><span style="font:700 18px 'Archivo'">{{ e.t }}</span><span style="font-size:15px;color:var(--mute)">{{ e.s }}, {{ e.y }}</span></div></sc-for></div>
+</section>
+<footer style="padding:56px;border-top:1.5px solid var(--ink);display:flex;justify-content:space-between;align-items:flex-end;gap:32px">
+<div style="font:800 96px/.9 'Archivo';letter-spacing:-.045em">Get in <span style="color:var(--acc)">touch.</span></div>
+<div style="display:flex;flex-direction:column;gap:8px;text-align:right;font:500 14px 'JetBrains Mono',monospace;text-transform:uppercase"><sc-for list="{{ links }}" as="l" hint-placeholder-count="4"><a href="{{ l.url }}">{{ l.t }} ↗</a></sc-for></div>
+</footer>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:8px"><div style="font:11px ui-monospace,monospace;color:rgba(0,0,0,.45)">Work history · 1280 · interactive</div>
+<div class="dv-card" data-dir="c" data-theme="{{ c.theme }}" style="width:1280px;background:var(--bg);color:var(--ink);font-family:'Archivo',sans-serif">
+<nav style="display:flex;justify-content:space-between;align-items:center;padding:24px 56px">
+<div style="display:flex;gap:12px;align-items:center"><span style="width:40px;height:40px;background:var(--ink);color:var(--bg);display:flex;align-items:center;justify-content:center;font:900 16px 'Archivo'">NR</span><span style="font:700 16px 'Archivo'">Niladri Roy</span></div>
+<div style="display:flex;gap:28px;align-items:center;font:500 13px 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.04em"><a href="#" style="color:var(--acc)">Work</a><a href="#">Cases</a><a href="#">OSS</a><a href="#">Writing</a><a href="#">Contact</a><button onClick="{{ c.toggleTheme }}" style="border:1.5px solid var(--ink);background:transparent;color:var(--ink);padding:6px 10px;font:500 12px 'JetBrains Mono',monospace;text-transform:uppercase">{{ c.themeLabel }}</button></div>
+</nav>
+<header style="padding:56px 56px 32px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
+<h1 style="margin:0;font:800 96px/.9 'Archivo';letter-spacing:-.045em">Work<br>history</h1>
+<p style="margin:0;font-size:17px;line-height:1.55;color:var(--mute);max-width:44ch">Filter by skill to see where I've done that kind of work. Open a role to read every project in it.</p>
+</header>
+<div style="padding:0 56px 40px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;height:56px;gap:3px">
+<sc-for list="{{ c.track }}" as="t" hint-placeholder-count="3">
+<div style="flex:{{ t.yrs }};background:{{ t.bg }};color:{{ t.fg }};display:flex;align-items:center;padding:0 14px;font:700 15px 'Archivo';white-space:nowrap;overflow:hidden">{{ t.name }}</div>
+</sc-for>
+</div>
+<div style="display:flex;justify-content:space-between;font:12px 'JetBrains Mono',monospace;color:var(--mute)"><span>2015</span><span>2018</span><span>2020</span><span>2024</span><span>2026</span></div>
+</div>
+<div style="padding:18px 56px;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);display:flex;gap:24px;align-items:center;justify-content:space-between">
+<div style="display:flex;flex-wrap:wrap;gap:6px">
+<sc-for list="{{ c.filters }}" as="f" hint-placeholder-count="10">
+<sc-if value="{{ f.on }}" hint-placeholder-val="{{ false }}"><button onClick="{{ f.pick }}" style="border:1.5px solid var(--acc);background:var(--acc);color:var(--onacc);padding:6px 10px;font:500 12px 'JetBrains Mono',monospace;text-transform:uppercase">{{ f.label }}</button></sc-if>
+<sc-if value="{{ f.off }}" hint-placeholder-val="{{ true }}"><button onClick="{{ f.pick }}" style="border:1.5px solid var(--line);background:transparent;color:var(--ink);padding:6px 10px;font:500 12px 'JetBrains Mono',monospace;text-transform:uppercase">{{ f.label }}</button></sc-if>
+</sc-for>
+</div>
+<div style="display:flex;flex:none;border:1.5px solid var(--ink)">
+<sc-if value="{{ c.hiOn }}" hint-placeholder-val="{{ true }}"><button onClick="{{ c.setHi }}" style="border:0;padding:8px 12px;font:500 12px 'JetBrains Mono',monospace;text-transform:uppercase;background:var(--ink);color:var(--bg)">Highlights</button><button onClick="{{ c.setAll }}" style="border:0;padding:8px 12px;font:500 12px 'JetBrains Mono',monospace;text-transform:uppercase;background:transparent;color:var(--ink)">All</button></sc-if>
+<sc-if value="{{ c.allOn }}" hint-placeholder-val="{{ false }}"><button onClick="{{ c.setHi }}" style="border:0;padding:8px 12px;font:500 12px 'JetBrains Mono',monospace;text-transform:uppercase;background:transparent;color:var(--ink)">Highlights</button><button onClick="{{ c.setAll }}" style="border:0;padding:8px 12px;font:500 12px 'JetBrains Mono',monospace;text-transform:uppercase;background:var(--ink);color:var(--bg)">All</button></sc-if>
+</div>
+</div>
+<div style="padding:0 56px 80px">
+<sc-for list="{{ c.companies }}" as="co" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px;border-bottom:1.5px solid var(--ink);padding:36px 0">
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font:800 40px/.95 'Archivo';letter-spacing:-.03em">{{ co.name }}</div><div style="font:12px 'JetBrains Mono',monospace;color:var(--mute)">{{ co.years }} · {{ co.tenure }}</div></div>
+<div style="display:flex;flex-direction:column">
+<sc-for list="{{ co.roles }}" as="r" hint-placeholder-count="1">
+<div style="border-top:1px solid var(--line);padding:18px 0;opacity:{{ r.dim }}">
+<div onClick="{{ r.toggle }}" style="cursor:pointer;display:grid;grid-template-columns:170px minmax(0,1fr) auto;gap:24px;align-items:baseline">
+<span style="font:12px 'JetBrains Mono',monospace;color:var(--mute)">{{ r.dates }}</span>
+<span style="display:flex;flex-direction:column;gap:6px"><span style="font:700 22px/1.2 'Archivo'">{{ r.title }}</span><span style="font-size:15px;color:var(--mute);line-height:1.5">{{ r.summary }}</span></span>
+<span style="font:500 12px 'JetBrains Mono',monospace;text-transform:uppercase;color:var(--acc);white-space:nowrap">{{ r.toggleLabel }}</span>
+</div>
+<sc-if value="{{ r.closed }}" hint-placeholder-val="{{ true }}"><div style="margin:10px 0 0 194px;display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ r.hiList }}" as="h"><span style="font:500 13px 'Archivo';padding:4px 10px;background:var(--soft)">{{ h }}</span></sc-for></div></sc-if>
+<sc-if value="{{ r.open }}" hint-placeholder-val="{{ false }}">
+<div style="margin:16px 0 0 194px;display:flex;flex-direction:column">
+<sc-for list="{{ r.vis }}" as="p" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:28px;padding:16px 0;border-top:1px dashed var(--line)">
+<div style="display:flex;flex-direction:column;gap:6px"><span style="display:flex;gap:10px;align-items:center"><sc-if value="{{ p.hi }}" hint-placeholder-val="{{ false }}"><span style="width:8px;height:8px;background:var(--acc);flex:none"></span></sc-if><span style="font:700 17px 'Archivo'">{{ p.t }}</span></span><span style="font-size:15px;line-height:1.55;text-wrap:pretty">{{ p.d }}</span><span style="font-size:14px;font-style:italic;color:var(--mute)">{{ p.skl }}</span><sc-if value="{{ p.link }}" hint-placeholder-val="{{ false }}"><a href="{{ p.link.url }}" style="font:700 14px 'Archivo';color:var(--acc)">{{ p.link.label }} ↗</a></sc-if></div>
+<div style="display:flex;flex-wrap:wrap;gap:4px;align-content:flex-start"><sc-for list="{{ p.tech }}" as="tech"><span style="font:11px 'JetBrains Mono',monospace;padding:3px 6px;border:1px solid var(--ink)">{{ tech }}</span></sc-for></div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:8px"><div style="font:11px ui-monospace,monospace;color:rgba(0,0,0,.45)">Work history · mobile 390</div>
+<div class="dv-card" data-dir="c" data-theme="{{ c.theme }}" style="width:390px;background:var(--bg);color:var(--ink);font-family:'Archivo',sans-serif;border-radius:28px">
+<nav style="display:flex;justify-content:space-between;align-items:center;padding:18px 20px"><span style="width:36px;height:36px;background:var(--ink);color:var(--bg);display:flex;align-items:center;justify-content:center;font:900 14px 'Archivo'">NR</span><span style="font:500 12px 'JetBrains Mono',monospace;text-transform:uppercase">Menu</span></nav>
+<div style="padding:12px 20px 20px"><h1 style="margin:0;font:800 52px/.9 'Archivo';letter-spacing:-.045em">Work history</h1></div>
+<div style="padding:0 20px 16px;display:flex;height:36px;gap:2px"><sc-for list="{{ c.track }}" as="t" hint-placeholder-count="3"><div style="flex:{{ t.yrs }};background:{{ t.bg }}"></div></sc-for></div>
+<div style="padding:12px 20px;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);display:flex;gap:6px;overflow-x:auto">
+<sc-for list="{{ c.filters }}" as="f" hint-placeholder-count="6">
+<sc-if value="{{ f.on }}" hint-placeholder-val="{{ false }}"><button onClick="{{ f.pick }}" style="flex:none;min-height:36px;border:1.5px solid var(--acc);background:var(--acc);color:var(--onacc);padding:0 10px;font:500 11px 'JetBrains Mono',monospace;text-transform:uppercase">{{ f.label }}</button></sc-if>
+<sc-if value="{{ f.off }}" hint-placeholder-val="{{ true }}"><button onClick="{{ f.pick }}" style="flex:none;min-height:36px;border:1.5px solid var(--line);background:transparent;color:var(--ink);padding:0 10px;font:500 11px 'JetBrains Mono',monospace;text-transform:uppercase">{{ f.label }}</button></sc-if>
+</sc-for>
+</div>
+<div style="padding:0 20px 28px">
+<sc-for list="{{ c.companies }}" as="co" hint-placeholder-count="3">
+<div style="padding:20px 0 6px;display:flex;justify-content:space-between;align-items:baseline"><span style="font:800 28px 'Archivo';letter-spacing:-.03em">{{ co.name }}</span><span style="font:11px 'JetBrains Mono',monospace;color:var(--mute)">{{ co.years }}</span></div>
+<sc-for list="{{ co.roles }}" as="r" hint-placeholder-count="1">
+<div onClick="{{ r.toggle }}" style="border-top:1px solid var(--line);padding:14px 0;min-height:44px;display:flex;flex-direction:column;gap:6px;opacity:{{ r.dim }}">
+<div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline"><span style="font:700 17px/1.2 'Archivo'">{{ r.title }}</span><span style="font:500 11px 'JetBrains Mono',monospace;color:var(--acc);flex:none">{{ r.mobLabel }}</span></div>
+<span style="font:11px 'JetBrains Mono',monospace;color:var(--mute)">{{ r.dates }}</span>
+<sc-if value="{{ r.open }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:12px;padding-top:8px"><sc-for list="{{ r.vis }}" as="p" hint-placeholder-count="2"><div style="display:flex;flex-direction:column;gap:4px;padding-left:12px;border-left:3px solid var(--acc)"><span style="font:700 15px 'Archivo'">{{ p.t }}</span><span style="font-size:14px;line-height:1.5">{{ p.d }}</span><span style="font:10px 'JetBrains Mono',monospace;color:var(--mute)">{{ p.techLine }}</span></div></sc-for></div></sc-if>
+</div>
+</sc-for>
+</sc-for>
+</div>
+</div></div>
+
+</div></div>
+
+</div>
+<p class="dv-next">Try next: "combine <a class="dv-oid" href="#1a">1a</a>'s timeline with <a class="dv-oid" href="#1b">1b</a>'s employer pages" · "<a class="dv-oid" href="#1c">1c</a> but calmer, with less orange" · "design a case study page"</p>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;status&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Not looking&quot;,&quot;Open to conversations&quot;,&quot;Open to freelance&quot;,&quot;Open to new roles&quot;],&quot;default&quot;:&quot;Open to conversations&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Light&quot;,&quot;Dark&quot;],&quot;default&quot;:&quot;Light&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const SK = ['All','AI/ML','Full stack','Frontend','Backend','Performance','CI/CD','Leadership','Mentorship','Open source','Production support'];
+const D = [
+{id:'sf',name:'Salesforce',years:'2026 — now',tenure:'8 mo',yrs:0.65,note:'The Informatica MDM team moved to Salesforce with the acquisition. Same product and team, new parent company.',roles:[
+ {id:'sf1',title:'Senior Member of Technical Staff',yr:'2026 —',team:'Master Data Management, R&D',loc:'Bangalore',dates:'Feb 2026 — Present',summary:'Came over with the acquisition and became the person the hardest customer bugs land on: two P1s at once, and a validation leak three layers deep.',projects:[
+  {t:'Two concurrent P1 escalations',d:'Resolved two customer-blocking P1 production bugs at the same time, while carrying a steady load of around 21 open Jira issues.',sk:['Production support'],tech:[],hi:1},
+  {t:'Data-quality validation leak for Sopra Steria',d:'Root-caused and fixed a multi-layered data-quality validation leak for a named enterprise customer, tracing it through each layer instead of patching the symptom.',sk:['Production support','Backend'],tech:[],hi:1}]}]},
+{id:'inf',name:'Informatica',years:'2020 — 2026',tenure:'5 yr 10 mo',yrs:5.8,note:'Master Data Management R&D. MDM is how large companies keep one trusted record of each customer, product and supplier.',roles:[
+ {id:'inf1',title:'Principal Software Engineer',yr:'2024 — 26',team:'Master Data Management, R&D',loc:'Bangalore',dates:'Apr 2024 — Jan 2026',summary:'Senior IC across MDM UI and services. Took Dynamic Fields from design doc to production on the date we committed to.',projects:[
+  {t:'Dynamic fields in workflows',d:'Led design and delivery of an epic that lets reviewers see and edit dynamic field definitions and values inside a workflow. Shipped on schedule, with quality and performance intact, to production in October.',sk:['Full stack','Leadership'],tech:['Java','Spring','MongoDB','React','TypeScript','Node.js'],hi:1}]},
+ {id:'inf2',title:'Lead Software Engineer',yr:'2020 — 24',team:'Master Data Management, R&D',loc:'Bangalore',dates:'Apr 2020 — Mar 2024',summary:'Four years that started with rescuing a fragile editor and ended with AI enrichment on the Informatica World stage.',projects:[
+  {t:'AI enrichment integration',d:'Brought AI-generated enrichment into the MDM product lifecycle. Showcased at Informatica World 2023, where it contributed to a sales lift of more than 20%. Work spanned UI, backend service, model serving, BPEL and Elasticsearch tuning, plus parallel prediction for batch jobs.',sk:['AI/ML','Full stack'],tech:['Java','Spring','Python','TensorFlow','MongoDB','Elasticsearch','React','TypeScript'],hi:1},
+  {t:'Enrichment with LLMs',d:'Worked across teams to rebuild the enrichment framework so it could call multiple external systems, including fine-tuned internal LLMs based on ChatGPT.',sk:['AI/ML','Full stack'],tech:['Java','Spring','MongoDB','Elasticsearch','React','TypeScript'],hi:1},
+  {t:'Audit trail performance',d:'Added Elasticsearch batching for import jobs and measured it with A/B performance metrics. Brought search, lifecycle management, disaster recovery and eventual consistency. Operating cost fell 30% and response times improved by more than 50%.',sk:['Backend','Performance'],tech:['Java','Elasticsearch'],hi:1},
+  {t:'New enrichment microservice',d:'Created and onboarded a new MDM microservice across DevOps, Security, Platform Integration and feature teams, and documented every step. The next team to onboard a service used the wiki and did it in under half the time.',sk:['Backend','CI/CD'],tech:['Java','Spring','Maven','Docker','Kubernetes','Jenkins','Bitbucket'],hi:1},
+  {t:'Sequential Edit stabilization',d:'Joined a bug-prone UI feature after COVID, made architectural changes, and brought component-library owners in early. PR reviews got faster and the feature shipped within months.',sk:['Frontend','Leadership','Mentorship'],tech:['React','TypeScript']},
+  {t:'2023 AI Hackathon',d:'Mentored three teams across text, image and audio, and built a ChatGPT integration into the MDM platform that reached the finals.',sk:['AI/ML','Mentorship'],tech:['Python','TensorFlow','Java','React','Node.js']},
+  {t:'DaaS enrichment enablement',d:'Built a UI framework for configurable DaaS services that enrich records on demand. It became a platform feature used across teams.',sk:['Full stack'],tech:['React','TypeScript','Java','Spring']},
+  {t:'Germany office collaboration',d:'Worked on site with the German office on planning for Dynamic Fields and the CLAIRE platform.',sk:['Leadership'],tech:['React','TypeScript','Java']},
+  {t:'Crystal theme upgrade',d:'Delivered a theme upgrade for on-premise P360 with PM and UX.',sk:['Frontend'],tech:['CSS']},
+  {t:'Interview panels',d:'Assessed candidates on technical skill, teamwork and ability to learn.',sk:['Mentorship'],tech:[]},
+  {t:'Operational excellence',d:'Fixed bugs, led the team through releases, and took on-call production support.',sk:['Production support'],tech:[]}]}]},
+{id:'visa',name:'Visa',years:'2015 — 2020',tenure:'4 yr 7 mo',yrs:4.55,note:'Corporate IT, building internal platforms for revenue, pricing and engineering analytics.',roles:[
+ {id:'v1',title:'Senior Software Engineer',yr:'2018 — 20',team:'Engineering Application & Analytics',loc:'Bangalore',dates:'Apr 2018 — Feb 2020',summary:'Moved a global invoicing portal to modern Angular, started an internal tech forum, and began teaching across the org.',projects:[
+  {t:'VOIP moves to Angular 6',d:'Led the migration of the Visa Online Invoice Portal frontend to Angular 6 for performance, compatibility and security, backed by thorough testing.',sk:['Frontend'],tech:['Angular','TypeScript','Sass','Node.js'],hi:1},
+  {t:'Ready to Return mentoring',d:'Mentored women in technology returning to the workplace after a career break.',sk:['Mentorship'],tech:[],hi:1},
+  {t:'Visa Tech Forum and One Intake',d:'Started Visa Tech Forum, a platform for technical discussion that pulls from several sources, and contributed heavily to One Intake, a wrapper app for vendor and project requests.',sk:['Full stack'],tech:['Angular','React','TypeScript','Node.js','Express','MongoDB']},
+  {t:'Global OpCerts',d:'UI improvements, performance work and code-quality monitoring on a major, well-funded EAA application.',sk:['Frontend','Performance'],tech:['React','TypeScript','Sass']},
+  {t:'Tech talks',d:'Gave organization-wide talks on Angular, React with Redux, SCSS, and Node.js with Express.',sk:['Mentorship'],tech:['Angular','React','Node.js','Express','Sass']}]},
+ {id:'v2',title:'Software Engineer',yr:'2015 — 18',team:'Revenue & Pricing Systems',loc:'Bangalore',dates:'Aug 2015 — Apr 2018',summary:'First job: built the portal that invoices Visa\u2019s member banks worldwide, and on the side wrote a library that now has 5M+ downloads.',projects:[
+  {t:'Visa Online Invoice Portal',d:'Helped build the portal that generates invoices for member banks worldwide. Set up Jenkins CI/CD on a dedicated build server and kept it compatible back to IE7. Live globally as of 2020.',sk:['Full stack','CI/CD'],tech:['AngularJS','JavaScript','Java','Jenkins'],hi:1},
+  {t:'js-big-decimal',d:'Published an npm package for exact decimal arithmetic in JavaScript, for very large and very small numbers. More than 5 million downloads so far.',sk:['Open source'],tech:['TypeScript','Node.js','Webpack'],hi:1,link:{label:'js-big-decimal on npm',url:'https://www.npmjs.com/package/js-big-decimal'}}]}]}
+];
+const CASES = [
+ {n:'01',t:'AI enrichment inside MDM',org:'Informatica, 2023',metric:'+20%',mlabel:'sales lift after Informatica World 2023',d:'AI-generated enrichment across the product record lifecycle: UI, service, model serving, BPEL and Elasticsearch.',tags:'Java · Python · TensorFlow · Elasticsearch · React'},
+ {n:'02',t:'An audit trail that scales',org:'Informatica',metric:'−30%',mlabel:'operating cost, with 50%+ faster responses',d:'Elasticsearch batching for import jobs, with every change measured by A/B performance metrics.',tags:'Java · Elasticsearch'},
+ {n:'03',t:'js-big-decimal',org:'Open source, npm',metric:'5M+',mlabel:'downloads',d:'A small library for exact decimal arithmetic in JavaScript, published while at Visa.',tags:'TypeScript · Node.js · Webpack'},
+ {n:'04',t:'Visa Online Invoice Portal',org:'Visa, 2015–2018',metric:'Global',mlabel:'invoicing for member banks',d:'Invoices for member banks worldwide, Jenkins CI/CD, and support all the way back to IE7.',tags:'AngularJS · Java · Jenkins'}];
+const ICON = {Java:'openjdk',Spring:'spring',MongoDB:'mongodb',React:'react',TypeScript:'typescript','Node.js':'nodedotjs',Python:'python',TensorFlow:'tensorflow',Elasticsearch:'elasticsearch',Maven:'apachemaven',Docker:'docker',Kubernetes:'kubernetes',Jenkins:'jenkins',Bitbucket:'bitbucket',CSS:'css',Angular:'angular',AngularJS:'angular',Sass:'sass',Express:'express',JavaScript:'javascript',Webpack:'webpack'};
+const iconize = (list, dark) => list.map(n => ({n, src: ICON[n] ? 'https://cdn.simpleicons.org/' + ICON[n] + '/' + (dark ? '9aa3ad' : '5b6470') : null}));
+const LAYERS = {'01':['UI','Service','Model serving','BPEL','Elasticsearch'],'02':['Import jobs','Elasticsearch','Search','Disaster recovery'],'03':['npm','TypeScript','Browser + Node'],'04':['Frontend','Java backend','Jenkins CI/CD','IE7+']};
+const SH_GROUPS = [
+ {g:'Privacy', items:[{t:'Nextcloud',i:'nextcloud',d:'Family files, calendars and contacts.'},{t:'Immich',i:'immich',d:'Photo and video library, backed up from our phones.'}]},
+ {g:'Household', items:[{t:'Homebox',i:null,d:'Valuables, receipts, warranties and service history.'},{t:'n8n',i:'n8n',d:'Pulls bank statements from email into Nextcloud for archiving.'}]},
+ {g:'Network', items:[{t:'Tailscale',i:'tailscale',d:'How family devices reach everything, from anywhere.'},{t:'Pi-hole',i:'pihole',d:'DNS and ad blocking for the whole network.'}]},
+ {g:'Observability', items:[{t:'Prometheus',i:'prometheus',d:'Collects metrics from every service and host.'},{t:'Grafana',i:'grafana',d:'Dashboards and alerts on top of those metrics.'}]}];
+const SH_CHAIN = [
+ {t:'Old laptop',s:'Runs every service',i:'linux'},
+ {e:'Borg · weekly',s:'encrypted, deduplicated, streamed over the LAN'},
+ {t:'Desktop',s:'Local backup copy',i:null},
+ {e:'rclone · sync',s:'any remote works'},
+ {t:'Google Drive',s:'Offsite copy (can be swapped)',i:'googledrive'}];
+const SELFHOST = [
+ {t:'Service name',since:'running since 20XX',d:'Placeholder: what it does for you and why you host it yourself.',stack:['Docker','Reverse proxy']},
+ {t:'Service name',since:'running since 20XX',d:'Placeholder: e.g. media, backups, home automation, git.',stack:['Linux','Tailscale']},
+ {t:'Service name',since:'running since 20XX',d:'Placeholder: one thing that broke and what you learned fixing it.',stack:['Monitoring']},
+ {t:'This site',since:'GitHub Pages',d:'Static site, content in one JSON file, deployed on push.',stack:['Astro','GitHub Actions']}];
+const PRINCIPLES = [
+ {n:'01',t:'Write it down',d:'I documented how to onboard a new MDM microservice, end to end. The next team used that wiki and finished in under half the time.'},
+ {n:'02',t:'Bring owners in early',d:'When Sequential Edit kept breaking, I brought the component-library owners in before writing code. Reviews got shorter and the feature shipped within months.'},
+ {n:'03',t:'Measure, then argue',d:'Performance work ships with before-and-after numbers, like the A/B metrics behind the audit trail changes.'}];
+const QUOTES = [
+ {q:'Placeholder: a former manager on ownership, e.g. how an unstable feature shipped once Niladri took it on.',who:'Name Surname',role:'Engineering Manager, Informatica'},
+ {q:'Placeholder: a peer or mentee on teaching: tech talks, Ready to Return, hackathon mentoring.',who:'Name Surname',role:'Colleague, Visa'}];
+const WRITING = [
+ {t:'Ones & Zeros',d:'Blog on software and engineering',url:'https://ones-zeros.royniladri.dev/'},
+ {t:'OMSCS Journey',d:'Notes from a part-time M.S. at Georgia Tech',url:'https://omscs.royniladri.dev/'},
+ {t:'Tech talks at Visa',d:'Angular, React with Redux, SCSS, Node.js',url:'#'},
+ {t:'Ready to Return mentor',d:'Supporting women returning to tech',url:'#'}];
+const EDU = [
+ {t:'M.S. Computer Science',s:'Georgia Institute of Technology',y:'2020 — 2023',n:'Online, part-time, alongside full-time work.'},
+ {t:'B.E. Electrical Engineering',s:'Jadavpur University',y:'2011 — 2015',n:'Kolkata.'}];
+const LINKS = [
+ {t:'LinkedIn',url:'https://www.linkedin.com/in/roy-niladri/'},
+ {t:'GitHub',url:'https://github.com/royNiladri/'},
+ {t:'Blog',url:'https://ones-zeros.royniladri.dev/'},
+ {t:'Instagram',url:'https://www.instagram.com/niladriclicks/'}];
+
+class Component extends DCLogic {
+  state = {
+    a:{view:'hi',filter:'All',open:{inf2:true},theme:null},
+    b:{view:'all',filter:'All',open:{},theme:null,sel:'inf'},
+    c:{view:'hi',filter:'All',open:{sf1:true},theme:null},
+    d:{view:'hi',filter:'All',open:{inf2:true},theme:null,sel:'all'}
+  };
+  upd(k, fn) { this.setState(s => ({[k]:{...s[k], ...(typeof fn === 'function' ? fn(s[k]) : fn)}})); }
+  dir(k) {
+    const st = this.state[k];
+    const theme = st.theme || ((this.props.theme || 'Light') === 'Dark' ? 'dark' : 'light');
+    const match = p => (st.view === 'all' || p.hi) && (st.filter === 'All' || p.sk.includes(st.filter));
+    const fmt = p => ({...p, hi:!!p.hi, skl:p.sk.join(', '), link:p.link || null, techLine:p.tech.join(' · '), techI: iconize(p.tech, theme === 'dark')});
+    const companies = D.map(co => {
+      const all = co.roles.flatMap(r => r.projects);
+      const hiAll = all.filter(p => p.hi).map(p => p.t);
+      return {...co,
+        projCount: all.length,
+        hiTop: hiAll.slice(0, 3),
+        hiLine: hiAll.slice(0, 2).join(' · '),
+        outline: st.sel === co.id ? '2px solid var(--acc)' : 'none',
+        pick: () => this.upd(k, {sel: co.id}),
+        active: st.sel === co.id, idle: st.sel !== co.id,
+        firstRole: co.roles[0].title,
+        roles: co.roles.map(r => {
+          const vis = r.projects.filter(match).map(fmt);
+          const full = r.projects.filter(p => st.filter === 'All' || p.sk.includes(st.filter)).map(fmt);
+          const open = st.view === 'all' ? !(st.shut || {})[r.id] : !!st.open[r.id];
+          const n = vis.length;
+          const filtered = st.filter !== 'All';
+          const hiList = r.projects.filter(p => p.hi && (!filtered || p.sk.includes(st.filter))).map(p => p.t);
+          return {...r, vis, full, open, closed: !open,
+            hiTitles: hiList.join(' · ') || (filtered ? 'No ' + st.filter + ' projects in this role.' : ''),
+            hiList,
+            dim: (filtered && full.length === 0) ? 0.35 : 1,
+            toggle: (n === 0 && full.length) ? () => this.upd(k, {view:'all'}) : (st.view === 'all' ? () => this.upd(k, s => ({shut:{...(s.shut || {}), [r.id]: !(s.shut || {})[r.id]}})) : () => this.upd(k, s => ({open:{...s.open, [r.id]: !s.open[r.id]}}))),
+            more: (st.view === 'hi' && open && full.length > n) ? '+ ' + (full.length - n) + ' more in Everything' : '',
+            setAll: () => this.upd(k, {view:'all'}),
+            toggleLabel: open ? '− Collapse' : (n ? '+ Show ' + n + (st.view === 'all' ? (n === 1 ? ' project' : ' projects') : (n === 1 ? ' highlight' : ' highlights')) : (full.length ? 'See ' + full.length + ' in Everything' : 'No matches')),
+            mobLabel: open ? '−' : '+' + n
+          };
+        })
+      };
+    });
+    const isF = st.filter !== 'All';
+    const visCos = (k === 'b' || !isF) ? companies : companies.map(c => ({...c, roles: c.roles.filter(r => r.full.length)})).filter(c => c.roles.length);
+    const allP = D.flatMap(c => c.roles.flatMap(r => r.projects)).filter(p => !isF || p.sk.includes(st.filter));
+    const hiN = allP.filter(p => p.hi).length;
+    const countLine = (st.view === 'hi' ? 'Showing ' + hiN + ' highlights of ' + allP.length + ' projects' : 'Showing all ' + allP.length + ' projects, every role open') + (isF ? ' tagged ' + st.filter : '') + '.';
+    const idx = Math.max(0, companies.findIndex(c => c.id === st.sel));
+    const track = [...D].reverse().map((co, i) => ({name: co.name, yrs: co.yrs, bg: i === 2 ? 'var(--acc)' : (i === 1 ? 'var(--ink)' : 'var(--mute)'), fg: i === 2 ? 'var(--onacc)' : 'var(--bg)'}));
+    return {
+      theme,
+      themeLabel: theme === 'dark' ? 'Light' : 'Dark',
+      toggleTheme: () => this.upd(k, {theme: theme === 'dark' ? 'light' : 'dark'}),
+      hiOn: st.view === 'hi', allOn: st.view === 'all',
+      setHi: () => this.upd(k, {view:'hi'}), setAll: () => this.upd(k, {view:'all'}),
+      filters: SK.map(s => ({label: s, on: st.filter === s, off: st.filter !== s, pick: () => this.upd(k, {filter: s})})),
+      companies: (k === 'a' || k === 'c') ? visCos : companies, track, countLine,
+      shown: st.sel === 'all' ? visCos : visCos.filter(c => c.id === st.sel),
+      allActive: st.sel === 'all', allIdle: st.sel !== 'all',
+      pickAll: () => this.upd(k, {sel: 'all'}),
+      single: st.sel !== 'all',
+      sel: companies[idx],
+      prevName: companies[(idx + companies.length - 1) % companies.length].name,
+      nextName: companies[(idx + 1) % companies.length].name,
+      prev: () => this.upd(k, {sel: companies[(idx + companies.length - 1) % companies.length].id}),
+      next: () => this.upd(k, {sel: companies[(idx + 1) % companies.length].id})
+    };
+  }
+  renderVals() {
+    return {
+      status: this.props.status ?? 'Open to conversations',
+      cases: CASES, principles: PRINCIPLES, quotes: QUOTES, writing: WRITING, edu: EDU, links: LINKS,
+      a: this.dir('a'), b: this.dir('b'), c: this.dir('c'), d: this.dir('d'),
+      cases2: CASES.map(c => ({...c, layerList: LAYERS[c.n]})), selfhost: SELFHOST,
+      shGroups: (() => { const ic = this.dir('d').theme === 'dark' ? '9aa3ad' : '56606b'; return SH_GROUPS.map(g => ({...g, items: g.items.map(x => ({...x, src: x.i ? 'https://cdn.simpleicons.org/' + x.i + '/' + ic : null, init: x.i ? null : x.t[0]}))})); })(),
+      shChain: (() => { const ic = this.dir('d').theme === 'dark' ? '9aa3ad' : '56606b'; return SH_CHAIN.map(x => ({...x, node: !!x.t, edge: !!x.e, src: x.i ? 'https://cdn.simpleicons.org/' + x.i + '/' + ic : null})); })(),
+      csSections: [{h:'Context',p:'Placeholder: what MDM is, who the customer was, and what was missing.'},{h:'What I did',p:'Placeholder: your part in it, the key decisions, and who you worked with.'},{h:'The hard part',p:'Placeholder: the constraint or failure mode that made this interesting.'},{h:'Outcome',p:'Placeholder: what shipped, the numbers, and what you would do differently.'}],
+      flow: ['Record','Enrichment UI','Service','Model','BPEL','Elasticsearch'],
+      csTech: iconize(['Java','Spring','Python','TensorFlow','MongoDB','Elasticsearch','React','TypeScript'], this.dir('d').theme === 'dark')
+    };
+  }
+}
+</script>
+</body>
+</html>

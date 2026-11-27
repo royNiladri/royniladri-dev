@@ -1,0 +1,197 @@
+---
+import Base from '~/layouts/Base.astro';
+import EmployerRail from '~/components/work/EmployerRail.astro';
+import EmployerSection from '~/components/work/EmployerSection.astro';
+import { employers, totals } from '~/lib/content.ts';
+
+const initialCount = `Showing ${totals.highlights} highlights of ${totals.projects} projects.`;
+---
+
+<Base
+  title="Where I've worked"
+  description="Eleven years of work at Visa, Informatica and Salesforce — every role and project, filterable by skill."
+  active="work"
+>
+  <header class="head shell">
+    <div class="intro">
+      <h1>Where I've worked</h1>
+      <p class="lede">
+        Eleven years, newest first. Highlights keeps roles closed so you can
+        skim; Everything opens every role with every project.
+      </p>
+      <p class="count js-only" data-count-line aria-live="polite">
+        {initialCount}
+      </p>
+    </div>
+
+    <div class="segmented js-only" role="group" aria-label="Level of detail">
+      <button
+        type="button"
+        data-view-pick="hi"
+        data-active="true"
+        aria-pressed="true">Highlights</button
+      >
+      <button
+        type="button"
+        data-view-pick="all"
+        data-active="false"
+        aria-pressed="false">Everything</button
+      >
+    </div>
+  </header>
+
+  <div
+    class="work shell"
+    data-work-history
+    data-view="hi"
+    data-employer="all"
+    data-skill="All"
+  >
+    <EmployerRail />
+
+    <div class="history">
+      {employers.map((employer) => <EmployerSection employer={employer} />)}
+      <p class="empty" data-empty hidden>
+        Nothing matches that filter. <button type="button" data-reset
+          >Clear filters</button
+        >
+      </p>
+    </div>
+  </div>
+</Base>
+
+<script>
+  import { initWorkHistory } from '~/scripts/work-history.ts';
+  initWorkHistory();
+</script>
+
+<style>
+  .head {
+    padding-block: 48px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  h1 {
+    font: 400 52px/1.1 var(--font-serif);
+    letter-spacing: -0.015em;
+  }
+
+  .lede {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--mute);
+    max-width: 58ch;
+  }
+
+  .count {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--acc);
+  }
+
+  .segmented {
+    background: var(--card);
+    border-radius: var(--r-pill);
+    padding: 4px;
+    flex: none;
+    gap: 0;
+  }
+
+  .segmented button {
+    border: 0;
+    border-radius: 9px;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    background: transparent;
+    color: var(--mute);
+    min-height: 36px;
+  }
+
+  .segmented button[data-active='true'] {
+    background: var(--acc);
+    color: var(--on-acc);
+    font-weight: 700;
+  }
+
+  .work {
+    padding-bottom: 80px;
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 48px;
+    align-items: start;
+  }
+
+  .work > * {
+    min-width: 0;
+  }
+
+  .history {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .empty {
+    color: var(--mute);
+    font-size: 16px;
+  }
+
+  .empty button {
+    border: 0;
+    background: transparent;
+    color: var(--acc);
+    font-weight: 700;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Controls do nothing without JS, so they stay hidden until it runs. */
+  .js-only {
+    display: none;
+  }
+
+  :global([data-js='on']) .count {
+    display: block;
+  }
+
+  :global([data-js='on']) .segmented {
+    display: flex;
+  }
+
+  @media (max-width: 860px) {
+    .head {
+      padding-block: 24px 16px;
+      gap: 16px;
+    }
+
+    h1 {
+      font-size: 32px;
+    }
+
+    .lede {
+      font-size: 16px;
+    }
+
+    .work {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      padding-bottom: 48px;
+    }
+
+    .history {
+      gap: 24px;
+    }
+  }
+</style>

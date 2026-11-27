@@ -1,0 +1,77 @@
+---
+/** "How I like to work" — numbered principles. */
+import { principles } from '~/lib/content.ts';
+---
+
+<section class="section shell grid">
+  <h2 class="h2">How I like to work</h2>
+  <ol class="list">
+    {
+      principles.map((principle, i) => (
+        <li class="item">
+          <span class="n">{String(i + 1).padStart(2, '0')}</span>
+          <div class="body">
+            <h3 class="title">{principle.title}</h3>
+            <p class="text">{principle.body}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 64px;
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .item {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .n {
+    font: italic 400 28px var(--font-serif);
+    color: var(--acc);
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .title {
+    font: 600 21px var(--font-serif);
+  }
+
+  .text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--mute);
+  }
+
+  @media (max-width: 860px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .item {
+      grid-template-columns: 40px minmax(0, 1fr);
+      gap: 12px;
+    }
+  }
+</style>
